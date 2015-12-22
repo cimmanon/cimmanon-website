@@ -1,0 +1,34 @@
+{-# LANGUAGE OverloadedStrings #-}
+
+module Splices where
+
+------------------------------------------------------------------------------
+
+import qualified Data.Text as T
+import Heist.Interpreted
+import Heist.SpliceAPI
+--import qualified Text.XmlHtml as X
+
+-- for Session stuff
+import Snap.Snaplet (SnapletLens, withTop)
+import Snap.Snaplet.Session (SessionManager)
+import Snap.Snaplet.Heist (SnapletISplice)
+
+--import Data.Monoid ((<>))
+
+import Heist.Splices.Session
+
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Session Splices
+}----------------------------------------------------------------------------------------------------}
+
+userSessionSplices :: SnapletLens b SessionManager -> Splices (SnapletISplice b)
+userSessionSplices sess = do
+	"user_id" ## sessionInfoSplice sess "user_id"
+	"user_name" ## sessionInfoSplice sess "user_name"
+	"user_email" ## sessionInfoSplice sess "user_email"
+	"isLoggedIn" ## sessionHasSplice sess "user_id"
+
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Other Splices
+}----------------------------------------------------------------------------------------------------}

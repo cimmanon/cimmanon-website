@@ -1,0 +1,86 @@
+body {
+	background: $neutral-light;
+	color: $neutral-dark;
+	margin: 0;
+	padding: 0;
+}
+
+body > header {
+	$svg-width: 185px;
+	$svg-height: 51px;
+	$svg-aspect-ratio: $svg-height / $svg-width;
+
+	background: $green-light;
+	max-width: 60em;
+	margin: 0 auto;
+	padding: 1em 1em 0;
+
+	h1 {
+		$width: 8em;
+		background: url('../images/cimmanon.svg') 0 0 / cover no-repeat;
+		width: $width;
+		height: $width * $svg-aspect-ratio;
+		text-indent: -100em;
+		margin: 0 auto;
+	}
+}
+
+main {
+	max-width: 60em;
+	margin: 0 auto 1em;
+}
+
+%main-header {
+	background: $neutral-medium;
+	border-top: 1px solid $green-dark;
+	border-bottom: 1px solid $green-dark;
+	text-align: center;
+	color: $green-dark;
+
+	position: relative;
+
+	$border-offset: 2px;
+
+	margin-left: -1rem;
+	margin-right: -1rem;
+	padding: $border-offset 1rem;
+
+	&:after {
+		content: '';
+		display: block;
+		border-top: 2px dotted;
+		border-bottom: 2px dotted;
+		top: $border-offset;
+		bottom: $border-offset;
+		left: 0;
+		right: 0;
+		position: absolute;
+		z-index: 1;
+	}
+}
+
+%ruled-header {
+	@extend %main-header;
+
+	$svg-height: 3.5rem;
+	margin-top: $svg-height + 1rem;
+
+	&:before {
+		content: '';
+		height: $svg-height;
+		background: url('../images/petals.svg') center bottom / contain no-repeat;
+		position: absolute;
+		top: -$svg-height;
+		left: 0;
+		right: 0;
+	}
+}
+
+
+main h1 {
+	@extend %main-header;
+
+	&.main-header {
+		@extend %ruled-header;
+	}
+}
