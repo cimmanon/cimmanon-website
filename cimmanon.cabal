@@ -62,7 +62,7 @@ Executable cimmanon
       base                      >= 4.4      && < 5,
       lens                      >= 3.7.6    && < 4.13
 
-  if flag(development)
+  if !flag(development)
     build-depends:
       snap-loader-dynamic == 0.10.*
     cpp-options: -DDEVELOPMENT
