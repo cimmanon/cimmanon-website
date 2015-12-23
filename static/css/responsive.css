@@ -214,18 +214,22 @@ form.simplified > label, form .simplified > label, form.simplified label select,
   display: block;
 }
 
+a:active, a:visited, a:link {
+  color: #c9007a;
+}
+
 body {
   background: #fffffc;
   color: #534741;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
+  max-width: 70em;
+  overflow-x: hidden;
 }
 
 body > header {
   background: #ddede4;
-  max-width: 60em;
-  margin: 0 auto;
-  padding: 1em 1em 0;
+  padding: 1em 2em 0;
 }
 body > header h1 {
   background: url("../images/cimmanon.svg") 0 0/cover no-repeat;
@@ -236,22 +240,31 @@ body > header h1 {
 }
 
 main {
-  max-width: 60em;
   margin: 0 auto 1em;
+  padding: 0 2em;
+  max-width: 70em;
 }
 
-main h1.main-header, main h1 {
+body > header, h1.main-header, main > h1 {
+  margin-right: -50%;
+  margin-right: -50vw;
+  margin-left: -50%;
+  margin-left: -50vw;
+  padding-right: 50%;
+  padding-right: 50vw;
+  padding-left: 50%;
+  padding-left: 50vw;
+}
+
+h1.main-header, main > h1 {
   background: #EBE5DA;
   border-top: 1px solid #007259;
   border-bottom: 1px solid #007259;
   text-align: center;
   color: #007259;
   position: relative;
-  margin-left: -1rem;
-  margin-right: -1rem;
-  padding: 2px 1rem;
 }
-main h1.main-header:after, main h1:after {
+h1.main-header:after, main > h1:after {
   content: '';
   display: block;
   border-top: 2px dotted;
@@ -264,10 +277,10 @@ main h1.main-header:after, main h1:after {
   z-index: 1;
 }
 
-main h1.main-header {
+h1.main-header {
   margin-top: 4.5rem;
 }
-main h1.main-header:before {
+h1.main-header:before {
   content: '';
   height: 3.5rem;
   background: url("../images/petals.svg") center bottom/contain no-repeat;
@@ -275,4 +288,32 @@ main h1.main-header:before {
   top: -3.5rem;
   left: 0;
   right: 0;
+}
+
+main > article {
+  -moz-columns: 25em 2;
+  -webkit-columns: 25em 2;
+  columns: 25em 2;
+  -moz-column-fill: auto;
+  -webkit-column-fill: auto;
+  column-fill: auto;
+  -moz-column-rule: 2px dotted #EBE5DA;
+  -webkit-column-rule: 2px dotted #EBE5DA;
+  column-rule: 2px dotted #EBE5DA;
+  -moz-column-gap: 4em;
+  -webkit-column-gap: 4em;
+  column-gap: 4em;
+}
+main > article > h1 {
+  -moz-column-span: all;
+  -webkit-column-span: all;
+  column-span: all;
+}
+main > article > h1 + section {
+  margin-top: 0;
+}
+main > article section {
+  -moz-page-break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
 }
