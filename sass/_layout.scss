@@ -25,7 +25,7 @@ body > header {
 	background: $green-light;
 
 	@extend %full-width;
-	padding: 1em 2em 0;
+	padding: 1em $spacing-primary 0;
 
 	h1 {
 		$width: 8em;
@@ -37,9 +37,35 @@ body > header {
 	}
 }
 
+body > footer {
+	margin-top: $spacing-primary;
+	background: $green-light;
+	border-top: 1px solid $green-dark;
+	padding-top: $spacing-primary;
+	padding-bottom: $spacing-primary;
+	@extend %full-width;
+
+	position: relative;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 2px;
+		left: 0;
+		right: 0;
+		border-top: 2px dotted $green-dark;
+	}
+
+	// TODO: figure out a more permanent solution for this
+	// needed so that the contents line up with the rest of the document
+	> * {
+		margin-left: $spacing-primary;
+	}
+}
+
 main {
 	margin: 0 auto 1em;
-	padding: 0 2em;
+	padding: 0 $spacing-primary;
 	max-width: $max-width;
 }
 
@@ -99,7 +125,7 @@ main {
 	}
 }
 
-
+// TODO: move this to its own module
 main > h1 {
 	@extend %main-header;
 }

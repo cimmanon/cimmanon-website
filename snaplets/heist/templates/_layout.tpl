@@ -21,5 +21,15 @@
 	<main>
 		<apply-content />
 	</main>
+
+	<footer>
+		<ul>
+			<li><a href="http://github.com/cimmanon/">Github</a></li>
+			<li><a href="http://bitbucket.com/cimmanon/">BitBucket</a></li>
+			<li><a href="http://codepen.io/cimmanon/">CodePen</a></li>
+		</ul>
+
+		<p class="copyright">&copy; 2015 C. Siepker</p>
+	</footer>
 </body>
 </html>

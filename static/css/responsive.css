@@ -239,13 +239,33 @@ body > header h1 {
   margin: 0 auto;
 }
 
+body > footer {
+  margin-top: 2em;
+  background: #ddede4;
+  border-top: 1px solid #007259;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  position: relative;
+}
+body > footer:before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 0;
+  right: 0;
+  border-top: 2px dotted #007259;
+}
+body > footer > * {
+  margin-left: 2em;
+}
+
 main {
   margin: 0 auto 1em;
   padding: 0 2em;
   max-width: 70em;
 }
 
-body > header, h1.main-header, main > h1 {
+body > header, body > footer, h1.main-header, main > h1 {
   margin-right: -50%;
   margin-right: -50vw;
   margin-left: -50%;
