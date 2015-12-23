@@ -27,12 +27,15 @@ import Application
 import Splices
 
 import Snap.Handlers
+import Heist.Splices.Common
+
+import qualified Model.Project as Project
 
 ------------------------------------------------------------------------------
 -- | The application's routes.
 routes :: [(ByteString, Handler App App ())]
 routes =
-	[ ("/", ifTop $ render "index")
+	[ ("/", ifTop indexH)
 	, ("", heistServe) -- serve up static templates from your templates directory
 	, ("", serveDirectory "static")
 	]
@@ -73,3 +76,7 @@ app = makeSnaplet "app" "An snaplet example application." Nothing $ do
                                                                       | Handlers
 }----------------------------------------------------------------------------------------------------}
 
+indexH :: AppHandler ()
+indexH = do
+	projects <- Project.list
+	renderWithSplices "index" $ "project" ## listToSplice projectSplices projects

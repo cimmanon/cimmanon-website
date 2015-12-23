@@ -17,6 +17,7 @@ import Snap.Snaplet.Heist (SnapletISplice)
 --import Data.Monoid ((<>))
 
 import Heist.Splices.Session
+import qualified Model.Project as Project
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Session Splices
@@ -30,5 +31,11 @@ userSessionSplices sess = do
 	"isLoggedIn" ## sessionHasSplice sess "user_id"
 
 {----------------------------------------------------------------------------------------------------{
-                                                                      | Other Splices
+                                                                      | Project Splices
 }----------------------------------------------------------------------------------------------------}
+
+projectSplices :: Monad m => Project.Project -> Splices (Splice m)
+projectSplices p = do
+	"name" ## textSplice $ Project.name p
+	"description" ## textSplice $ Project.description p
+	"slug" ## textSplice $ Project.slug p
