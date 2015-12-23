@@ -1,0 +1,16 @@
+.tags {
+	$spacing: .75em;
+
+	padding-left: 0;
+	margin-left: -$spacing;
+	margin-right: -$spacing;
+
+	li {
+		display: inline-block;
+		margin: 0 $spacing;
+	}
+
+	header & {
+		margin-top: 0;
+	}
+}

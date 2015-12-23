@@ -1,0 +1,44 @@
+@import "compass/css3/columns";
+@import "compass/css3/box-shadow";
+
+.project {
+	header {
+		h1 {
+			margin-bottom: 0;
+		}
+	}
+
+	@include columns(25em 2);
+	@include column-fill(auto);
+	@include column-rule($border-secondary);
+	@include column-gap(4em);
+
+	> h1 {
+		@include column-span(all);
+
+		+ section {
+			margin-top: 0;
+		}
+	}
+
+	aside {
+		@include column-span(all);
+		text-align: center;
+		margin-top: 2em;
+	}
+
+	section {
+		@include break-inside(avoid);
+		// blink will choke if this is set to always, presto chokes on column
+		//@include break-after(always);
+	}
+
+	// possibly move this out
+	img {
+		@include box-shadow(0 0 .5em 0 rgba(#666, .5));
+		max-width: 100%;
+		height: auto;
+	}
+}
+
+

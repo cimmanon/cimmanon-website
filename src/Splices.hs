@@ -15,6 +15,7 @@ import Snap.Snaplet.Session (SessionManager)
 import Snap.Snaplet.Heist (SnapletISplice)
 
 --import Data.Monoid ((<>))
+import Heist.Splices.Common
 
 import Heist.Splices.Session
 import qualified Model.Project as Project
@@ -39,3 +40,10 @@ projectSplices p = do
 	"name" ## textSplice $ Project.name p
 	"description" ## textSplice $ Project.description p
 	"slug" ## textSplice $ Project.slug p
+
+componentSplices :: Monad m => Project.Component -> Splices (Splice m)
+componentSplices c = do
+	"component" ## textSplice $ Project.component c
+	"description" ## textSplice $ Project.desc c
+	"date" ## showSplice $ Project.date c
+	"tag" ## listSplice "name" $ Project.tags c

@@ -79,4 +79,8 @@ app = makeSnaplet "app" "An snaplet example application." Nothing $ do
 indexH :: AppHandler ()
 indexH = do
 	projects <- Project.list
-	renderWithSplices "index" $ "project" ## listToSplice projectSplices projects
+	let
+		splices (p, cx) = do
+			projectSplices p
+			"component" ## listToSplice componentSplices cx
+	renderWithSplices "index" $ "project" ## listToSplice splices projects

@@ -2,6 +2,7 @@
 
 module Model.Project
 	( Project(..)
+	, Component(..)
 	, list
 	) where
 
@@ -10,10 +11,11 @@ import Data.Monoid ((<>))
 import Snap.Snaplet.PostgresqlSimple
 
 import Data.Text (Text, pack, replace, toLower)
---import Data.Vector (toList)
+import Data.Time.Calendar
+import Data.Vector (toList)
 --import Text.Digestive
---import Database.PostgreSQL.Simple.Tuple
---import Util.Database
+import Database.PostgreSQL.Simple.Tuple
+import Util.Database
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Records
@@ -35,6 +37,19 @@ maybeExternalLink :: Maybe Text -> Maybe Text -> Maybe ExternalLink
 maybeExternalLink (Just a) (Just b) = Just $ ExternalLink a b
 maybeExternalLink _ _ = Nothing
 -}
+
+----------------------------------------------------------------------
+
+data Component = Component
+	{ component :: Text
+	, desc :: Text
+	, date :: Day
+	, tags :: [Text]
+	} deriving (Show, Eq)
+
+instance FromRow Component where
+	fromRow = Component <$> field <*> field <*> field <*> (toList <$> field)
+
 {----------------------------------------------------------------------------------------------------{
                                                                        | Forms
 }----------------------------------------------------------------------------------------------------}
@@ -45,8 +60,8 @@ maybeExternalLink _ _ = Nothing
                                                                        | Queries
 }----------------------------------------------------------------------------------------------------}
 
-list :: (HasPostgres m, Functor m) => m [Project]
-list = query_ "SELECT name, description, slug, url, public FROM portfolio.projects"
+list :: (HasPostgres m, Functor m) => m [(Project, [Component])]
+list = join1of2 <$> query_ [sqlFile|sql/portfolio/overview.sql|]
 {-
 listByColor :: (HasPostgres m) => m [Project]
 listByColor = query_ [sqlFile|sql/projects/list_by_color.sql|]
