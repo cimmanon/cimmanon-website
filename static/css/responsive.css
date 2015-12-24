@@ -246,13 +246,18 @@ body > footer {
   padding-top: 2em;
   padding-bottom: 2em;
   position: relative;
+  position: relative;
+  z-index: 1;
 }
-body > footer:before {
-  content: '';
+body > footer:after {
   position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
   top: 2px;
-  left: 0;
-  right: 0;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
   border-top: 2px dotted #007259;
 }
 body > footer > * {
@@ -283,18 +288,21 @@ h1.main-header, main > h1 {
   text-align: center;
   color: #007259;
   position: relative;
+  position: after;
+  padding: 2px;
+  z-index: 1;
 }
 h1.main-header:after, main > h1:after {
+  position: absolute;
+  z-index: -1;
   content: '';
   display: block;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
   border-top: 2px dotted;
   border-bottom: 2px dotted;
-  top: 2px;
-  bottom: 2px;
-  left: 0;
-  right: 0;
-  position: absolute;
-  z-index: 1;
 }
 
 h1.main-header {

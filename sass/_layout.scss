@@ -1,3 +1,5 @@
+@import "cimma/misc/decorations";
+
 $max-width: 70em;
 
 a {
@@ -19,20 +21,27 @@ body > header {
 	$svg-width: 185px;
 	$svg-height: 51px;
 	$svg-aspect-ratio: $svg-height / $svg-width;
+	$width: 8em;
 
 	background: $green-light;
 
 	@extend %full-width;
 	padding: 1em $spacing-primary 0;
 
+	//border-bottom: 1px solid $green-dark;
+	//@include inset(2px, $padding: null) {
+	//	border-bottom: 2px dotted $green-dark;
+	//	z-index: 1;
+	//}
+
 	h1 {
-		$width: 8em;
 		background: url('../images/cimmanon.svg') 0 0 / cover no-repeat;
 		width: $width;
 		height: $width * $svg-aspect-ratio;
 		text-indent: -100em;
 		margin: 0 auto;
 	}
+
 }
 
 body > footer {
@@ -45,12 +54,7 @@ body > footer {
 
 	position: relative;
 
-	&:before {
-		content: '';
-		position: absolute;
-		top: 2px;
-		left: 0;
-		right: 0;
+	@include inset(2px, $padding: null) {
 		border-top: 2px dotted $green-dark;
 	}
 
@@ -88,21 +92,11 @@ main {
 
 	position: relative;
 
-	$border-offset: 2px;
-
 	@extend %full-width;
 
-	&:after {
-		content: '';
-		display: block;
+	@include inset(2px, after) {
 		border-top: 2px dotted;
 		border-bottom: 2px dotted;
-		top: $border-offset;
-		bottom: $border-offset;
-		left: 0;
-		right: 0;
-		position: absolute;
-		z-index: 1;
 	}
 }
 
