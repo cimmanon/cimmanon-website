@@ -228,8 +228,8 @@ body {
 }
 
 body > header {
-  background: #ddede4;
-  padding: 1em 2em 0;
+  background: #ddede4 url("../images/petals.svg") center bottom/auto 3rem no-repeat;
+  padding: 1em 2em;
 }
 body > header h1 {
   background: url("../images/cimmanon.svg") 0 0/cover no-repeat;
@@ -237,6 +237,34 @@ body > header h1 {
   height: 2.20541em;
   text-indent: -100em;
   margin: 0 auto;
+}
+body > header nav {
+  margin-top: 1em;
+}
+body > header ul {
+  text-align: center;
+}
+body > header ul li {
+  display: inline-block;
+}
+@media (max-width: 36em) {
+  body > header nav {
+    margin-bottom: 3rem;
+  }
+}
+@media (min-width: 36em) {
+  body > header nav {
+    margin-top: 2em;
+  }
+  body > header li {
+    min-width: 8em;
+  }
+  body > header li:first-child {
+    margin-right: 6.52427rem;
+  }
+  body > header li:last-child {
+    margin-left: 6.52427rem;
+  }
 }
 
 body > footer {
@@ -270,7 +298,7 @@ main {
   max-width: 70em;
 }
 
-body > header, body > footer, h1.main-header, main > h1 {
+body > header, body > footer, main > h1:not(:first-child), h1.main-header, .project:not(:first-child) > h1, main > h1, .project > h1 {
   margin-right: -50%;
   margin-right: -50vw;
   margin-left: -50%;
@@ -281,7 +309,7 @@ body > header, body > footer, h1.main-header, main > h1 {
   padding-left: 50vw;
 }
 
-h1.main-header, main > h1 {
+main > h1:not(:first-child), h1.main-header, .project:not(:first-child) > h1, main > h1, .project > h1 {
   background: #EBE5DA;
   border-top: 1px solid #007259;
   border-bottom: 1px solid #007259;
@@ -292,7 +320,7 @@ h1.main-header, main > h1 {
   padding: 2px;
   z-index: 1;
 }
-h1.main-header:after, main > h1:after {
+main > h1:not(:first-child):after, h1.main-header:after, .project:not(:first-child) > h1:after, main > h1:after, .project > h1:after {
   position: absolute;
   z-index: -1;
   content: '';
@@ -305,15 +333,15 @@ h1.main-header:after, main > h1:after {
   border-bottom: 2px dotted;
 }
 
-h1.main-header {
-  margin-top: 4.5rem;
+main > h1:not(:first-child), h1.main-header, .project:not(:first-child) > h1 {
+  margin-top: 4rem;
 }
-h1.main-header:before {
+main > h1:not(:first-child):before, h1.main-header:before, .project:not(:first-child) > h1:before {
   content: '';
-  height: 3.5rem;
+  height: 3rem;
   background: url("../images/petals.svg") center bottom/contain no-repeat;
   position: absolute;
-  top: -3.5rem;
+  top: -3rem;
   left: 0;
   right: 0;
 }

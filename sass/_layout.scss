@@ -18,15 +18,12 @@ body {
 }
 
 body > header {
-	$svg-width: 185px;
-	$svg-height: 51px;
-	$svg-aspect-ratio: $svg-height / $svg-width;
 	$width: 8em;
 
-	background: $green-light;
+	background: $green-light url('../images/petals.svg') center bottom / auto $floral-swirl-max-height no-repeat;
 
 	@extend %full-width;
-	padding: 1em $spacing-primary 0;
+	padding: 1em $spacing-primary;
 
 	//border-bottom: 1px solid $green-dark;
 	//@include inset(2px, $padding: null) {
@@ -37,11 +34,48 @@ body > header {
 	h1 {
 		background: url('../images/cimmanon.svg') 0 0 / cover no-repeat;
 		width: $width;
-		height: $width * $svg-aspect-ratio;
+		height: $width * $logo-aspect-ratio;
 		text-indent: -100em;
 		margin: 0 auto;
 	}
 
+	nav {
+		margin-top: 1em;
+	}
+
+	ul {
+		text-align: center;
+		li {
+			display: inline-block;
+
+		}
+	}
+
+	@media (max-width: 36em) {
+		nav {
+			margin-bottom: $floral-swirl-max-height;
+		}
+	}
+
+	@media (min-width: 36em) {
+		nav {
+			margin-top: $spacing-primary;
+		}
+
+		li {
+			// TODO: fix magic numbers here
+			$doodad-width: $floral-swirl-width / $floral-swirl-height * $floral-swirl-max-height / 2;
+			min-width: 8em;
+
+			&:first-child {
+				margin-right: $doodad-width;
+			}
+
+			&:last-child {
+				margin-left: $doodad-width;
+			}
+		}
+	}
 }
 
 body > footer {
@@ -103,15 +137,14 @@ main {
 %ruled-header {
 	@extend %main-header;
 
-	$svg-height: 3.5rem;
-	margin-top: $svg-height + 1rem;
+	margin-top: $floral-swirl-max-height + 1rem;
 
 	&:before {
 		content: '';
-		height: $svg-height;
+		height: $floral-swirl-max-height;
 		background: url('../images/petals.svg') center bottom / contain no-repeat;
 		position: absolute;
-		top: -$svg-height;
+		top: -$floral-swirl-max-height;
 		left: 0;
 		right: 0;
 	}
@@ -119,6 +152,10 @@ main {
 
 main > h1 {
 	@extend %main-header;
+
+	&:not(:first-child) {
+		@extend %ruled-header;
+	}
 }
 
 h1.main-header {

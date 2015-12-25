@@ -10,12 +10,12 @@
 	<header>
 		<h1>Cimmanon</h1>
 
-		<!--<nav>
+		<nav>
 			<ul>
 				<li><a href="#">Design</a></li>
 				<li><a href="#">Development</a></li>
 			</ul>
-		</nav>-->
+		</nav>
 	</header>
 
 	<main>

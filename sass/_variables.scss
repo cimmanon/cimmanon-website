@@ -24,3 +24,18 @@ $spacing-primary: 2em;
 
 $border-primary: 1px solid $green-dark;
 $border-secondary: 2px dotted $neutral-medium;
+
+//***************************************************************************************************\
+//                                                                    | SVGs
+//***************************************************************************************************/
+
+// Cimmanon logo
+$logo-width: 185;
+$logo-height: 51;
+$logo-aspect-ratio: $logo-height / $logo-width;
+
+// main header swirls with flower
+$floral-swirl-width: 448;
+$floral-swirl-height: 103;
+$floral-swirl-aspect-ratio: $floral-swirl-height / $floral-swirl-width;
+$floral-swirl-max-height: 3rem;

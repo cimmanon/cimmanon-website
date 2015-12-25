@@ -1,8 +1,6 @@
 <apply template="_layout">
-	<h1>Portfolio</h1>
-
 	<project><article class="project">
-		<h1 class="main-header"><name>Project Name</name></h1>
+		<h1><name>Project Name</name></h1>
 
 		<component><section>
 			<header>

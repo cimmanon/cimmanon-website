@@ -8,6 +8,14 @@
 		}
 	}
 
+	> h1 {
+		@extend %main-header;
+	}
+
+	&:not(:first-child) > h1 {
+		@extend %ruled-header;
+	}
+
 	@include columns(25em 2);
 	@include column-fill(auto);
 	@include column-rule($border-secondary);
