@@ -4,12 +4,15 @@ module Model.Project
 	( Project(..)
 	, Component(..)
 	, list
+	, get
+	, components
 	) where
 
 import Control.Applicative
 import Data.Monoid ((<>))
 import Snap.Snaplet.PostgresqlSimple
 
+import Data.Maybe (listToMaybe)
 import Data.Text (Text, pack, replace, toLower)
 import Data.Time.Calendar
 import Data.Vector (toList)
@@ -62,13 +65,9 @@ instance FromRow Component where
 
 list :: (HasPostgres m, Functor m) => m [(Project, [Component])]
 list = join1of2 <$> query_ [sqlFile|sql/portfolio/overview.sql|]
-{-
-listByColor :: (HasPostgres m) => m [Project]
-listByColor = query_ [sqlFile|sql/projects/list_by_color.sql|]
 
-get :: (HasPostgres m, Functor m) => Text -> m (Maybe (Project, [ExternalLink]))
-get s = listToMaybe . ojoin1of2 <$> query [sqlFile|sql/projects/single.sql|] (Only s)
+get :: (HasPostgres m, Functor m) => Text -> m (Maybe Project)
+get s = listToMaybe <$> query "SELECT name, description, slug, url, public FROM portfolio.projects WHERE slug = ?" (Only s)
 
-builds :: (HasPostgres m, Functor m) => Project -> m [([Int], Int)]
-builds c = map (first toList) <$> query [sqlFile|sql/projects/builds.sql|] (name c, style c)
--}
+components :: (HasPostgres m, Functor m) => Text -> m [Component]
+components p = query [sqlFile|sql/portfolio/components.sql|] (Only p)

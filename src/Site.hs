@@ -36,6 +36,7 @@ import qualified Model.Project as Project
 routes :: [(ByteString, Handler App App ())]
 routes =
 	[ ("/", ifTop indexH)
+	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
 	, ("", heistServe) -- serve up static templates from your templates directory
 	, ("", serveDirectory "static")
 	]
@@ -84,3 +85,12 @@ indexH = do
 			projectSplices p
 			"component" ## listToSplice componentSplices cx
 	renderWithSplices "index" $ "project" ## listToSplice splices projects
+
+projectH :: Project.Project -> AppHandler ()
+projectH p = do
+	components <- Project.components $ Project.name p
+	let
+		splices = do
+			projectSplices p
+			"component" ## listToSplice componentSplices components
+	renderWithSplices "portfolio/project" splices
