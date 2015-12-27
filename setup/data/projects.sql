@@ -13,6 +13,7 @@ INSERT INTO tag_categories
 VALUES
 	('Layout'),
 	('Color'),
+	('Medium'),
 	('Language'),
 	('Application Type'),
 	('Database')
@@ -26,13 +27,20 @@ VALUES
 	('Design', 'Layout', 'elastic'),
 	('Design', 'Layout', 'liquid'),
 	('Design', 'Layout', 'responsive'),
+	('Design', 'Medium', 'web'),
+	('Design', 'Medium', 'logo'), -- not sure about this
+	('Design', 'Color', 'purple'),
 	('Design', 'Color', 'blue'),
 	('Design', 'Color', 'green'),
-	('Design', 'Color', 'pink'),
-	('Design', 'Color', 'neutral'),
-	('Design', 'Color', 'brown'),
+	('Design', 'Color', 'yellow'),
 	('Design', 'Color', 'orange'),
+	('Design', 'Color', 'red'),
+	('Design', 'Color', 'pink'),
+	('Design', 'Color', 'natural'),
+	('Design', 'Color', 'brown'),
 	('Design', 'Color', 'white'),
+	('Design', 'Color', 'grey'),
+	('Design', 'Color', 'black'),
 
 	-- development
 	('Development', 'Language', 'haskell'),
