@@ -3,7 +3,11 @@
 
 	<p><description /></p>
 
-	<component><article>
-		<apply template="_component" />
-	</article></component>
+	<div class="listing">
+		<component><article>
+			<apply template="_component" />
+
+			<img src="/images/screenshots/designs/${slug}/${date}.jpg" />
+		</article></component>
+	</div>
 </apply>

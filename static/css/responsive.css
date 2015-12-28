@@ -346,6 +346,14 @@ main > h1:not(:first-child):before, h1.main-header:before, .project:not(:first-c
   right: 0;
 }
 
+img {
+  -moz-box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
+  -webkit-box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
+  box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
+  max-width: 100%;
+  height: auto;
+}
+
 .tags {
   padding-left: 0;
   margin-left: -0.75em;
@@ -359,7 +367,7 @@ header .tags {
   margin-top: 0;
 }
 
-.project {
+.listing, .project {
   -moz-columns: 25em 2;
   -webkit-columns: 25em 2;
   columns: 25em 2;
@@ -373,6 +381,16 @@ header .tags {
   -webkit-column-gap: 4em;
   column-gap: 4em;
 }
+.listing > *, .project > * {
+  -moz-page-break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+}
+.listing img, .project img {
+  display: block;
+  margin: 1em auto;
+}
+
 .project header h1 {
   margin-bottom: 0;
 }
@@ -390,16 +408,4 @@ header .tags {
   column-span: all;
   text-align: center;
   margin-top: 2em;
-}
-.project section {
-  -moz-page-break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  break-inside: avoid;
-}
-.project img {
-  -moz-box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
-  -webkit-box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
-  box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
-  max-width: 100%;
-  height: auto;
 }

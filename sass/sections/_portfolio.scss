@@ -1,5 +1,4 @@
 @import "compass/css3/columns";
-@import "compass/css3/box-shadow";
 
 .project {
 	header {
@@ -16,10 +15,7 @@
 		@extend %ruled-header;
 	}
 
-	@include columns(25em 2);
-	@include column-fill(auto);
-	@include column-rule($border-secondary);
-	@include column-gap(4em);
+	@extend %listing;
 
 	> h1 {
 		@include column-span(all);
@@ -33,19 +29,6 @@
 		@include column-span(all);
 		text-align: center;
 		margin-top: 2em;
-	}
-
-	section {
-		@include break-inside(avoid);
-		// blink will choke if this is set to always, presto chokes on column
-		//@include break-after(always);
-	}
-
-	// possibly move this out
-	img {
-		@include box-shadow(0 0 .5em 0 rgba(#666, .5));
-		max-width: 100%;
-		height: auto;
 	}
 }
 

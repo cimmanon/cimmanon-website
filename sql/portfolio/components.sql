@@ -12,4 +12,4 @@ GROUP BY
 	component,
 	date_added
 ORDER BY
-	date_added
+	date_added DESC
