@@ -7,7 +7,7 @@
 		<component><article>
 			<apply template="_component" />
 
-			<img src="/images/screenshots/designs/${slug}/${date}.jpg" />
+			<image><img src="/images/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>
 		</article></component>
 	</div>
 </apply>

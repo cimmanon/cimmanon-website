@@ -19,6 +19,7 @@ import Heist.Splices.Common
 
 import Heist.Splices.Session
 import qualified Model.Project as Project
+import qualified Model.Image as Image
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Session Splices
@@ -47,3 +48,13 @@ componentSplices c = do
 	"description" ## textSplice $ Project.desc c
 	"date" ## showSplice $ Project.date c
 	"tag" ## listSplice "name" $ Project.tags c
+
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Image Splices
+}----------------------------------------------------------------------------------------------------}
+
+imageSplices :: Monad m => Image.Image -> Splices (Splice m)
+imageSplices i = do
+	"filename" ## textSplice $ Image.filename i
+	"width" ## numericSplice $ Image.width i
+	"height" ## numericSplice $ Image.height i

@@ -7,7 +7,7 @@
 		</section></component>
 
 		<aside>
-			<img src="/images/screenshots/designs/${slug}/screenshot.jpg" width="480" height="360" alt="" />
+			<image><img src="/images/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>
 
 			<p><a href="/projects/${slug}/">Project history</a></p>
 		</aside>

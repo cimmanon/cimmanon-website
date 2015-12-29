@@ -29,6 +29,8 @@ import Splices
 import Snap.Handlers
 import Heist.Splices.Common
 
+import Data.Maybe (isJust, fromJust)
+
 import qualified Model.Project as Project
 
 ------------------------------------------------------------------------------
@@ -83,7 +85,8 @@ indexH = do
 	let
 		splices (p, cx) = do
 			projectSplices p
-			"component" ## listToSplice componentSplices cx
+			"component" ## listToSplice (\ (c, _) -> componentSplices c) cx
+			"image" ## listToSplice imageSplices $ map (fromJust . snd) $ filter (isJust . snd) cx
 	renderWithSplices "index" $ "project" ## listToSplice splices projects
 
 projectH :: Project.Project -> AppHandler ()
@@ -92,5 +95,8 @@ projectH p = do
 	let
 		splices = do
 			projectSplices p
-			"component" ## listToSplice componentSplices components
+			"component" ## listToSplice cSplices components
+		cSplices (c, xs) = do
+			componentSplices c
+			"image" ## listToSplice imageSplices xs
 	renderWithSplices "portfolio/project" splices

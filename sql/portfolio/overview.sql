@@ -1,5 +1,5 @@
 SELECT
-	name,
+	project,
 	overview,
 	slug,
 	url,
@@ -8,12 +8,16 @@ SELECT
 	component,
 	description,
 	date_added,
-	tags
+	tags,
+
+	filename,
+	width,
+	height
 FROM
 	(SELECT DISTINCT ON (projects.name, project_components.component)
 		MAX(project_components.date_added) OVER (PARTITION BY projects.name) AS last_update,
 
-		projects.name,
+		projects.name AS project,
 		projects.description AS overview,
 		projects.slug,
 		projects.url,
@@ -37,6 +41,9 @@ FROM
 		projects.name,
 		project_components.component,
 		project_components.date_added DESC) AS x
+	LEFT JOIN portfolio.project_images USING (project, component, date_added)
+WHERE
+	featured = true OR featured IS NULL
 ORDER BY
 	last_update DESC,
 	component

@@ -82,13 +82,17 @@ CREATE TABLE project_tags (
 
 --------------------------------------------------------------------- | Assets
 
--- not sure on this one
-CREATE TABLE component_images (
+-- should we allow multiple images per project?
+CREATE TABLE project_images (
 	project LABEL NOT NULL,
 	component LABEL NOT NULL,
 	date_added DATE NOT NULL,
-	url TEXT NOT NULL,
+	filename TEXT NOT NULL,
+	width INT NOT NULL,
+	height INT NOT NULL,
+	featured BOOL NOT NULL DEFAULT TRUE,
 
-	PRIMARY KEY (project, component, url),
+	PRIMARY KEY (project, component, date_added, filename),
 	FOREIGN KEY (project, component, date_added) REFERENCES project_components (project, component, date_added) ON UPDATE CASCADE
 );
+CREATE UNIQUE INDEX project_images_featured_idx ON project_images (project, component, date_added, featured) WHERE featured = true;

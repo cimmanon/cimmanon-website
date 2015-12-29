@@ -48,7 +48,8 @@ Executable cimmanon
     template-haskell,
 --    blaze-builder,
     transformers,
-    safe
+    safe,
+    process
 --    smtp-mail,
 --    digestive-functors-aeson,
 --    aeson

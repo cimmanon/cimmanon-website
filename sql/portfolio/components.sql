@@ -2,14 +2,26 @@ SELECT
 	component,
 	description,
 	date_added,
-	array_agg(tag :: TEXT)
+	tags,
+	filename,
+	width,
+	height
 FROM
-	portfolio.project_components
-	JOIN portfolio.project_tags USING (project, component, date_added)
-WHERE project = ?
-GROUP BY
-	project,
-	component,
-	date_added
+	(
+		SELECT
+			project,
+			component,
+			description,
+			date_added,
+			array_agg(tag :: TEXT) AS tags
+		FROM
+			portfolio.project_components
+			JOIN portfolio.project_tags USING (project, component, date_added)
+		WHERE project = ?
+		GROUP BY
+			project,
+			component,
+			date_added) AS components
+	LEFT JOIN portfolio.project_images USING (project, component, date_added)
 ORDER BY
 	date_added DESC

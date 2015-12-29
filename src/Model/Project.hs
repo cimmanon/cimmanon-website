@@ -20,6 +20,9 @@ import Data.Vector (toList)
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 
+import Control.Monad.Trans (liftIO)
+import Model.Image as I
+
 {----------------------------------------------------------------------------------------------------{
                                                                        | Records
 }----------------------------------------------------------------------------------------------------}
@@ -63,11 +66,11 @@ instance FromRow Component where
                                                                        | Queries
 }----------------------------------------------------------------------------------------------------}
 
-list :: (HasPostgres m, Functor m) => m [(Project, [Component])]
-list = join1of2 <$> query_ [sqlFile|sql/portfolio/overview.sql|]
+list :: (HasPostgres m, Functor m) => m [(Project, [(Component, Maybe I.Image)])]
+list = join1of3 <$> query_ [sqlFile|sql/portfolio/overview.sql|]
 
 get :: (HasPostgres m, Functor m) => Text -> m (Maybe Project)
 get s = listToMaybe <$> query "SELECT name, description, slug, url, public FROM portfolio.projects WHERE slug = ?" (Only s)
 
-components :: (HasPostgres m, Functor m) => Text -> m [Component]
-components p = query [sqlFile|sql/portfolio/components.sql|] (Only p)
+components :: (HasPostgres m, Functor m) => Text -> m [(Component, [I.Image])]
+components p = ojoin1of2 <$> query [sqlFile|sql/portfolio/components.sql|] (Only p)
