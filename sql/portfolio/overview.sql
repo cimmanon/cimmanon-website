@@ -1,12 +1,12 @@
 SELECT
 	project,
-	overview,
+	projects.description,
 	slug,
 	url,
-	public,
+	projects.public,
 
 	component,
-	description,
+	components.description,
 	date_added,
 	tags,
 
@@ -14,36 +14,29 @@ SELECT
 	width,
 	height
 FROM
-	(SELECT DISTINCT ON (projects.name, project_components.component)
-		MAX(project_components.date_added) OVER (PARTITION BY projects.name) AS last_update,
+	portfolio.projects
+	JOIN (
+		SELECT DISTINCT ON (project, component)
+			MAX(project_components.date_added) OVER (PARTITION BY project) AS last_update,
 
-		projects.name AS project,
-		projects.description AS overview,
-		projects.slug,
-		projects.url,
-		projects.public,
+			project_components.*,
 
-		project_components.component,
-		project_components.description,
-		project_components.date_added,
-
-		array_agg(tag :: TEXT) AS tags
-	FROM
-		portfolio.projects
-		JOIN portfolio.project_components on project_components.project = projects.name
-		JOIN portfolio.project_tags USING (project, component, date_added)
-	WHERE
-		projects.public = true
-		AND project_components.public = true
-	GROUP BY
-		projects.name, project, component, date_added
-	ORDER BY
-		projects.name,
-		project_components.component,
-		project_components.date_added DESC) AS x
+			array_agg(tag :: TEXT) AS tags
+		FROM
+			portfolio.project_components
+			JOIN portfolio.project_tags USING (project, component, date_added)
+		WHERE
+			project_components.public = true
+		GROUP BY
+			project, component, date_added
+		ORDER BY
+			project,
+			component,
+			date_added DESC) AS components USING (project)
 	LEFT JOIN portfolio.project_images USING (project, component, date_added)
 WHERE
-	featured = true OR featured IS NULL
+	projects.public = true
+	AND (featured = true OR featured IS NULL)
 ORDER BY
 	last_update DESC,
 	component

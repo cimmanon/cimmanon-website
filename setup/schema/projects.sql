@@ -25,13 +25,13 @@ END $$;
 \*----------------------------------------------------------------------------------------------------*/
 
 CREATE TABLE projects (
-	name LABEL NOT NULL,
+	project LABEL NOT NULL,
 	description TEXT NOT NULL,
 	slug SLUG NOT NULL,
 	url TEXT,
 	public BOOL NOT NULL DEFAULT true,
 
-	PRIMARY KEY (name),
+	PRIMARY KEY (project),
 	UNIQUE (slug)
 );
 
@@ -49,7 +49,7 @@ CREATE TABLE project_components (
 	public BOOL NOT NULL default true,
 
 	PRIMARY KEY (project, component, date_added),
-	FOREIGN KEY (project) REFERENCES projects (name) ON UPDATE CASCADE,
+	FOREIGN KEY (project) REFERENCES projects (project) ON UPDATE CASCADE,
 	FOREIGN KEY (component) REFERENCES components (component) ON UPDATE CASCADE
 );
 CREATE INDEX project_components_component_idx ON project_components (component);
