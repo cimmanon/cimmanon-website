@@ -52,6 +52,7 @@ CREATE TABLE project_components (
 	FOREIGN KEY (project) REFERENCES projects (name) ON UPDATE CASCADE,
 	FOREIGN KEY (component) REFERENCES components (component) ON UPDATE CASCADE
 );
+CREATE INDEX project_components_component_idx ON project_components (component);
 
 --------------------------------------------------------------------- | Tags
 
@@ -79,6 +80,8 @@ CREATE TABLE project_tags (
 	FOREIGN KEY (project, component, date_added) REFERENCES project_components (project, component, date_added) ON UPDATE CASCADE,
 	FOREIGN KEY (component, tag) REFERENCES component_tags (component, tag) ON UPDATE CASCADE
 );
+CREATE INDEX project_tag_component_idx ON project_tags (component);
+CREATE INDEX project_tag_tag_idx ON project_tags (tag);
 
 --------------------------------------------------------------------- | Assets
 
