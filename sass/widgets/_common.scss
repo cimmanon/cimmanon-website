@@ -33,11 +33,16 @@ img {
 
 	> * {
 		@include break-inside(avoid);
-		// blink will choke if this is set to always, presto chokes on column
-		//@include break-after(always);
 
 		~ * {
 			margin-top: $spacing-primary;
+		}
+
+		// if there are 2 elements exactly, we need to force a break to guarantee 2 columns
+		&:last-child:nth-child(2) {
+			// blink will choke if this is set to always, presto chokes on column
+			@include break-before(column);
+			margin-top: 0;
 		}
 	}
 
