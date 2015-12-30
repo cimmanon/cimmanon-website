@@ -67,12 +67,12 @@ data FileInfo = FileInfo
 
 identifyImage :: [String] -> FilePath -> IO (Either UploadError FileInfo)
 identifyImage allowedTypes p = do
-	result <- readProcessWithExitCode "identify" ["-format", "'%m %w %h'", p] []
+	result <- readProcessWithExitCode "identify" ["-format", "%m %w %h", p] []
 	case result of
 		(ExitSuccess, r, _) ->
 			let
-				-- r will contain a string that looks like this: "'SVG 448 103 '\n"
-				(ext : width : height : _) = words $ filter (`notElem` "'\n") r
+				-- r will contain a string that looks like this: "SVG 448 103\n"
+				(ext : width : height : _) = words r
 				ext' = map toLower ext
 			in if ext' `elem` allowedTypes
 				then return $ Right $ FileInfo ext' (read width) (read height)
