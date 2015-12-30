@@ -18,8 +18,9 @@ import Snap.Snaplet.Heist (SnapletISplice)
 import Heist.Splices.Common
 
 import Heist.Splices.Session
-import qualified Model.Project as Project
+import qualified Model.Component as Component
 import qualified Model.Image as Image
+import qualified Model.Project as Project
 
 ----------------------------------------------------------------------
 -- TODO: move these to a library
@@ -48,12 +49,16 @@ projectSplices p = do
 	"description" ## textSplice $ Project.description p
 	"slug" ## textSplice $ Project.slug p
 
-componentSplices :: Monad m => Project.Component -> Splices (Splice m)
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Component Splices
+}----------------------------------------------------------------------------------------------------}
+
+componentSplices :: Monad m => Component.Component -> Splices (Splice m)
 componentSplices c = do
-	"component" ## textSplice $ Project.component c
-	"description" ## textSplice $ Project.desc c
-	"date" ## showSplice $ Project.date c
-	"tag" ## listSplice "name" $ Project.tags c
+	"component" ## textSplice $ Component.component c
+	"description" ## textSplice $ Component.description c
+	"date" ## showSplice $ Component.date c
+	"tag" ## listSplice "name" $ Component.tags c
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Image Splices

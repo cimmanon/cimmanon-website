@@ -32,6 +32,7 @@ import Heist.Splices.Common
 import Control.Monad
 import Data.Maybe (isJust, fromJust)
 
+import qualified Model.Component as Component
 import qualified Model.Image as Image
 import qualified Model.Project as Project
 
@@ -92,7 +93,7 @@ indexH = do
 			"image" ## listToSplice imageSplices $ map (fromJust . snd) $ filter (isJust . snd) cx
 	renderWithSplices "index" $ "project" ## listToSplice splices projects
 
-listByH :: [(Project.Project, [(Project.Component, Maybe Image.Image)])] -> AppHandler ()
+listByH :: [(Project.Project, [(Component.Component, Maybe Image.Image)])] -> AppHandler ()
 listByH xs =
 	let
 		splices (p, cx) = do
@@ -105,7 +106,7 @@ listByH xs =
 
 projectH :: Project.Project -> AppHandler ()
 projectH p = do
-	components <- Project.components $ Project.name p
+	components <- Component.list $ Project.name p
 	let
 		splices = do
 			projectSplices p

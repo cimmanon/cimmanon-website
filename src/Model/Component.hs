@@ -1,10 +1,8 @@
 {-# LANGUAGE OverloadedStrings, QuasiQuotes, FlexibleInstances #-}
 
-module Model.Project
-	( Project(..)
+module Model.Component
+	( Component(..)
 	, list
-	, listByTag
-	, get
 	) where
 
 import Control.Applicative
@@ -19,24 +17,21 @@ import Data.Vector (toList)
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 
-import Control.Monad.Trans (liftIO)
-import qualified Model.Component as C
-import qualified Model.Image as I
+import Model.Image as I
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Records
 }----------------------------------------------------------------------------------------------------}
 
-data Project = Project
-	{ name :: Text
+data Component = Component
+	{ component :: Text
 	, description :: Text
-	, slug :: Text
-	, url :: Maybe Text
-	, public :: Bool
+	, date :: Day
+	, tags :: [Text]
 	} deriving (Show, Eq)
 
-instance FromRow Project where
-	fromRow = Project <$> field <*> field <*> field <*> field <*> field
+instance FromRow Component where
+	fromRow = Component <$> field <*> field <*> field <*> (toList <$> field)
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Forms
@@ -48,11 +43,5 @@ instance FromRow Project where
                                                                        | Queries
 }----------------------------------------------------------------------------------------------------}
 
-list :: (HasPostgres m, Functor m) => m [(Project, [(C.Component, Maybe I.Image)])]
-list = join1of3 <$> query_ [sqlFile|sql/portfolio/overview.sql|]
-
-listByTag :: (HasPostgres m, Functor m) => Text -> m [(Project, [(C.Component, Maybe I.Image)])]
-listByTag x = join1of3 <$> query [sqlFile|sql/portfolio/by_tag.sql|] (Only x)
-
-get :: (HasPostgres m, Functor m) => Text -> m (Maybe Project)
-get s = listToMaybe <$> query "SELECT project, description, slug, url, public FROM portfolio.projects WHERE slug = ?" (Only s)
+list :: (HasPostgres m, Functor m) => Text -> m [(Component, [I.Image])]
+list project = ojoin1of2 <$> query [sqlFile|sql/portfolio/components.sql|] (Only project)
