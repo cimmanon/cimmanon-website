@@ -4,7 +4,7 @@
 	<time><date /></time>
 
 	<ul class="tags">
-		<tag><li><a href="#"><name>responsive</name></a></li></tag>
+		<tag><li><a href="/projects/tag/${name}"><name>responsive</name></a></li></tag>
 	</ul>
 </header>
 

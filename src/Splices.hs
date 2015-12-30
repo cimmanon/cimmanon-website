@@ -21,6 +21,12 @@ import Heist.Splices.Session
 import qualified Model.Project as Project
 import qualified Model.Image as Image
 
+----------------------------------------------------------------------
+-- TODO: move these to a library
+
+maybeSplice :: Monad m => (a -> Splice m) -> Maybe a -> Splice m
+maybeSplice = maybe hideContents
+
 {----------------------------------------------------------------------------------------------------{
                                                                       | Session Splices
 }----------------------------------------------------------------------------------------------------}

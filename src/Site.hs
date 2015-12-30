@@ -29,8 +29,10 @@ import Splices
 import Snap.Handlers
 import Heist.Splices.Common
 
+import Control.Monad
 import Data.Maybe (isJust, fromJust)
 
+import qualified Model.Image as Image
 import qualified Model.Project as Project
 
 ------------------------------------------------------------------------------
@@ -38,6 +40,7 @@ import qualified Model.Project as Project
 routes :: [(ByteString, Handler App App ())]
 routes =
 	[ ("/", ifTop indexH)
+	, ("/projects/tag/:tag", ifTop $ textParam "tag" >>= maybe pass (listByH <=< Project.listByTag))
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
 	, ("", heistServe) -- serve up static templates from your templates directory
 	, ("", serveDirectory "static")
@@ -88,6 +91,17 @@ indexH = do
 			"component" ## listToSplice (\ (c, _) -> componentSplices c) cx
 			"image" ## listToSplice imageSplices $ map (fromJust . snd) $ filter (isJust . snd) cx
 	renderWithSplices "index" $ "project" ## listToSplice splices projects
+
+listByH :: [(Project.Project, [(Project.Component, Maybe Image.Image)])] -> AppHandler ()
+listByH xs =
+	let
+		splices (p, cx) = do
+			projectSplices p
+			"component" ## listToSplice cSplices cx
+		cSplices (c, i) = do
+			componentSplices c
+			"image" ## maybeSplice (runChildrenWith . imageSplices) i
+	in renderWithSplices "portfolio/list_by" $ "project" ## listToSplice splices xs
 
 projectH :: Project.Project -> AppHandler ()
 projectH p = do
