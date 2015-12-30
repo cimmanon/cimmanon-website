@@ -30,7 +30,7 @@ import Snap.Handlers
 import Heist.Splices.Common
 
 import Control.Monad
-import Data.Maybe (isJust, fromJust)
+import Data.Maybe (isJust, fromJust, mapMaybe)
 
 import qualified Model.Component as Component
 import qualified Model.Image as Image
@@ -91,8 +91,8 @@ indexH = do
 	let
 		splices (p, cx) = do
 			projectSplices p
-			"component" ## listToSplice (\ (c, _) -> componentSplices c) cx
-			"image" ## listToSplice imageSplices $ map (fromJust . snd) $ filter (isJust . snd) cx
+			"component" ## listToSplice (componentSplices . fst) cx
+			"image" ## listToSplice imageSplices $ mapMaybe snd cx
 	renderWithSplices "index" $ "project" ## listToSplice splices projects
 
 listByH :: [(Project.Project, [(Component.Component, Maybe Image.Image)])] -> AppHandler ()
