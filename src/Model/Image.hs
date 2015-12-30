@@ -74,7 +74,7 @@ identifyImage allowedTypes p = do
 				-- r will contain a string that looks like this: "SVG 448 103\n"
 				(ext : width : height : _) = words r
 				ext' = map toLower ext
-			in if ext' `elem` allowedTypes
-				then return $ Right $ FileInfo ext' (read width) (read height)
-				else return $ Left DisallowedType
+			in return $ if ext' `elem` allowedTypes
+				then Right $ FileInfo ext' (read width) (read height)
+				else Left DisallowedType
 		_ -> return $ Left UnknownType
