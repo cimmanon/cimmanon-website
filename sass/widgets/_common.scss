@@ -35,10 +35,27 @@ img {
 		@include break-inside(avoid);
 		// blink will choke if this is set to always, presto chokes on column
 		//@include break-after(always);
+
+		~ * {
+			margin-top: $spacing-primary;
+		}
 	}
 
 	img {
 		display: block;
 		margin: 1em auto;
+
+		&:first-child {
+			margin-top: 0;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+article > header {
+	h1:not(:last-child) {
+		margin-bottom: 0;
 	}
 }

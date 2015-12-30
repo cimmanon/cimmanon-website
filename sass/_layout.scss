@@ -103,7 +103,19 @@ main {
 	margin: 0 auto 1em;
 	padding: 0 $spacing-primary;
 	max-width: $max-width;
+
+	@media (max-width: $layout-2-col) {
+		@include max-width;
+	}
 }
+
+%max-width {
+	max-width: 30em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
 
 %full-width {
 	margin-right: -50%;

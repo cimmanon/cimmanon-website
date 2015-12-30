@@ -297,6 +297,19 @@ main {
   padding: 0 2em;
   max-width: 70em;
 }
+@media (max-width: 60em) {
+  main {
+    max-width: 32em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.project .listing section:only-child {
+  max-width: 30em;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 body > header, body > footer, main > h1:not(:first-child), h1.main-header, .project:not(:first-child) > h1, main > h1, .project > h1 {
   margin-right: -50%;
@@ -367,7 +380,7 @@ header .tags {
   margin-top: 0;
 }
 
-.listing, .project {
+.listing {
   -moz-columns: 25em 2;
   -webkit-columns: 25em 2;
   columns: 25em 2;
@@ -381,31 +394,44 @@ header .tags {
   -webkit-column-gap: 4em;
   column-gap: 4em;
 }
-.listing > *, .project > * {
+.listing > * {
   -moz-page-break-inside: avoid;
   -webkit-column-break-inside: avoid;
   break-inside: avoid;
 }
-.listing img, .project img {
+.listing > * ~ * {
+  margin-top: 2em;
+}
+.listing img {
   display: block;
   margin: 1em auto;
 }
-
-.project header h1 {
+.listing img:first-child {
+  margin-top: 0;
+}
+.listing img:last-child {
   margin-bottom: 0;
 }
-.project > h1 {
-  -moz-column-span: all;
-  -webkit-column-span: all;
-  column-span: all;
+
+article > header h1:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.project {
+  padding-bottom: 1em;
+}
+.project header h1 {
+  margin-bottom: 0;
 }
 .project > h1 + section {
   margin-top: 0;
 }
-.project aside {
+.project .listing section:only-child {
   -moz-column-span: all;
   -webkit-column-span: all;
   column-span: all;
+}
+.project aside {
   text-align: center;
   margin-top: 2em;
 }

@@ -2,9 +2,11 @@
 	<project><article class="project">
 		<h1><name>Project Name</name></h1>
 
-		<component><section>
-			<apply template="portfolio/_component" />
-		</section></component>
+		<div class="listing">
+			<component><section>
+				<apply template="portfolio/_component" />
+			</section></component>
+		</div>
 
 		<aside>
 			<image><img src="/images/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>

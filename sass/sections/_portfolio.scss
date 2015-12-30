@@ -1,6 +1,8 @@
 @import "compass/css3/columns";
 
 .project {
+	padding-bottom: $spacing-primary / 2; // padding instead of margin to deal with margin-collapse
+
 	header {
 		h1 {
 			margin-bottom: 0;
@@ -15,20 +17,22 @@
 		@extend %ruled-header;
 	}
 
-	@extend %listing;
-
 	> h1 {
-		@include column-span(all);
-
 		+ section {
 			margin-top: 0;
 		}
 	}
 
+	.listing {
+		section:only-child {
+			@extend %max-width;
+			@include column-span(all);
+		}
+	}
+
 	aside {
-		@include column-span(all);
 		text-align: center;
-		margin-top: 2em;
+		margin-top: $spacing-primary;
 	}
 }
 
