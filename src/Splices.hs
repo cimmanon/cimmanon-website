@@ -21,6 +21,7 @@ import Heist.Splices.Session
 import qualified Model.Component as Component
 import qualified Model.Image as Image
 import qualified Model.Project as Project
+import qualified Model.Tag as Tag
 
 ----------------------------------------------------------------------
 -- TODO: move these to a library
@@ -59,6 +60,15 @@ componentSplices c = do
 	"description" ## textSplice $ Component.description c
 	"date" ## showSplice $ Component.date c
 	"tag" ## listSplice "name" $ Component.tags c
+
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Tag Splices
+}----------------------------------------------------------------------------------------------------}
+
+tagCategorySplices :: Monad m => Tag.Category -> Splices (Splice m)
+tagCategorySplices c = do
+	"name" ## textSplice $ Tag.category c
+	"tag" ## listSplice "name" $ Tag.tags c
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Image Splices

@@ -35,13 +35,15 @@ import Data.Maybe (isJust, fromJust)
 import qualified Model.Component as Component
 import qualified Model.Image as Image
 import qualified Model.Project as Project
+import qualified Model.Tag as Tag
 
 ------------------------------------------------------------------------------
 -- | The application's routes.
 routes :: [(ByteString, Handler App App ())]
 routes =
 	[ ("/", ifTop indexH)
-	, ("/projects/tag/:tag", ifTop $ textParam "tag" >>= maybe pass (listByH <=< Project.listByTag))
+	, ("/projects/tags/:tag", ifTop $ textParam "tag" >>= maybe pass (listByH <=< Project.listByTag))
+	, ("/projects/tags/", ifTop tagsH)
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
 	, ("", heistServe) -- serve up static templates from your templates directory
 	, ("", serveDirectory "static")
@@ -103,6 +105,11 @@ listByH xs =
 			componentSplices c
 			"image" ## maybeSplice (runChildrenWith . imageSplices) i
 	in renderWithSplices "portfolio/list_by" $ "project" ## listToSplice splices xs
+
+tagsH :: AppHandler ()
+tagsH = do
+	tags <- Tag.list
+	renderWithSplices "portfolio/tags" $ "category" ## listToSplice tagCategorySplices tags
 
 projectH :: Project.Project -> AppHandler ()
 projectH p = do
