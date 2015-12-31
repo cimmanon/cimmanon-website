@@ -103,6 +103,8 @@ main {
 	margin: 0 auto 1em;
 	padding: 0 $spacing-primary;
 	max-width: $max-width;
+	position: relative;
+	z-index: 100;
 
 	@media (max-width: $layout-2-col) {
 		@include max-width;
@@ -148,17 +150,25 @@ main {
 
 %ruled-header {
 	@extend %main-header;
+	// alternate method of positioning the swirls, allows them to be resized easier
+	$floral-swirl-max-height: 2em;
 
-	margin-top: $floral-swirl-max-height + 1rem;
+	//margin-top: $floral-swirl-max-height + 2rem;
+	margin-top: $floral-swirl-max-height + ($spacing-primary / 2);
 
 	&:before {
 		content: '';
 		height: $floral-swirl-max-height;
 		background: url('../images/petals.svg') center bottom / contain no-repeat;
+		/*
 		position: absolute;
 		top: -$floral-swirl-max-height;
 		left: 0;
 		right: 0;
+		*/
+		margin-top: -$floral-swirl-max-height;
+		transform: translateY(-2px);
+		display: block;
 	}
 }
 

@@ -296,6 +296,8 @@ main {
   margin: 0 auto 1em;
   padding: 0 2em;
   max-width: 70em;
+  position: relative;
+  z-index: 100;
 }
 @media (max-width: 60em) {
   main {
@@ -347,16 +349,21 @@ main > h1:not(:first-child):after, h1.main-header:after, .project:not(:first-chi
 }
 
 main > h1:not(:first-child), h1.main-header, .project:not(:first-child) > h1 {
-  margin-top: 4rem;
+  margin-top: 3em;
 }
 main > h1:not(:first-child):before, h1.main-header:before, .project:not(:first-child) > h1:before {
   content: '';
-  height: 3rem;
+  height: 2em;
   background: url("../images/petals.svg") center bottom/contain no-repeat;
+  /*
   position: absolute;
-  top: -3rem;
+  top: -$floral-swirl-max-height;
   left: 0;
   right: 0;
+  */
+  margin-top: -2em;
+  transform: translateY(-2px);
+  display: block;
 }
 
 img {
