@@ -184,3 +184,10 @@ h1.main-header {
 	@extend %main-header;
 	@extend %ruled-header;
 }
+
+blockquote {
+	@extend %max-width;
+	font-family: $baskerville;
+	font-style: italic;
+	text-align: center;
+}

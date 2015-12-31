@@ -307,7 +307,7 @@ main {
   }
 }
 
-.project .listing section:only-child {
+blockquote, .project .listing section:only-child {
   max-width: 30em;
   margin-left: auto;
   margin-right: auto;
@@ -364,6 +364,12 @@ main > h1:not(:first-child):before, h1.main-header:before, .project:not(:first-c
   margin-top: -2em;
   transform: translateY(-2px);
   display: block;
+}
+
+blockquote {
+  font-family: Baskerville, "Baskerville old face", "Hoefler Text", Garamond, "Times New Roman", serif;
+  font-style: italic;
+  text-align: center;
 }
 
 img {
