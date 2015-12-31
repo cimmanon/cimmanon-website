@@ -228,7 +228,7 @@ body {
 }
 
 body > header {
-  background: #ddede4 url("../images/petals.svg") center bottom/auto 3rem no-repeat;
+  background: #ddede4 url("../images/floral-swirls.svg") center bottom/auto 3rem no-repeat;
   padding: 1em 2em;
 }
 body > header h1 {
@@ -354,7 +354,7 @@ main > h1:not(:first-child), h1.main-header, .project:not(:first-child) > h1 {
 main > h1:not(:first-child):before, h1.main-header:before, .project:not(:first-child) > h1:before {
   content: '';
   height: 2em;
-  background: url("../images/petals.svg") center bottom/contain no-repeat;
+  background: url("../images/floral-swirls.svg") center bottom/contain no-repeat;
   /*
   position: absolute;
   top: -$floral-swirl-max-height;

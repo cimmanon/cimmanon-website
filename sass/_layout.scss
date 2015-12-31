@@ -20,7 +20,7 @@ body {
 body > header {
 	$width: 8em;
 
-	background: $green-light url('../images/petals.svg') center bottom / auto $floral-swirl-max-height no-repeat;
+	background: $green-light url('../images/floral-swirls.svg') center bottom / auto $floral-swirl-max-height no-repeat;
 
 	@extend %full-width;
 	padding: 1em $spacing-primary;
@@ -159,7 +159,7 @@ main {
 	&:before {
 		content: '';
 		height: $floral-swirl-max-height;
-		background: url('../images/petals.svg') center bottom / contain no-repeat;
+		background: url('../images/floral-swirls.svg') center bottom / contain no-repeat;
 		/*
 		position: absolute;
 		top: -$floral-swirl-max-height;

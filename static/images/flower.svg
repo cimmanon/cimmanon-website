@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="38.686279mm"
+   height="19.453783mm"
+   viewBox="0 0 137.07736 68.930727"
+   id="svg4198"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="flower.svg">
+  <defs
+     id="defs4200" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="4"
+     inkscape:cx="90.489495"
+     inkscape:cy="50.34404"
+     inkscape:document-units="px"
+     inkscape:current-layer="front-petals"
+     showgrid="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <sodipodi:guide
+       position="86.601306,0.0033226274"
+       orientation="0,1"
+       id="guide4160" />
+    <sodipodi:guide
+       position="68.601306,72.003303"
+       orientation="1,0"
+       id="guide4162" />
+    <sodipodi:guide
+       position="79.601306,69.003303"
+       orientation="0,1"
+       id="guide4164" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid4170"
+       originx="-161.39869"
+       originy="-983.9967" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata4203">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Flower"
+     inkscape:groupmode="layer"
+     id="flower">
+    <g
+       inkscape:groupmode="layer"
+       id="layer3"
+       inkscape:label="Back Petals"
+       style="display:inline">
+      <path
+         style="fill:#f194be;fill-opacity:0.66666667;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 68.615539,68.929082 c 3.91071,-7.982147 13.91071,-43.910718 11.875,-54.999998 C 78.623679,3.7595889 73.526249,-0.05306433 68.526249,5.5776036e-4 63.526249,0.05417996 58.949089,3.6306069 56.829819,13.750513 c -2.30357,10.999993 7.69643,47.196422 11.78572,55.178569 z"
+         id="center-petal"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="csssc" />
+      <g
+         inkscape:groupmode="layer"
+         id="left-back-petals"
+         inkscape:label="Side Petals"
+         inkscape:tile-cx="199.45639"
+         inkscape:tile-cy="36.332227"
+         inkscape:tile-w="61.219718"
+         inkscape:tile-h="64.085531"
+         inkscape:tile-x0="168.84653"
+         inkscape:tile-y0="4.2894612"
+         style="display:inline">
+        <path
+           sodipodi:nodetypes="csc"
+           inkscape:connector-curvature="0"
+           id="back-petal2"
+           d="M 68.612299,68.929038 C 48.483369,55.080009 16.122089,7.6762678 37.173739,6.2183024 62.949779,4.4329728 66.515399,58.933025 68.612299,68.929038 Z"
+           style="fill:#f194be;fill-opacity:0.66666667;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           inkscape:transform-center-x="19.212247"
+           inkscape:transform-center-y="-31.319791" />
+        <path
+           sodipodi:nodetypes="csc"
+           inkscape:connector-curvature="0"
+           id="back-petal1"
+           d="M 68.611859,68.922616 C 44.434909,63.395139 -6.6577315,28.329376 10.697799,19.797612 31.548989,9.5474283 57.222469,54.095769 68.611859,68.922616 Z"
+           style="fill:#f194be;fill-opacity:0.66666667;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           inkscape:transform-center-x="30.685113"
+           inkscape:transform-center-y="-25.355267" />
+      </g>
+      <use
+         x="0"
+         y="0"
+         inkscape:tiled-clone-of="left-front-petals"
+         xlink:href="#left-back-petals"
+         transform="matrix(-1,0,0,1,137.21774,0.00169011)"
+         id="right-back-petals"
+         width="100%"
+         height="100%" />
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="front-petals"
+       inkscape:label="Front Petals"
+       style="display:inline"
+       inkscape:tile-cx="195.76839"
+       inkscape:tile-cy="44.243437"
+       inkscape:tile-w="68.619069"
+       inkscape:tile-h="48.291982"
+       inkscape:tile-x0="161.45885"
+       inkscape:tile-y0="20.097446">
+      <g
+         inkscape:groupmode="layer"
+         id="left-front-petals"
+         inkscape:label="Front Side Petals"
+         style="display:inline">
+        <path
+           sodipodi:nodetypes="csc"
+           inkscape:connector-curvature="0"
+           id="front-petal1"
+           d="M 68.608884,68.930728 C 28.530964,62.927405 -14.309106,41.172971 4.5956135,31.318798 24.530964,20.927405 60.530964,59.927405 68.608884,68.930728 Z"
+           style="fill:#eb65a1;fill-opacity:0.66666667;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+        <path
+           sodipodi:nodetypes="ccc"
+           inkscape:connector-curvature="0"
+           id="front-petal2"
+           d="m 68.609723,68.930728 c -21.73103,-10.65103 -50.80481,-50.26559 -27.98056,-48.21522 22.82414,2.05098 27.18411,41.065619 27.98056,48.21522 z"
+           style="fill:#eb65a2;fill-opacity:0.66666667;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      </g>
+      <use
+         x="0"
+         y="0"
+         inkscape:tiled-clone-of="#left-front-petals"
+         xlink:href="#left-front-petals"
+         transform="matrix(-0.99985561,0,0,1,137.20832,1.0744066e-7)"
+         id="right-front-petals"
+         width="100%"
+         height="100%" />
+    </g>
+  </g>
+</svg>
