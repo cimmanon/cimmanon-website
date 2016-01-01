@@ -1,4 +1,4 @@
-<apply template="/_layout">
+<apply template="_project_list">
 	<h1>Projects by Tag</h1>
 
 	<ul class="tag_list">
@@ -8,6 +8,4 @@
 			</ul>
 		</li></category>
 	</ul>
-
-	<project><apply template="_project" /></project>
 </apply>
