@@ -6,6 +6,11 @@ a {
 	}
 }
 
+html {
+	// for sticky footer
+	height: 100%;
+}
+
 body {
 	background: $neutral-light;
 	color: $neutral-dark;
@@ -13,6 +18,11 @@ body {
 	padding: 0;
 	max-width: $absolute-max-width;
 	overflow-x: hidden;
+
+	// for sticky footer
+	@include display-flex;
+	@include flex-direction(column);
+	height: 100%;
 }
 
 body > header {
@@ -103,6 +113,18 @@ main {
 	max-width: $absolute-max-width;
 	position: relative;
 	z-index: 100;
+
+	// for sticky footer
+	@include flex(1 1 auto);
+	// TODO: figure out why IE11 makes this be taller than it should be (see bottom of the page)
+
+	@supports (display: flex) {
+		// this is a fix for Presto and Mozilla
+		// for some reason the left/right auto margins cause it to be smaller than it should be
+		// it's only necessary for flexbox enabled browsers
+		margin-left: 0;
+		margin-right: 0;
+	}
 
 	@media (max-width: $layout-2-col) {
 		@include max-width;

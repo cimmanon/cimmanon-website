@@ -97,16 +97,5 @@ header h1:not(:last-child) {
 }
 
 .tag_list {
-	text-align: center;
-	position: relative;
-	z-index: 100;
-
-	@include inline-menu {
-		padding: .5em 1em;
-		text-align: left;
-
-		@include drop-menu {
-			border: 1px solid;
-		}
-	}
+	@include columns(9em);
 }

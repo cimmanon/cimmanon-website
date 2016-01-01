@@ -296,30 +296,17 @@ header h1:not(:last-child) {
 }
 
 .tag_list {
-  text-align: center;
-  position: relative;
-  z-index: 100;
-}
-.tag_list > li {
-  display: inline-block;
-  padding: .5em 1em;
-  text-align: left;
-  position: relative;
-}
-.tag_list > li ul {
-  display: none;
-}
-.tag_list > li:hover ul, .tag_list > li.active ul, .tag_list > li.opened {
-  display: block;
-  position: absolute;
-  border: 1px solid;
-}
-.tag_list > li a {
-  white-space: nowrap;
+  -moz-columns: 9em;
+  -webkit-columns: 9em;
+  columns: 9em;
 }
 
 a:active, a:visited, a:link {
   color: #c9007a;
+}
+
+html {
+  height: 100%;
 }
 
 body {
@@ -329,6 +316,13 @@ body {
   padding: 0;
   max-width: 70em;
   overflow-x: hidden;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
 }
 
 body > header {
@@ -402,6 +396,15 @@ main {
   max-width: 70em;
   position: relative;
   z-index: 100;
+  -ms-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+@supports (display: flex) {
+  main {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 @media (max-width: 60em) {
   main {
