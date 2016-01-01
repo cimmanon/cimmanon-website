@@ -336,6 +336,11 @@ body > header h1 {
   text-indent: -100em;
   margin: 0 auto;
 }
+body > header h1 a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 body > header nav {
   margin-top: 1em;
 }

@@ -8,7 +8,7 @@
 
 <body>
 	<header>
-		<h1>Cimmanon</h1>
+		<h1><a href="/">Cimmanon</a></h1>
 
 		<nav>
 			<ul>
