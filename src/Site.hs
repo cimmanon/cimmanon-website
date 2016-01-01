@@ -42,8 +42,8 @@ import qualified Model.Tag as Tag
 routes :: [(ByteString, Handler App App ())]
 routes =
 	[ ("/", ifTop indexH)
-	, ("/projects/tags/:tag", ifTop $ textParam "tag" >>= maybe pass (listByH <=< Project.listByTag))
-	, ("/projects/tags/", ifTop tagsH)
+	, ("/projects/tags/:tag", ifTop $ textParam "tag" >>= maybe pass (listByH tagsH <=< Project.listByTag))
+	, ("/projects/tags/", ifTop $ listByH tagsH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
 	, ("", heistServe) -- serve up static templates from your templates directory
 	, ("", serveDirectory "static")
@@ -95,8 +95,8 @@ indexH = do
 			"image" ## listToSplice imageSplices $ mapMaybe snd cx
 	renderWithSplices "index" $ "project" ## listToSplice splices projects
 
-listByH :: [(Project.Project, [(Component.Component, Maybe Image.Image)])] -> AppHandler ()
-listByH xs =
+listByH :: AppHandler () -> [(Project.Project, [(Component.Component, Maybe Image.Image)])] -> AppHandler ()
+listByH handler xs =
 	let
 		splices (p, cx) = do
 			projectSplices p
@@ -104,7 +104,7 @@ listByH xs =
 		cSplices (c, i) = do
 			componentSplices c
 			"image" ## maybeSplice (runChildrenWith . imageSplices) i
-	in renderWithSplices "portfolio/list_by" $ "project" ## listToSplice splices xs
+	in withSplices ("project" ## listToSplice splices xs) handler
 
 tagsH :: AppHandler ()
 tagsH = do
