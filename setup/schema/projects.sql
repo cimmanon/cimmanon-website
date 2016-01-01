@@ -53,6 +53,7 @@ CREATE TABLE project_components (
 	FOREIGN KEY (component) REFERENCES components (component) ON UPDATE CASCADE
 );
 CREATE INDEX project_components_component_idx ON project_components (component);
+CREATE INDEX project_components_year_idx ON project_components (extract(year FROM date_added) DESC);
 
 --------------------------------------------------------------------- | Tags
 
