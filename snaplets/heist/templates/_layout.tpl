@@ -24,6 +24,12 @@
 
 	<footer>
 		<ul>
+			<li><a href="/projects/tags/">Projects by Tag</a></li>
+			<li><a href="/projects/year/">Projects by Year</a></li>
+			<li><a href="/resume">R&eacute;sum&eacute;</a></li>
+		</ul>
+
+		<ul>
 			<li><a href="http://github.com/cimmanon/">Github</a></li>
 			<li><a href="http://bitbucket.com/cimmanon/">BitBucket</a></li>
 			<li><a href="http://codepen.io/cimmanon/">CodePen</a></li>

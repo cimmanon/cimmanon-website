@@ -45,6 +45,7 @@ routes =
 	, ("/projects/tags/:tag", ifTop $ textParam "tag" >>= maybe pass (listByH tagsH <=< Project.listByTag))
 	, ("/projects/tags/", ifTop $ listByH tagsH [])
 	, ("/projects/year/:year", ifTop $ intParam "year" >>= maybe pass (listByH yearH <=< Project.listByYear))
+	, ("/projects/year/", ifTop $ listByH yearH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
 	, ("", heistServe) -- serve up static templates from your templates directory
 	, ("", serveDirectory "static")
