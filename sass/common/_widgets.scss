@@ -1,0 +1,112 @@
+@import "compass/css3/columns";
+@import "compass/css3/box-shadow";
+
+%max-width {
+	max-width: $max-width;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+%full-width {
+	margin-right: -50%;
+	margin-right: -50vw;
+	margin-left: -50%;
+	margin-left: -50vw;
+
+	padding-right: 50%;
+	padding-right: 50vw;
+	padding-left: 50%;
+	padding-left: 50vw;
+}
+
+// force all images to be responsive
+img {
+	@include box-shadow(0 0 .5em 0 rgba(#666, .5));
+	max-width: 100%;
+	height: auto;
+}
+
+// should this be restricted to only within headers?
+// or maybe to unordered lists?
+.tags {
+	$spacing: .75em;
+
+	padding-left: 0;
+	margin-left: -$spacing;
+	margin-right: -$spacing;
+
+	li {
+		display: inline-block;
+		margin: 0 $spacing;
+	}
+
+	header & {
+		margin-top: 0;
+	}
+}
+
+.listing, %listing {
+	@extend %max-width;
+
+	@media (min-width: $layout-2-col) {
+		max-width: none; // override styles from %max-width;
+
+		@include columns(25em 2);
+		//@include column-fill(auto);
+		@include column-rule($border-secondary);
+		@include column-gap(4em);
+
+		> * {
+			page-break-inside: avoid;
+			@include break-inside(avoid);
+
+			~ * {
+				margin-top: $spacing-primary;
+			}
+
+			// if there are 2 elements exactly, we need to force a break to guarantee 2 columns
+			&:last-child:nth-child(2) {
+				// blink will choke if this is set to always, presto chokes on column
+				//page-break-inside: column;
+				//@include break-before(column);
+				//margin-top: 0;
+			}
+		}
+	}
+
+	> *:only-child {
+		@extend %max-width;
+		@include column-span(all);
+	}
+
+	img {
+		display: block;
+		margin: 1em auto;
+
+		&:first-child {
+			margin-top: 0;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+header h1:not(:last-child) {
+	margin-bottom: 0;
+}
+
+.tag_list {
+	text-align: center;
+	position: relative;
+	z-index: 100;
+
+	@include inline-menu {
+		padding: .5em 1em;
+		text-align: left;
+
+		@include drop-menu {
+			border: 1px solid;
+		}
+	}
+}

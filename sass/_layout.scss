@@ -1,7 +1,5 @@
 @import "cimma/misc/decorations";
 
-$max-width: 70em;
-
 a {
 	&:active, &:visited, &:link {
 		color: $pink-dark;
@@ -13,7 +11,7 @@ body {
 	color: $neutral-dark;
 	margin: 0 auto;
 	padding: 0;
-	max-width: $max-width;
+	max-width: $absolute-max-width;
 	overflow-x: hidden;
 }
 
@@ -102,33 +100,13 @@ body > footer {
 main {
 	margin: 0 auto 1em;
 	padding: 0 $spacing-primary;
-	max-width: $max-width;
+	max-width: $absolute-max-width;
 	position: relative;
 	z-index: 100;
 
 	@media (max-width: $layout-2-col) {
 		@include max-width;
 	}
-}
-
-%max-width {
-	max-width: 30em;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-
-
-%full-width {
-	margin-right: -50%;
-	margin-right: -50vw;
-	margin-left: -50%;
-	margin-left: -50vw;
-
-	padding-right: 50%;
-	padding-right: 50vw;
-	padding-left: 50%;
-	padding-left: 50vw;
 }
 
 %main-header {

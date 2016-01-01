@@ -3,30 +3,11 @@
 .project {
 	padding-bottom: $spacing-primary / 2; // padding instead of margin to deal with margin-collapse
 
-	header {
-		h1 {
-			margin-bottom: 0;
-		}
-	}
-
 	> h1 {
-		@extend %main-header;
-	}
-
-	&:not(:first-child) > h1 {
 		@extend %ruled-header;
-	}
 
-	> h1 {
 		+ section {
 			margin-top: 0;
-		}
-	}
-
-	.listing {
-		section:only-child {
-			@extend %max-width;
-			@include column-span(all);
 		}
 	}
 
