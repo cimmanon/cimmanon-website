@@ -1,0 +1,3 @@
+This is the source code to my personal website (still a work in progress).  Last time I started rewriting/redesigning my website, I had a hard drive failure before I could finish and lost everything.  I didn't think that what I had written so far was at a point where I wanted anyone to see it, so I kept it entirely local.  Lesson learned.
+
+This web application is intended to replace my portfolio's hand-coded markup that's been limping along since 2002.  It's not just for web designs, it can accomodate coding or any other type of project I might want to do.  There is going to be an archiving feature for web designs so that viewers can see the real thing, rather than just tiny screenshots.
