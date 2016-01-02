@@ -15,6 +15,11 @@
 		text-align: center;
 		margin-top: $spacing-primary;
 	}
+
+	// probably a bit more specific than we need it to be, but this will do for now
+	.listing ~ p {
+		text-align: center;
+	}
 }
 
 

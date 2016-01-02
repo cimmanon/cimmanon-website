@@ -1,5 +1,8 @@
 @import "compass/css3/columns";
 @import "compass/css3/box-shadow";
+@import "compass/css3/text-shadow";
+@import "compass/css3/images";
+@import "cimma/widgets/buttons";
 
 //***************************************************************************************************\
 //                                                                    | Extend-only selectors
@@ -93,10 +96,38 @@
 	}
 }
 
-header h1:not(:last-child) {
-	margin-bottom: 0;
-}
-
 .tag_list {
 	@include columns(9em);
+}
+
+.year_list {
+	text-align: center;
+	margin: 1em -.75em;
+
+	li {
+		display: inline-block;
+		margin: .75em;
+	}
+}
+
+//***************************************************************************************************\
+//                                                                    | Fake Buttons
+//***************************************************************************************************/
+
+%button {
+	@include border-radius(.5em);
+	padding: .5em;
+	display: inline-block;
+	margin: 0 auto;
+	text-decoration: none;
+
+	@include button(simple, $neutral-medium) {
+		@include button-text($neutral-dark);
+		@include button-states;
+	}
+}
+
+// extra specificity, otherwise the link state colors will override the text color
+a.more {
+	@extend %button;
 }
