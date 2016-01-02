@@ -25,26 +25,25 @@ body {
 	height: 100%;
 }
 
+//***************************************************************************************************\
+//                                                                    | Header
+//***************************************************************************************************/
+
 body > header {
 	$width: 8em;
 
-	background: $green-light url('../images/floral-swirls.svg') center bottom / auto $floral-swirl-max-height no-repeat;
+	background: $green-light;
 
 	@extend %full-width;
-	padding: 1em $spacing-primary;
-
-	//border-bottom: 1px solid $green-dark;
-	//@include inset(2px, $padding: null) {
-	//	border-bottom: 2px dotted $green-dark;
-	//	z-index: 1;
-	//}
+	padding: 1em $spacing-primary 0;
 
 	h1 {
 		background: url('../images/cimmanon.svg') 0 0 / cover no-repeat;
-		width: $width;
-		height: $width * $logo-aspect-ratio;
 		text-indent: -100em;
 		margin: 0 auto;
+
+		width: $width * .6;
+		height: $width * $logo-aspect-ratio * .6;
 
 		a {
 			display: block;
@@ -53,65 +52,29 @@ body > header {
 		}
 	}
 
-	nav {
+	&:after {
+		display: block;
+		content: '';
+		height: $floral-swirl-max-height * .8;
+		background: url('../images/floral-swirls.svg') center bottom / contain no-repeat;
 		margin-top: 1em;
 	}
 
-	ul {
-		text-align: center;
-		li {
-			display: inline-block;
-
-		}
-	}
-
-	@media (max-width: 36em) {
-		nav {
-			margin-bottom: $floral-swirl-max-height;
-		}
-	}
-
-	@media (min-width: 36em) {
-		nav {
-			margin-top: $spacing-primary;
+	@media (min-width: $layout-2-col) {
+		h1 {
+			width: $width;
+			height: $width * $logo-aspect-ratio;
 		}
 
-		li {
-			// TODO: fix magic numbers here
-			$doodad-width: $floral-swirl-width / $floral-swirl-height * $floral-swirl-max-height / 2;
-			min-width: 8em;
-
-			&:first-child {
-				margin-right: $doodad-width;
-			}
-
-			&:last-child {
-				margin-left: $doodad-width;
-			}
+		&:after {
+			height: $floral-swirl-max-height;
 		}
 	}
 }
 
-body > footer {
-	margin-top: $spacing-primary;
-	background: $green-light;
-	border-top: 1px solid $green-dark;
-	padding-top: $spacing-primary;
-	padding-bottom: $spacing-primary;
-	@extend %full-width;
-
-	position: relative;
-
-	@include inset(2px, $padding: null) {
-		border-top: 2px dotted $green-dark;
-	}
-
-	// TODO: figure out a more permanent solution for this
-	// needed so that the contents line up with the rest of the document
-	> * {
-		margin-left: $spacing-primary;
-	}
-}
+//***************************************************************************************************\
+//                                                                    | Main
+//***************************************************************************************************/
 
 main {
 	margin: 0 auto 1em;
@@ -137,6 +100,35 @@ main {
 	}
 }
 
+//***************************************************************************************************\
+//                                                                    | Footer
+//***************************************************************************************************/
+
+body > footer {
+	margin-top: $spacing-primary;
+	background: $green-light;
+	border-top: 1px solid $green-dark;
+	padding-top: $spacing-primary;
+	padding-bottom: $spacing-primary;
+	@extend %full-width;
+
+	position: relative;
+
+	@include inset(2px, $padding: null) {
+		border-top: 2px dotted $green-dark;
+	}
+
+	// TODO: figure out a more permanent solution for this
+	// needed so that the contents line up with the rest of the document
+	> * {
+		margin-left: $spacing-primary;
+	}
+}
+
+//***************************************************************************************************\
+//                                                                    | Major Headlines
+//***************************************************************************************************/
+
 %main-header {
 	background: $neutral-medium;
 	border-top: 1px solid $green-dark;
@@ -156,25 +148,26 @@ main {
 
 %ruled-header {
 	@extend %main-header;
-	// alternate method of positioning the swirls, allows them to be resized easier
 	$floral-swirl-max-height: 2em;
 
-	//margin-top: $floral-swirl-max-height + 2rem;
-	margin-top: $floral-swirl-max-height + ($spacing-primary / 2);
+	margin-top: $floral-swirl-max-height * .8 + ($spacing-primary / 2);
 
 	&:before {
 		content: '';
-		height: $floral-swirl-max-height;
+		height: $floral-swirl-max-height * .8;
+		margin-top: -$floral-swirl-max-height * .8;
 		background: url('../images/floral-swirls.svg') center bottom / contain no-repeat;
-		/*
-		position: absolute;
-		top: -$floral-swirl-max-height;
-		left: 0;
-		right: 0;
-		*/
-		margin-top: -$floral-swirl-max-height;
 		transform: translateY(-2px);
 		display: block;
+	}
+
+	@media (min-width: $layout-2-col) {
+		margin-top: $floral-swirl-max-height + ($spacing-primary / 2);
+
+		&:before {
+			margin-top: -$floral-swirl-max-height;
+			height: $floral-swirl-max-height;
+		}
 	}
 }
 
@@ -184,16 +177,4 @@ main > h1 {
 	&:not(:first-child) {
 		@extend %ruled-header;
 	}
-}
-
-h1.main-header {
-	@extend %main-header;
-	@extend %ruled-header;
-}
-
-blockquote {
-	@extend %max-width;
-	font-family: $baskerville;
-	font-style: italic;
-	text-align: center;
 }
