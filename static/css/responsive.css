@@ -214,7 +214,7 @@ form.simplified > label, form .simplified > label, form.simplified label select,
   display: block;
 }
 
-.listing, .listing > *:only-child, blockquote {
+.listing > *:only-child, blockquote {
   max-width: 30em;
   margin-left: auto;
   margin-right: auto;
@@ -254,7 +254,6 @@ header .tags {
 
 @media (min-width: 60em) {
   .listing {
-    max-width: none;
     -moz-columns: 25em 2;
     -webkit-columns: 25em 2;
     columns: 25em 2;
@@ -279,6 +278,9 @@ header .tags {
   -moz-column-span: all;
   -webkit-column-span: all;
   column-span: all;
+}
+.listing p {
+  white-space: pre-wrap;
 }
 .listing img {
   display: block;
@@ -320,15 +322,20 @@ body {
   color: #534741;
   margin: 0 auto;
   padding: 0;
-  max-width: 70em;
   overflow-x: hidden;
+  max-width: 30em;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
+}
+@media (min-width: 60em) {
+  body {
+    max-width: 70em;
+  }
 }
 
 body > header {
@@ -367,7 +374,6 @@ body > header:after {
 main {
   margin: 0 auto 1em;
   padding: 0 2em;
-  max-width: 70em;
   position: relative;
   z-index: 100;
   -ms-flex: 1 1 auto;
@@ -380,13 +386,6 @@ main {
     margin-right: 0;
   }
 }
-@media (max-width: 60em) {
-  main {
-    max-width: 32em;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
 
 body > footer {
   margin-top: 2em;
@@ -394,7 +393,6 @@ body > footer {
   border-top: 1px solid #007259;
   padding-top: 2em;
   padding-bottom: 2em;
-  position: relative;
   position: relative;
   z-index: 1;
 }

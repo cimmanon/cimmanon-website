@@ -16,13 +16,17 @@ body {
 	color: $neutral-dark;
 	margin: 0 auto;
 	padding: 0;
-	max-width: $absolute-max-width;
 	overflow-x: hidden;
+	max-width: $max-width;
 
 	// for sticky footer
 	@include display-flex;
 	@include flex-direction(column);
-	height: 100%;
+	min-height: 100%; // ie11 horribly mispositions the footer if i use `height` instead
+
+	@media (min-width: $layout-2-col) {
+		max-width: $absolute-max-width;
+	}
 }
 
 //***************************************************************************************************\
@@ -79,13 +83,12 @@ body > header {
 main {
 	margin: 0 auto 1em;
 	padding: 0 $spacing-primary;
-	max-width: $absolute-max-width;
+	//max-width: $absolute-max-width;
 	position: relative;
 	z-index: 100;
 
 	// for sticky footer
 	@include flex(1 1 auto);
-	// TODO: figure out why IE11 makes this be taller than it should be (see bottom of the page)
 
 	@supports (display: flex) {
 		// this is a fix for Presto and Mozilla
@@ -96,7 +99,7 @@ main {
 	}
 
 	@media (max-width: $layout-2-col) {
-		@include max-width;
+		//@include max-width; // not necessary due to max-width on body element instead
 	}
 }
 
@@ -114,7 +117,7 @@ body > footer {
 
 	position: relative;
 
-	@include inset(2px, $padding: null) {
+	@include inset(2px, $padding: null, $position: null) {
 		border-top: 2px dotted $green-dark;
 	}
 

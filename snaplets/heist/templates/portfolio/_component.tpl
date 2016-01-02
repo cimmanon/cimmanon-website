@@ -8,4 +8,4 @@
 	</ul>
 </header>
 
-<p style="white-space: pre-wrap"><description /></p>
+<p><description /></p>

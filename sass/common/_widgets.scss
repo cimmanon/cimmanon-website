@@ -46,11 +46,7 @@ img {
 }
 
 .listing, %listing {
-	@extend %max-width;
-
 	@media (min-width: $layout-2-col) {
-		max-width: none; // override styles from %max-width;
-
 		@include columns(25em 2);
 		//@include column-fill(auto);
 		@include column-rule($border-secondary);
@@ -77,6 +73,10 @@ img {
 	> *:only-child {
 		@extend %max-width;
 		@include column-span(all);
+	}
+
+	p {
+		white-space: pre-wrap;
 	}
 
 	img {
