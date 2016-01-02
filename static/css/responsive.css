@@ -214,7 +214,7 @@ form.simplified > label, form .simplified > label, form.simplified label select,
   display: block;
 }
 
-.listing > *:only-child, blockquote {
+blockquote, .listing > *:only-child {
   max-width: 30em;
   margin-left: auto;
   margin-right: auto;
@@ -237,6 +237,12 @@ img {
   box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
   max-width: 100%;
   height: auto;
+}
+
+blockquote {
+  font-family: Baskerville, "Baskerville old face", "Hoefler Text", Garamond, "Times New Roman", serif;
+  font-style: italic;
+  text-align: center;
 }
 
 .tags {
@@ -301,12 +307,6 @@ header h1:not(:last-child) {
   -moz-columns: 9em;
   -webkit-columns: 9em;
   columns: 9em;
-}
-
-blockquote {
-  font-family: Baskerville, "Baskerville old face", "Hoefler Text", Garamond, "Times New Roman", serif;
-  font-style: italic;
-  text-align: center;
 }
 
 a:active, a:visited, a:link {

@@ -1,6 +1,10 @@
 @import "compass/css3/columns";
 @import "compass/css3/box-shadow";
 
+//***************************************************************************************************\
+//                                                                    | Extend-only selectors
+//***************************************************************************************************/
+
 %max-width {
 	max-width: $max-width;
 	margin-left: auto;
@@ -19,12 +23,28 @@
 	padding-left: 50vw;
 }
 
+//***************************************************************************************************\
+//                                                                    | Simple Elements
+//***************************************************************************************************/
+
 // force all images to be responsive
 img {
 	@include box-shadow(0 0 .5em 0 rgba(#666, .5));
 	max-width: 100%;
 	height: auto;
 }
+
+
+blockquote {
+	@extend %max-width;
+	font-family: $baskerville;
+	font-style: italic;
+	text-align: center;
+}
+
+//***************************************************************************************************\
+//                                                                    | Repeated Elements
+//***************************************************************************************************/
 
 // should this be restricted to only within headers?
 // or maybe to unordered lists?
@@ -98,11 +118,4 @@ header h1:not(:last-child) {
 
 .tag_list {
 	@include columns(9em);
-}
-
-blockquote {
-	@extend %max-width;
-	font-family: $baskerville;
-	font-style: italic;
-	text-align: center;
 }
