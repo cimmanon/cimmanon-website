@@ -1,11 +1,5 @@
 @import "cimma/misc/decorations";
 
-a {
-	&:active, &:visited, &:link {
-		color: $pink-dark;
-	}
-}
-
 html {
 	// for sticky footer
 	height: 100%;

@@ -1,0 +1,23 @@
+a {
+	&:active, &:visited, &:link {
+		color: $pink-dark;
+	}
+}
+
+img {
+	@include box-shadow(0 0 .5em 0 rgba(#666, .5));
+	max-width: 100%;
+	height: auto;
+}
+
+
+blockquote {
+	@extend %max-width;
+	font-family: $baskerville;
+	font-style: italic;
+	text-align: center;
+}
+
+header h1:not(:last-child) {
+	margin-bottom: 0;
+}

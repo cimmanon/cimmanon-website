@@ -214,6 +214,28 @@ form.simplified > label, form .simplified > label, form.simplified label select,
   display: block;
 }
 
+a:active, a:visited, a:link {
+  color: #c9007a;
+}
+
+img {
+  -moz-box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
+  -webkit-box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
+  box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
+  max-width: 100%;
+  height: auto;
+}
+
+blockquote {
+  font-family: Baskerville, "Baskerville old face", "Hoefler Text", Garamond, "Times New Roman", serif;
+  font-style: italic;
+  text-align: center;
+}
+
+header h1:not(:last-child) {
+  margin-bottom: 0;
+}
+
 blockquote, .listing > *:only-child {
   max-width: 30em;
   margin-left: auto;
@@ -229,20 +251,6 @@ body > header, body > footer, main > h1:not(:first-child), .project > h1, main >
   padding-right: 50vw;
   padding-left: 50%;
   padding-left: 50vw;
-}
-
-img {
-  -moz-box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
-  -webkit-box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
-  box-shadow: 0 0 0.5em 0 rgba(102, 102, 102, 0.5);
-  max-width: 100%;
-  height: auto;
-}
-
-blockquote {
-  font-family: Baskerville, "Baskerville old face", "Hoefler Text", Garamond, "Times New Roman", serif;
-  font-style: italic;
-  text-align: center;
 }
 
 .tags {
