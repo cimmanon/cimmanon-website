@@ -113,12 +113,12 @@ listByH handler xs =
 tagsH :: AppHandler ()
 tagsH = do
 	tags <- Tag.list
-	renderWithSplices "portfolio/tags" $ "category" ## listToSplice tagCategorySplices tags
+	renderWithSplices "portfolio/by_tag" $ "category" ## listToSplice tagCategorySplices tags
 
 yearH :: AppHandler ()
 yearH = do
 	years <- Project.years
-	renderWithSplices "portfolio/year" $ "year" ## listToSplice (\x -> "name" ## numericSplice x) years
+	renderWithSplices "portfolio/by_year" $ "year" ## listToSplice (\x -> "name" ## numericSplice x) years
 
 componentH :: AppHandler ()
 componentH = render "/portfolio/by_component"
