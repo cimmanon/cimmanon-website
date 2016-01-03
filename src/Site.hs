@@ -46,6 +46,8 @@ routes =
 	, ("/projects/tags/", ifTop $ listByH tagsH [])
 	, ("/projects/year/:year", ifTop $ intParam "year" >>= maybe pass (listByH yearH <=< Project.listByYear))
 	, ("/projects/year/", ifTop $ listByH yearH [])
+	, ("/projects/component/:component", ifTop $ textParam "component" >>= maybe pass (listByH componentH <=< Project.listByComponent))
+	, ("/projects/component/", ifTop $ listByH componentH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
 	, ("", heistServe) -- serve up static templates from your templates directory
 	, ("", serveDirectory "static")
@@ -117,6 +119,9 @@ yearH :: AppHandler ()
 yearH = do
 	years <- Project.years
 	renderWithSplices "portfolio/year" $ "year" ## listToSplice (\x -> "name" ## numericSplice x) years
+
+componentH :: AppHandler ()
+componentH = render "/portfolio/by_component"
 
 projectH :: Project.Project -> AppHandler ()
 projectH p = do

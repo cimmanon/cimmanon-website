@@ -5,6 +5,7 @@ module Model.Project
 	, list
 	, listByTag
 	, listByYear
+	, listByComponent
 	, get
 	, years
 	) where
@@ -58,6 +59,9 @@ listByTag x = join1of3 <$> query [sqlFile|sql/portfolio/by_tag.sql|] (Only x)
 
 listByYear :: (HasPostgres m, Functor m) => Int -> m [(Project, [(C.Component, Maybe I.Image)])]
 listByYear x = join1of3 <$> query [sqlFile|sql/portfolio/by_year.sql|] (Only x)
+
+listByComponent :: (HasPostgres m, Functor m) => Text -> m [(Project, [(C.Component, Maybe I.Image)])]
+listByComponent x = join1of3 <$> query [sqlFile|sql/portfolio/by_component.sql|] (Only x)
 
 get :: (HasPostgres m, Functor m) => Text -> m (Maybe Project)
 get s = listToMaybe <$> query "SELECT project, description, slug, url, public FROM portfolio.projects WHERE slug = ?" (Only s)
