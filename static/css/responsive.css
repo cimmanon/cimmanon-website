@@ -395,7 +395,7 @@ body > header h1 {
   text-indent: -100em;
   margin: 0 auto;
   width: 4.8em;
-  height: 1.32324em;
+  height: 1.33125em;
 }
 body > header h1 a {
   display: block;
@@ -412,7 +412,7 @@ body > header:after {
 @media (min-width: 60em) {
   body > header h1 {
     width: 8em;
-    height: 2.20541em;
+    height: 2.21875em;
   }
   body > header:after {
     height: 3rem;
