@@ -17,6 +17,7 @@ FROM
 	portfolio.projects
 	JOIN (
 		SELECT
+			MAX(date_added) OVER (PARTITION BY project) AS last_update,
 			project,
 			component,
 			description,
@@ -33,5 +34,6 @@ FROM
 			date_added) AS components USING (project)
 	LEFT JOIN portfolio.project_images USING (project, component, date_added)
 ORDER BY
+	last_update DESC,
 	project,
 	date_added DESC
