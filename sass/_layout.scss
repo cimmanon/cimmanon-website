@@ -16,7 +16,7 @@ body {
 	// for sticky footer
 	@include display-flex;
 	@include flex-direction(column);
-	min-height: 100%; // ie11 horribly mispositions the footer if i use `height` instead
+	height: 100%;
 
 	@media (min-width: $layout-2-col) {
 		max-width: $absolute-max-width;
@@ -82,7 +82,8 @@ main {
 	z-index: 100;
 
 	// for sticky footer
-	@include flex(1 1 auto);
+	// flex-shrink must be 0, otherwise IE11 will horribly misposition the footer on really long pages
+	@include flex(1 0 auto);
 
 	@supports (display: flex) {
 		// this is a fix for Presto and Mozilla

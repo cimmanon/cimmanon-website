@@ -378,7 +378,7 @@ body {
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   flex-direction: column;
-  min-height: 100%;
+  height: 100%;
 }
 @media (min-width: 60em) {
   body {
@@ -424,9 +424,9 @@ main {
   padding: 0 2em;
   position: relative;
   z-index: 100;
-  -ms-flex: 1 1 auto;
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
+  -ms-flex: 1 0 auto;
+  -webkit-flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 @supports (display: flex) {
   main {
