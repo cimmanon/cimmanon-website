@@ -48,6 +48,7 @@ VALUES
 	('Development', 'Language', 'pike'),
 	('Development', 'Language', 'javascript'),
 	('Development', 'Language', 'sass'),
+	('Development', 'Language', 'visual-basic'),
 	('Development', 'Application Type', 'cli'),
 	('Development', 'Application Type', 'gui'),
 	('Development', 'Application Type', 'web'),
