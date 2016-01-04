@@ -17,9 +17,17 @@
 	}
 
 	// probably a bit more specific than we need it to be, but this will do for now
-	.listing ~ p {
+	.listing + p {
 		text-align: center;
 	}
 }
 
-
+p.summary {
+	&:after {
+		content: '';
+		display: block;
+		border-top: $border-secondary;
+		margin: 1.5em auto;
+		width: 50%;
+	}
+}

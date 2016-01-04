@@ -10,6 +10,9 @@ img {
 	height: auto;
 }
 
+p {
+	@extend %max-width;
+}
 
 blockquote {
 	@extend %max-width;

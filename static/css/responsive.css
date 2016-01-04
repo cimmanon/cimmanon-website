@@ -236,7 +236,7 @@ header h1:not(:last-child) {
   margin-bottom: 0;
 }
 
-blockquote, .listing > *:only-child {
+p, blockquote, .listing > *:only-child {
   max-width: 30em;
   margin-left: auto;
   margin-right: auto;
@@ -514,6 +514,14 @@ main > h1:not(:first-child):before, .project > h1:before {
   text-align: center;
   margin-top: 2em;
 }
-.project .listing ~ p {
+.project .listing + p {
   text-align: center;
+}
+
+p.summary:after {
+  content: '';
+  display: block;
+  border-top: 2px dotted #EBE5DA;
+  margin: 1.5em auto;
+  width: 50%;
 }
