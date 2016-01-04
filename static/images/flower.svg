@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="38.686279mm"
-   height="19.453783mm"
-   viewBox="0 0 137.07736 68.930727"
+   width="140.00002"
+   height="70.311142"
+   viewBox="0 0 140.00001 70.311141"
    id="svg4198"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -26,11 +26,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="90.489495"
-     inkscape:cy="50.34404"
+     inkscape:zoom="5.6568543"
+     inkscape:cx="53.181598"
+     inkscape:cy="31.537919"
      inkscape:document-units="px"
-     inkscape:current-layer="front-petals"
+     inkscape:current-layer="svg4198"
      showgrid="true"
      inkscape:window-width="1920"
      inkscape:window-height="1018"
@@ -42,24 +42,17 @@
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0">
+     fit-margin-bottom="0"
+     units="px">
     <sodipodi:guide
-       position="86.601306,0.0033226274"
-       orientation="0,1"
-       id="guide4160" />
-    <sodipodi:guide
-       position="68.601306,72.003303"
+       position="70.000008,0.0033239432"
        orientation="1,0"
        id="guide4162" />
-    <sodipodi:guide
-       position="79.601306,69.003303"
-       orientation="0,1"
-       id="guide4164" />
     <inkscape:grid
        type="xygrid"
        id="grid4170"
-       originx="-161.39869"
-       originy="-983.9967" />
+       originx="-159.99978"
+       originy="-983.99666" />
   </sodipodi:namedview>
   <metadata
      id="metadata4203">
@@ -84,7 +77,7 @@
        style="display:inline">
       <path
          style="fill:#f194be;fill-opacity:0.66666667;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="m 68.615539,68.929082 c 3.91071,-7.982147 13.91071,-43.910718 11.875,-54.999998 C 78.623679,3.7595889 73.526249,-0.05306433 68.526249,5.5776036e-4 63.526249,0.05417996 58.949089,3.6306069 56.829819,13.750513 c -2.30357,10.999993 7.69643,47.196422 11.78572,55.178569 z"
+         d="M 70.000066,70.311142 C 73.989188,62.168948 84.189693,25.519994 82.113164,14.208369 80.208873,3.8349727 75.009238,-0.05412596 69.908986,5.7123777e-4 64.808733,0.05526824 60.139799,3.7034045 57.978037,14.026219 55.628279,25.246766 65.828784,62.168948 70.000066,70.311142 Z"
          id="center-petal"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="csssc" />
@@ -103,28 +96,28 @@
            sodipodi:nodetypes="csc"
            inkscape:connector-curvature="0"
            id="back-petal2"
-           d="M 68.612299,68.929038 C 48.483369,55.080009 16.122089,7.6762678 37.173739,6.2183024 62.949779,4.4329728 66.515399,58.933025 68.612299,68.929038 Z"
+           d="M 69.999992,70.311142 C 49.465978,56.183408 16.453448,7.82569 37.928751,6.3383838 64.223517,4.5171253 67.860894,60.113964 69.999992,70.311142 Z"
            style="fill:#f194be;fill-opacity:0.66666667;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           inkscape:transform-center-x="19.212247"
-           inkscape:transform-center-y="-31.319791" />
+           inkscape:transform-center-x="19.598887"
+           inkscape:transform-center-y="-31.950087" />
         <path
            sodipodi:nodetypes="csc"
            inkscape:connector-curvature="0"
            id="back-petal1"
-           d="M 68.611859,68.922616 C 44.434909,63.395139 -6.6577315,28.329376 10.697799,19.797612 31.548989,9.5474283 57.222469,54.095769 68.611859,68.922616 Z"
+           d="M 69.999992,70.311142 C 45.336493,64.672427 -6.7843577,28.900983 10.920444,20.197521 32.191254,9.7410577 58.381397,55.185912 69.999992,70.311142 Z"
            style="fill:#f194be;fill-opacity:0.66666667;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           inkscape:transform-center-x="30.685113"
-           inkscape:transform-center-y="-25.355267" />
+           inkscape:transform-center-x="31.302637"
+           inkscape:transform-center-y="-25.865529" />
       </g>
       <use
          x="0"
          y="0"
          inkscape:tiled-clone-of="left-front-petals"
          xlink:href="#left-back-petals"
-         transform="matrix(-1,0,0,1,137.21774,0.00169011)"
          id="right-back-petals"
          width="100%"
-         height="100%" />
+         height="100%"
+         transform="matrix(-1,0,0,1,140,0)" />
     </g>
     <g
        inkscape:groupmode="layer"
@@ -146,13 +139,13 @@
            sodipodi:nodetypes="csc"
            inkscape:connector-curvature="0"
            id="front-petal1"
-           d="M 68.608884,68.930728 C 28.530964,62.927405 -14.309106,41.172971 4.5956135,31.318798 24.530964,20.927405 60.530964,59.927405 68.608884,68.930728 Z"
+           d="M 69.999992,70.311142 C 29.115519,64.187005 -14.586688,41.994774 4.6984805,31.94229 25.03502,21.341776 61.759508,61.126632 69.999992,70.311142 Z"
            style="fill:#eb65a1;fill-opacity:0.66666667;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
         <path
            sodipodi:nodetypes="ccc"
            inkscape:connector-curvature="0"
            id="front-petal2"
-           d="m 68.609723,68.930728 c -21.73103,-10.65103 -50.80481,-50.26559 -27.98056,-48.21522 22.82414,2.05098 27.18411,41.065619 27.98056,48.21522 z"
+           d="M 69.999992,70.311142 C 47.831637,59.445765 18.172754,19.033982 41.456334,21.125614 c 23.283468,2.092255 27.73118,41.892045 28.543658,49.185528 z"
            style="fill:#eb65a2;fill-opacity:0.66666667;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       </g>
       <use
@@ -160,10 +153,10 @@
          y="0"
          inkscape:tiled-clone-of="#left-front-petals"
          xlink:href="#left-front-petals"
-         transform="matrix(-0.99985561,0,0,1,137.20832,1.0744066e-7)"
          id="right-front-petals"
          width="100%"
-         height="100%" />
+         height="100%"
+         transform="matrix(-1,0,0,1,140,0)" />
     </g>
   </g>
 </svg>
