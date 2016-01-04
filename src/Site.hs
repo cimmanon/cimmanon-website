@@ -12,6 +12,7 @@ module Site
 import Control.Applicative
 import Control.Lens ((&), (.~))
 import Data.ByteString (ByteString)
+import qualified Data.ByteString as B
 import Data.Monoid
 import qualified Data.Text as T
 import Snap.Core
@@ -30,6 +31,7 @@ import Snap.Handlers
 import Heist.Splices.Common
 
 import Control.Monad
+import Control.Monad.IO.Class (liftIO) -- just for debugging
 import Data.Maybe (isJust, fromJust, mapMaybe)
 
 import qualified Model.Component as Component
@@ -49,6 +51,8 @@ routes =
 	, ("/projects/component/:component", ifTop $ textParam "component" >>= maybe pass (listByH componentH <=< Project.listByComponent))
 	, ("/projects/component/", ifTop $ listByH componentH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
+	, ("/archives/", archiveServe)
+	, ("/archives/", serveDirectory "archives")
 	, ("", heistServe) -- serve up static templates from your templates directory
 	, ("", serveDirectory "static")
 	]
@@ -66,6 +70,7 @@ app = makeSnaplet "app" "An snaplet example application." Nothing $ do
 	d <- nestSnaplet "db" db pgsInit
 
 	addRoutes routes
+	addTemplatesAt h "archives" "archives" -- for archiveServe
 
 	wrapSite (<|> notFound)
 
@@ -134,3 +139,15 @@ projectH p = do
 			componentSplices c
 			"image" ## listToSplice imageSplices xs
 	renderWithSplices "portfolio/project" splices
+
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Web Archives
+}----------------------------------------------------------------------------------------------------}
+
+archiveServe :: AppHandler ()
+archiveServe = do
+	url <- withRequest (return . rqPathInfo)
+	let
+		splices = mempty
+		template = "archives/" <> url <> (if "/" `B.isSuffixOf` url then "index" else "")
+	renderWithSplices template splices
