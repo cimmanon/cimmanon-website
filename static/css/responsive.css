@@ -236,7 +236,7 @@ header h1:not(:last-child) {
   margin-bottom: 0;
 }
 
-p, blockquote, .listing > *:only-child {
+blockquote, .listing > *:only-child, .details {
   max-width: 30em;
   margin-left: auto;
   margin-right: auto;
@@ -305,7 +305,6 @@ header .tags {
 }
 .listing p {
   white-space: pre-wrap;
-  max-width: none;
 }
 .listing img {
   display: block;
@@ -529,7 +528,14 @@ main > h1:not(:first-child):before, .project > h1:before {
   text-align: center;
 }
 
-p.summary:after {
+.details {
+  text-align: center;
+  margin-top: 2em;
+}
+.details p {
+  text-align: left;
+}
+.details:after {
   content: '';
   display: block;
   margin: 1.5em auto;

@@ -22,7 +22,15 @@
 	}
 }
 
-p.summary {
+.details {
+	@extend %max-width;
+	text-align: center;
+	margin-top: $spacing-primary;
+
+	p {
+		text-align: left;
+	}
+
 	&:after {
 		content: '';
 		display: block;
