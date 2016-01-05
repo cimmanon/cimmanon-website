@@ -11,6 +11,7 @@ img {
 }
 
 p {
+	// TODO: make this only apply to specific elements, check _widgets.scss for more details
 	@extend %max-width;
 }
 

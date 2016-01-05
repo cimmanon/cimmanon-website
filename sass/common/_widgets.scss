@@ -86,6 +86,7 @@
 
 	p {
 		white-space: pre-wrap;
+		max-width: none; // corrects max-width set from _elements.scss
 	}
 
 	img {

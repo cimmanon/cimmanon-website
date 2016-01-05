@@ -305,6 +305,7 @@ header .tags {
 }
 .listing p {
   white-space: pre-wrap;
+  max-width: none;
 }
 .listing img {
   display: block;
