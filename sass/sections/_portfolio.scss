@@ -26,8 +26,10 @@ p.summary {
 	&:after {
 		content: '';
 		display: block;
-		border-top: $border-secondary;
+		//border-top: $border-secondary;
 		margin: 1.5em auto;
-		width: 50%;
+		//width: 50%;
+		background: url(../images/minor-divider.svg) center bottom / contain no-repeat;
+		height: 1.25em;
 	}
 }

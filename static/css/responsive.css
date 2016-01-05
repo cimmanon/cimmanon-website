@@ -531,7 +531,7 @@ main > h1:not(:first-child):before, .project > h1:before {
 p.summary:after {
   content: '';
   display: block;
-  border-top: 2px dotted #EBE5DA;
   margin: 1.5em auto;
-  width: 50%;
+  background: url(../images/minor-divider.svg) center bottom/contain no-repeat;
+  height: 1.25em;
 }
