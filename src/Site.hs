@@ -149,5 +149,5 @@ archiveServe = do
 	url <- withRequest (return . rqPathInfo)
 	let
 		splices = mempty
-		template = "archives/" <> url <> (if "/" `B.isSuffixOf` url then "index" else "")
-	renderWithSplices template splices
+		template = "archives/" <> url
+	renderWithSplices template splices <|> renderWithSplices (template <> "index") splices
