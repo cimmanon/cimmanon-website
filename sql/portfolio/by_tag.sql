@@ -8,6 +8,7 @@ SELECT
 	component,
 	components.description,
 	date_added,
+	archived,
 	tags,
 
 	filename,
@@ -22,6 +23,7 @@ FROM
 			component,
 			description,
 			date_added,
+			archived,
 			array_agg(tag :: TEXT) AS tags
 		FROM
 			portfolio.project_components

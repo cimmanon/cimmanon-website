@@ -48,6 +48,7 @@ CREATE TABLE project_components (
 	date_added DATE NOT NULL DEFAULT NOW(),
 	description TEXT NOT NULL,
 	public BOOL NOT NULL default true,
+	archived BOOL NOT NULL DEFAULT false,
 
 	PRIMARY KEY (project, component, date_added),
 	FOREIGN KEY (project) REFERENCES projects (project) ON UPDATE CASCADE,
