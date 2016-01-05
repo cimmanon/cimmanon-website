@@ -37,7 +37,7 @@ FROM
 WHERE
 	projects.public = true
 	AND projects.featured = true
-	AND (components.featured = true OR components.featured IS NULL)
+	AND (project_images.featured = true OR project_images.featured IS NULL)
 ORDER BY
 	last_update DESC,
 	component
