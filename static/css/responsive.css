@@ -287,6 +287,16 @@ header .tags {
   .listing > * ~ * {
     margin-top: 2em;
   }
+  .listing > *:first-child:nth-last-child(2) {
+    margin-bottom: 0;
+  }
+  .listing > *:last-child:nth-child(2) {
+    page-break-inside: column;
+    -moz-page-break-before: column;
+    -webkit-column-break-before: column;
+    break-before: column;
+    margin-top: 0;
+  }
 }
 .listing > *:only-child {
   -moz-column-span: all;

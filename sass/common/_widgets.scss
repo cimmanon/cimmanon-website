@@ -65,11 +65,16 @@
 			}
 
 			// if there are 2 elements exactly, we need to force a break to guarantee 2 columns
+			&:first-child:nth-last-child(2) {
+				margin-bottom: 0; // fix for Presto
+				//background: $green-light;
+			}
+
 			&:last-child:nth-child(2) {
-				// blink will choke if this is set to always, presto chokes on column
-				//page-break-inside: column;
-				//@include break-before(column);
-				//margin-top: 0;
+				//background: $pink-light;
+				page-break-inside: column;
+				@include break-before(column);
+				margin-top: 0; // fix for Presto
 			}
 		}
 	}
