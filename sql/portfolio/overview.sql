@@ -36,7 +36,8 @@ FROM
 	LEFT JOIN portfolio.project_images USING (project, component, date_added)
 WHERE
 	projects.public = true
-	AND (featured = true OR featured IS NULL)
+	AND projects.featured = true
+	AND (components.featured = true OR components.featured IS NULL)
 ORDER BY
 	last_update DESC,
 	component

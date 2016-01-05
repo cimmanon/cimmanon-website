@@ -30,6 +30,7 @@ CREATE TABLE projects (
 	slug SLUG NOT NULL,
 	url TEXT,
 	public BOOL NOT NULL DEFAULT true,
+	featured BOOL NOT NULL DEFAULT true,
 
 	PRIMARY KEY (project),
 	UNIQUE (slug)
