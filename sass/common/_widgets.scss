@@ -64,9 +64,14 @@
 				margin-top: $spacing-primary;
 			}
 
+			&:first-child {
+				margin-top: -.5em; // Blink fix: solves box-shadow on images being split across columns
+				padding-top: .5em;
+			}
+
 			// if there are 2 elements exactly, we need to force a break to guarantee 2 columns
 			&:first-child:nth-last-child(2) {
-				margin-bottom: 0; // fix for Presto
+				margin-bottom: 0; // Presto fix: solves margin being split across columns
 				//background: $green-light;
 			}
 
@@ -74,7 +79,7 @@
 				//background: $pink-light;
 				page-break-inside: column;
 				@include break-before(column);
-				margin-top: 0; // fix for Presto
+				margin-top: 0; // Presto fix (see above)
 			}
 		}
 	}

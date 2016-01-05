@@ -287,6 +287,10 @@ header .tags {
   .listing > * ~ * {
     margin-top: 2em;
   }
+  .listing > *:first-child {
+    margin-top: -.5em;
+    padding-top: .5em;
+  }
   .listing > *:first-child:nth-last-child(2) {
     margin-bottom: 0;
   }
