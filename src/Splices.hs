@@ -58,6 +58,7 @@ projectSplices p = do
 	"description" ## textSplice $ Project.description p
 	"slug" ## textSplice $ Project.slug p
 	"url" ## maybeSplice (\x -> runChildrenWith $ "href" ## textSplice x) $ Project.url p
+	"featured" ##  showSplice $ Project.featured p
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Component Splices

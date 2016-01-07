@@ -2,11 +2,15 @@
 
 module Model.Project
 	( Project(..)
+	, projectForm
 	, list
 	, listByTag
 	, listByYear
 	, listByComponent
 	, get
+	, adminList
+	, add
+	, edit
 	, years
 	) where
 
@@ -14,11 +18,12 @@ import Control.Applicative
 import Data.Monoid ((<>))
 import Snap.Snaplet.PostgresqlSimple
 
+import Data.Int (Int64)
 import Data.Maybe (listToMaybe)
 import Data.Text (Text, pack, replace, toLower)
 import Data.Time.Calendar
 import Data.Vector (toList)
---import Text.Digestive
+import Text.Digestive
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 
@@ -45,7 +50,15 @@ instance FromRow Project where
                                                                        | Forms
 }----------------------------------------------------------------------------------------------------}
 
-
+projectForm :: Monad m => Maybe Project -> Form Text m Project
+projectForm p = Project
+	<$> "name" .: notEmpty (text (name <$> p))
+	<*> "description" .: notEmpty (text (description <$> p))
+	<*> "slug" .: notEmpty (text (slug <$> p))
+	<*> "url" .: optionalText (url =<< p)
+	<*> "featured" .: bool (featured <$> p)
+	where
+		notEmpty = check "Cannot be empty" (/= "")
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Queries
@@ -65,6 +78,17 @@ listByComponent x = join1of3 <$> query [sqlFile|sql/portfolio/by_component.sql|]
 
 get :: (HasPostgres m, Functor m) => Text -> m (Maybe Project)
 get s = listToMaybe <$> query "SELECT project, description, slug, url, featured FROM portfolio.projects WHERE slug = ?" (Only s)
+
+----------------------------------------------------------------------
+
+adminList :: (HasPostgres m) => m [Project]
+adminList = query_ "SELECT project, description, slug, url, featured FROM portfolio.projects ORDER BY project"
+
+add :: (HasPostgres m, Functor m) => Project -> m (Either Text Int64)
+add p = toEither' $ execute "INSERT INTO portfolio.projects (project, description, slug, url, featured) VALUES (?, ?, ?, ?, ?)" (name p, description p, slug p, url p, featured p)
+
+edit :: (HasPostgres m, Functor m) => Text -> Project -> m (Either Text Int64)
+edit oldSlug p = toEither' $ execute "UPDATE portfolio.projects SET project = ?, description = ?, slug = ?, url = ?, featured = ? WHERE slug = ?" (name p, description p, slug p, url p, featured p, oldSlug)
 
 ----------------------------------------------------------------------
 

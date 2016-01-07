@@ -27,6 +27,7 @@ import Snap.Snaplet.PostgresqlSimple
 import Application
 import Splices
 
+import Text.Digestive.Heist
 import Snap.Handlers
 import Heist.Splices.Common
 
@@ -51,6 +52,8 @@ routes =
 	, ("/projects/component/:component", ifTop $ textParam "component" >>= maybe pass (listByH componentH <=< Project.listByComponent))
 	, ("/projects/component/", ifTop $ listByH componentH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
+	, ("/projects/admin/", ifTop adminListH)
+	, ("/projects/admin/project/:slug", ifTop $ modelH textParam "slug" Project.get editProjectH)
 	, ("/archives/", archiveServe)
 	, ("/archives/", serveDirectory "archives")
 	, ("", heistServe) -- serve up static templates from your templates directory
@@ -139,6 +142,25 @@ projectH p = do
 			componentSplices c
 			"image" ## listToSplice imageSplices xs
 	renderWithSplices "portfolio/project" splices
+
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Administration
+}----------------------------------------------------------------------------------------------------}
+
+-- view list of projects & add new ones
+adminListH :: AppHandler ()
+adminListH = processForm "form" (Project.projectForm Nothing) Project.add
+	(viewH) (const redirectToSelf)
+	where
+		viewH v = do
+			projects <- Project.adminList
+			renderWithSplices "/portfolio/admin/list" $ do
+				"project" ## listToSplice projectSplices projects
+				digestiveSplices v
+
+editProjectH :: Project.Project -> AppHandler ()
+editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit (Project.slug p))
+	(renderWithSplices "/portfolio/admin/edit" . digestiveSplices) (const redirectToSelf)
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Web Archives
