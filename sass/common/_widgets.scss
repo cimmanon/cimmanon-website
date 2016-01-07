@@ -60,10 +60,10 @@
 			page-break-inside: avoid;
 			@include break-inside(avoid);
 
-			padding-bottom: .5em;
+			padding-bottom: .5em; // Blink fix: solves box-shadow on images being split across columns
 
 			~ * {
-				margin-top: $spacing-primary; // Blink fix: solves box-shadow on images being split across columns
+				margin-top: $spacing-primary;
 			}
 
 			// if there are 2 elements exactly, we need to force a break to guarantee 2 columns
