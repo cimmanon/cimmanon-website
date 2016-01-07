@@ -3,7 +3,7 @@ SELECT
 	projects.description,
 	slug,
 	url,
-	projects.public,
+	projects.featured,
 
 	component,
 	components.description,
@@ -36,8 +36,7 @@ FROM
 			date_added DESC) AS components USING (project)
 	LEFT JOIN portfolio.project_images USING (project, component, date_added)
 WHERE
-	projects.public = true
-	AND projects.featured = true
+	projects.featured = true
 	AND (project_images.featured = true OR project_images.featured IS NULL)
 ORDER BY
 	last_update DESC,

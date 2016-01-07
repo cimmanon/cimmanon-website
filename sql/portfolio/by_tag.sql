@@ -3,7 +3,7 @@ SELECT
 	projects.description,
 	slug,
 	url,
-	projects.public,
+	projects.featured,
 
 	component,
 	components.description,
@@ -39,6 +39,8 @@ FROM
 				WHERE
 					tag = ?
 				) AS has_tag USING (project, component, date_added)
+		WHERE
+			project_components.public = true
 		GROUP BY
 			project,
 			component,

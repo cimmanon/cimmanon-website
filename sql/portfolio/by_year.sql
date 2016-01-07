@@ -3,7 +3,7 @@ SELECT
 	projects.description,
 	slug,
 	url,
-	projects.public,
+	projects.featured,
 
 	component,
 	components.description,
@@ -30,6 +30,7 @@ FROM
 			JOIN portfolio.project_tags USING (project, component, date_added)
 		WHERE
 			extract(year from date_added) = ?
+			AND project_components.public = true
 		GROUP BY
 			project,
 			component,

@@ -19,7 +19,9 @@ FROM
 		FROM
 			portfolio.project_components
 			JOIN portfolio.project_tags USING (project, component, date_added)
-		WHERE project = ?
+		WHERE
+			project = ?
+			AND project_components.public = true
 		GROUP BY
 			project,
 			component,

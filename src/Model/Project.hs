@@ -35,7 +35,7 @@ data Project = Project
 	, description :: Text
 	, slug :: Text
 	, url :: Maybe Text
-	, public :: Bool
+	, featured :: Bool
 	} deriving (Show, Eq)
 
 instance FromRow Project where
@@ -64,7 +64,7 @@ listByComponent :: (HasPostgres m, Functor m) => Text -> m [(Project, [(C.Compon
 listByComponent x = join1of3 <$> query [sqlFile|sql/portfolio/by_component.sql|] (Only x)
 
 get :: (HasPostgres m, Functor m) => Text -> m (Maybe Project)
-get s = listToMaybe <$> query "SELECT project, description, slug, url, public FROM portfolio.projects WHERE slug = ?" (Only s)
+get s = listToMaybe <$> query "SELECT project, description, slug, url, featured FROM portfolio.projects WHERE slug = ?" (Only s)
 
 ----------------------------------------------------------------------
 
