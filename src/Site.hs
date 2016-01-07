@@ -121,15 +121,15 @@ listByH handler xs =
 tagsH :: AppHandler ()
 tagsH = do
 	tags <- Tag.list
-	renderWithSplices "portfolio/by_tag" $ "category" ## listToSplice tagCategorySplices tags
+	renderWithSplices "projects/by_tag" $ "category" ## listToSplice tagCategorySplices tags
 
 yearH :: AppHandler ()
 yearH = do
 	years <- Project.years
-	renderWithSplices "portfolio/by_year" $ "year" ## listToSplice (\x -> "name" ## numericSplice x) years
+	renderWithSplices "projects/by_year" $ "year" ## listToSplice (\x -> "name" ## numericSplice x) years
 
 componentH :: AppHandler ()
-componentH = render "/portfolio/by_component"
+componentH = render "/projects/by_component"
 
 projectH :: Project.Project -> AppHandler ()
 projectH p = do
@@ -141,7 +141,7 @@ projectH p = do
 		cSplices (c, xs) = do
 			componentSplices c
 			"image" ## listToSplice imageSplices xs
-	renderWithSplices "portfolio/project" splices
+	renderWithSplices "projects/project" splices
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Administration
@@ -154,13 +154,13 @@ adminListH = processForm "form" (Project.projectForm Nothing) Project.add
 	where
 		viewH v = do
 			projects <- Project.adminList
-			renderWithSplices "/portfolio/admin/list" $ do
+			renderWithSplices "/projects/admin" $ do
 				"project" ## listToSplice projectSplices projects
 				digestiveSplices v
 
 editProjectH :: Project.Project -> AppHandler ()
 editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit (Project.slug p))
-	(renderWithSplices "/portfolio/admin/edit" . digestiveSplices) (const redirectToSelf)
+	(renderWithSplices "/projects/edit" . digestiveSplices) (const redirectToSelf)
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Web Archives

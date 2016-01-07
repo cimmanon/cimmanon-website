@@ -8,7 +8,7 @@
 
 <div class="listing">
 	<component><article>
-		<apply template="_component" />
+		<apply template="/components/_component" />
 
 		<image><img src="/images/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>
 	</article></component>

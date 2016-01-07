@@ -16,7 +16,7 @@
 
 		<div class="listing">
 			<component><section>
-				<apply template="portfolio/_component" />
+				<apply template="components/_component" />
 			</section></component>
 		</div>
 
