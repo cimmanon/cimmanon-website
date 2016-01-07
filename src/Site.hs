@@ -148,6 +148,5 @@ archiveServe :: AppHandler ()
 archiveServe = do
 	url <- withRequest (return . rqPathInfo)
 	let
-		splices = mempty
 		template = "archives/" <> url
-	renderWithSplices template splices <|> renderWithSplices (template <> "index") splices
+	renderWithSplices template archiveServeSplices <|> renderWithSplices (template <> "index") archiveServeSplices

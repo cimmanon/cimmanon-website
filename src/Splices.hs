@@ -5,16 +5,19 @@ module Splices where
 ------------------------------------------------------------------------------
 
 import qualified Data.Text as T
+import Heist (getParamNode)
 import Heist.Interpreted
 import Heist.SpliceAPI
---import qualified Text.XmlHtml as X
+import qualified Text.XmlHtml as X
 
 -- for Session stuff
 import Snap.Snaplet (SnapletLens, withTop)
 import Snap.Snaplet.Session (SessionManager)
 import Snap.Snaplet.Heist (SnapletISplice)
 
---import Data.Monoid ((<>))
+import Data.Functor
+import Data.Maybe (fromMaybe)
+import Data.Monoid ((<>), mempty)
 import Heist.Splices.Common
 
 import Heist.Splices.Session
@@ -22,6 +25,11 @@ import qualified Model.Component as Component
 import qualified Model.Image as Image
 import qualified Model.Project as Project
 import qualified Model.Tag as Tag
+
+import Data.Time.Format
+import System.Locale
+import Data.Time.Calendar
+import Data.Time.Clock
 
 ----------------------------------------------------------------------
 -- TODO: move these to a library
@@ -81,3 +89,43 @@ imageSplices i = do
 	"filename" ## textSplice $ Image.filename i
 	"width" ## numericSplice $ Image.width i
 	"height" ## numericSplice $ Image.height i
+
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Archive Serve
+}----------------------------------------------------------------------------------------------------}
+
+dateFormatSplice :: (Monad m, FormatTime t) => TimeLocale -> t -> Splice m
+dateFormatSplice locale t = do
+	node <- getParamNode
+	let
+		format = maybe defaultFormat T.unpack $ X.getAttribute "format" node
+	textSplice $ T.pack $ formatTime locale format t
+	where
+		defaultFormat = "%Y-%m-%d"
+
+archiveServeSplices :: (Monad m) => Splices (Splice m)
+archiveServeSplices = do
+	"entry" ## listToSplice eSplices entries
+	"photo" ## listToSplice pSplices photos
+	where
+		entries =
+			[ (UTCTime (fromGregorian 2000 9  2) 32825, "Cats like baths, too")
+			, (UTCTime (fromGregorian 2000 9  8) 48291, "Case of the missing orange juice")
+			, (UTCTime (fromGregorian 2000 9  9) 69203, "Just not my week")
+			, (UTCTime (fromGregorian 2000 9 14) 59028, "Little black dress")
+			, (UTCTime (fromGregorian 2000 9 17) 78937, "Fall is coming")
+			]
+		eSplices (d, t) = do
+			"date" ## dateFormatSplice defaultTimeLocale d
+			"title" ## textSplice t
+
+		photos =
+			[ (1, "Painted Sky")
+			, (2, "Boy Chasing Seagull")
+			, (3, "Washed Ashore")
+			, (4, "Suspended Leaves")
+			, (5, "Cave of Tides")
+			]
+		pSplices (n, t) = do
+			"number" ## numericSplice n
+			"title" ## textSplice t

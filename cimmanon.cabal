@@ -49,7 +49,8 @@ Executable cimmanon
 --    blaze-builder,
     transformers,
     safe,
-    process
+    process,
+    old-locale
 --    smtp-mail,
 --    digestive-functors-aeson,
 --    aeson
