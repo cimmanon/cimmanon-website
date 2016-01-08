@@ -240,6 +240,10 @@ fieldset ul, fieldset .inputList {
   margin-top: 0;
 }
 
+.False {
+  color: #c5bab5;
+}
+
 blockquote, .listing > *:only-child, .details {
   max-width: 30em;
   margin-left: auto;

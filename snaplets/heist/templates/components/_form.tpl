@@ -20,8 +20,7 @@ Type: <dfPlainText ref="component" />
 	<legend>Visibility</legend>
 
 	<ul>
-		<!--<li><label><dfInputCheckbox ref="public" /> Public</label></li>
-		<li><label><dfInputCheckbox ref="featured" /> Featured</label></li>-->
+		<li><label><dfInputCheckbox ref="public" /> Public</label></li>
 		<li><label><dfInputCheckbox ref="archived" /> Archived</label></li>
 	</ul>
 </fieldset>

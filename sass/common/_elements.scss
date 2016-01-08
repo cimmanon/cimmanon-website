@@ -24,3 +24,7 @@ header h1:not(:last-child) {
 fieldset ul, fieldset .inputList {
 	margin-top: 0;
 }
+
+.False {
+	color: lighten($neutral-dark, 45%);
+}

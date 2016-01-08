@@ -69,6 +69,7 @@ componentSplices c = do
 	"component" ## textSplice $ Component.component c
 	"description" ## textSplice $ Component.description c
 	"date" ## showSplice $ Component.date c
+	"public" ## showSplice $ Component.public c
 	"archived" ## toggleSplice $ Component.archived c
 	"tag" ## listSplice "name" $ Component.tags c
 
