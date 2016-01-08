@@ -15,6 +15,7 @@ import Data.ByteString (ByteString)
 import qualified Data.ByteString as B
 import Data.Monoid
 import qualified Data.Text as T
+import qualified Data.Text.Encoding as T
 import Snap.Core
 import Snap.Snaplet
 import Snap.Snaplet.Heist
@@ -169,7 +170,7 @@ projectH p = do
 -- view list of projects & add new ones
 adminListH :: AppHandler ()
 adminListH = processForm "form" (Project.projectForm Nothing) Project.add
-	(viewH) (const redirectToSelf)
+	(viewH) (\p -> redirect $ "project/" <> T.encodeUtf8 (Project.slug p) <> "/components/")
 	where
 		viewH v = do
 			projects <- Project.adminList

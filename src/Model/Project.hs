@@ -84,8 +84,8 @@ get s = listToMaybe <$> query "SELECT project, description, slug, url, featured 
 adminList :: (HasPostgres m) => m [Project]
 adminList = query_ "SELECT project, description, slug, url, featured FROM portfolio.projects ORDER BY project"
 
-add :: (HasPostgres m, Functor m) => Project -> m (Either Text Int64)
-add p = toEither' $ execute "INSERT INTO portfolio.projects (project, description, slug, url, featured) VALUES (?, ?, ?, ?, ?)" (name p, description p, slug p, url p, featured p)
+add :: (HasPostgres m, Functor m) => Project -> m (Either Text Project)
+add p = toEither' $ const p <$> execute "INSERT INTO portfolio.projects (project, description, slug, url, featured) VALUES (?, ?, ?, ?, ?)" (name p, description p, slug p, url p, featured p)
 
 edit :: (HasPostgres m, Functor m) => Text -> Project -> m (Either Text Int64)
 edit oldSlug p = toEither' $ execute "UPDATE portfolio.projects SET project = ?, description = ?, slug = ?, url = ?, featured = ? WHERE slug = ?" (name p, description p, slug p, url p, featured p, oldSlug)

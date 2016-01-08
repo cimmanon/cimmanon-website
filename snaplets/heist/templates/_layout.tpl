@@ -28,6 +28,7 @@
 			<li><a href="/projects/year/">Projects by Year</a></li>
 			<li><a href="/projects/component/">Projects by Component</a></li>
 			<li><a href="/resume">R&eacute;sum&eacute;</a></li>
+			<li><a href="/admin/">Admin</a></li>
 		</ul>
 
 		<ul>
