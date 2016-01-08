@@ -5,7 +5,7 @@
 <dfInputTextArea ref="description" required class="maximum" />
 
 <dfLabel ref="slug">Slug</dfLabel>
-<dfInputText ref="slug" required />
+<dfInputText ref="slug" required pattern="^[\w\-\_\.]*$" />
 
 <dfLabel ref="url">URL</dfLabel>
 <dfInput type="url" ref="url" />
