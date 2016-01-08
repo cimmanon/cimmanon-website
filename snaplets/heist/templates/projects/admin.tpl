@@ -10,6 +10,7 @@
 				<tr>
 					<th>Name</th>
 					<th>Edit</th>
+					<th>Components</th>
 					<th>URL</th>
 					<th>Featured</th>
 				</tr>
@@ -19,6 +20,7 @@
 				<project><tr>
 					<td><a href="/projects/${slug}/"><name>Project</name></a></td>
 					<td><a href="./project/${slug}/">Edit</a></td>
+					<td><a href="./project/${slug}/components/">Components</a></td>
 					<td><url><a href="${href}">URL</a></url></td>
 					<td><featured>Featured</featured></td>
 				</tr></project>

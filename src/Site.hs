@@ -33,7 +33,7 @@ import Heist.Splices.Common
 
 import Control.Monad
 import Control.Monad.IO.Class (liftIO) -- just for debugging
-import Data.Maybe (isJust, fromJust, mapMaybe)
+import Data.Maybe (isJust, fromJust, fromMaybe, mapMaybe)
 
 import qualified Model.Component as Component
 import qualified Model.Image as Image
@@ -52,13 +52,32 @@ routes =
 	, ("/projects/component/:component", ifTop $ textParam "component" >>= maybe pass (listByH componentH <=< Project.listByComponent))
 	, ("/projects/component/", ifTop $ listByH componentH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
-	, ("/projects/admin/", ifTop adminListH)
-	, ("/projects/admin/project/:slug", ifTop $ modelH textParam "slug" Project.get editProjectH)
+	, ("/admin/", route adminRoutes)
 	, ("/archives/", archiveServe)
 	, ("/archives/", serveDirectory "archives")
 	, ("", heistServe) -- serve up static templates from your templates directory
 	, ("", serveDirectory "static")
 	]
+
+adminRoutes :: [(ByteString, AppHandler ())]
+adminRoutes =
+	[ ("/", ifTop adminListH)
+	, ("/project/:slug/", modelH textParam "slug" Project.get (route . projectRoutes))
+	]
+
+projectRoutes :: Project.Project -> [(ByteString, AppHandler ())]
+projectRoutes p =
+	[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
+	, ("/components/", ifTop $ modelH textParam "slug" Project.get (flip projectComponentsH Nothing))
+	, ("/components/:component/", ifTop $ textParam "component" >>= projectComponentsH p)
+	, ("/components/:component/:date/", ifTop =<< editComponentH' p <$> textParam "component" <*> textParam "date")
+	]
+	where
+		-- TODO: cleanup this mess
+		editComponentH' p (Just c) (Just d) = do
+			liftIO $ putStrLn $ show c
+			maybe pass (editComponentH p) =<< Component.get (Project.name p) c d
+		editComponentH' _ _ _ = pass
 
 ------------------------------------------------------------------------------
 -- | The application initializer.
@@ -161,6 +180,27 @@ adminListH = processForm "form" (Project.projectForm Nothing) Project.add
 editProjectH :: Project.Project -> AppHandler ()
 editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit (Project.slug p))
 	(renderWithSplices "/projects/edit" . digestiveSplices) (const redirectToSelf)
+
+----------------------------------------------------------------------
+
+projectComponentsH :: Project.Project -> Maybe T.Text -> AppHandler ()
+projectComponentsH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add (Project.name p))
+	(viewH) (const redirectToSelf)
+	where
+		-- TODO: pull this from the database
+		defaultComp = fromMaybe "Design" c
+		viewH v =  do
+			components <- Component.adminList $ Project.name p
+			types <- Component.types
+			renderWithSplices "/components/admin" $ do
+				projectSplices p
+				"component" ## listToSplice componentSplices components
+				"type" ## listSplice "name" types
+				digestiveSplices v
+
+editComponentH :: Project.Project -> Component.Component -> AppHandler ()
+editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Component.edit (Project.name p))
+	(renderWithSplices "/components/edit" . digestiveSplices) (const redirectToSelf)
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Web Archives
