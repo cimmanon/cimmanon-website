@@ -31,7 +31,7 @@
 	<section>
 		<h1>New Project</h1>
 
-		<dfForm>
+		<dfForm class="simplified">
 			<apply template="_form" />
 			<input type="submit" value="Add" />
 		</dfForm>

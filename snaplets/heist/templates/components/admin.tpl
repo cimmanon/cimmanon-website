@@ -37,7 +37,7 @@
 			<type><li><a href="./${name}"><name>Design</name></a></li></type>
 		</ul>
 
-		<dfForm>
+		<dfForm class="simplified">
 			<dfChildErrorList class="dialog error" />
 
 			<apply template="_form" />

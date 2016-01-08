@@ -1,26 +1,15 @@
-<table class="associative">
-	<tr>
-		<th>Name</th>
-		<td><dfInputText ref="name" /></td>
-	</tr>
+<dfLabel ref="name">Name</dfLabel>
+<dfInputText ref="name" required />
 
-	<tr>
-		<th>Description</th>
-		<td><dfInputTextArea ref="description" /></td>
-	</tr>
+<dfLabel ref="description">Description</dfLabel>
+<dfInputTextArea ref="description" required class="maximum" />
 
-	<tr>
-		<th>Slug</th>
-		<td><dfInputText ref="slug" /></td>
-	</tr>
+<dfLabel ref="slug">Slug</dfLabel>
+<dfInputText ref="slug" required />
 
-	<tr>
-		<th>URL</th>
-		<td><dfInputText ref="url" /></td>
-	</tr>
+<dfLabel ref="url">URL</dfLabel>
+<dfInput type="url" ref="url" />
 
-	<tr>
-		<th></th>
-		<td><label><dfInputCheckbox ref="featured" /> Featured?</label></td>
-	</tr>
-</table>
+<ul>
+	<li><label><dfInputCheckbox ref="featured" /> Featured?</label></li>
+</ul>
