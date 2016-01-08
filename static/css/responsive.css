@@ -236,6 +236,10 @@ header h1:not(:last-child) {
   margin-bottom: 0;
 }
 
+fieldset ul, fieldset .inputList {
+  margin-top: 0;
+}
+
 blockquote, .listing > *:only-child, .details {
   max-width: 30em;
   margin-left: auto;
@@ -253,17 +257,21 @@ body > header, body > footer, main > h1:not(:first-child), .project > h1, main >
   padding-left: 50vw;
 }
 
-.tags {
+header .tags {
+  margin-top: 0;
   padding-left: 0;
   margin-left: -0.75em;
   margin-right: -0.75em;
 }
-.tags li {
+header .tags li {
   display: inline-block;
   margin: 0 0.75em;
 }
-header .tags {
-  margin-top: 0;
+
+fieldset .tags {
+  -moz-columns: 8em;
+  -webkit-columns: 8em;
+  columns: 8em;
 }
 
 @media (min-width: 60em) {

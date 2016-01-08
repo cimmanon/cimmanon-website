@@ -20,3 +20,7 @@ blockquote {
 header h1:not(:last-child) {
 	margin-bottom: 0;
 }
+
+fieldset ul, fieldset .inputList {
+	margin-top: 0;
+}

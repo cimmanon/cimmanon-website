@@ -9,7 +9,7 @@ Type: <dfPlainText ref="component" />
 <fieldset>
 	<legend>Tags</legend>
 
-	<dfInputList ref="tags"><ul>
+	<dfInputList ref="tags"><ul class="tags">
 		<dfListItem><li itemAttrs>
 			<label> <dfInputCheckbox ref="item" /> <dfPlainText ref="name" /></label>
 		</li></dfListItem>

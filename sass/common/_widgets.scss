@@ -32,8 +32,9 @@
 
 // should this be restricted to only within headers?
 // or maybe to unordered lists?
-.tags {
+header .tags {
 	$spacing: .75em;
+	margin-top: 0;
 
 	padding-left: 0;
 	margin-left: -$spacing;
@@ -43,10 +44,10 @@
 		display: inline-block;
 		margin: 0 $spacing;
 	}
+}
 
-	header & {
-		margin-top: 0;
-	}
+fieldset .tags {
+	@include columns(8em);
 }
 
 .listing, %listing {
