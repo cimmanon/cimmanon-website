@@ -48,6 +48,8 @@ FROM
 			component,
 			date_added) AS components USING (project)
 	LEFT JOIN portfolio.project_images USING (project, component, date_added)
+WHERE
+	project_images.featured = true OR project_images.featured IS NULL
 ORDER BY
 	last_update DESC,
 	project,
