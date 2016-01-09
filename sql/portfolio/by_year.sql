@@ -8,6 +8,7 @@ SELECT
 	component,
 	components.description,
 	date_added,
+	public,
 	archived,
 	tags,
 
@@ -23,6 +24,7 @@ FROM
 			component,
 			description,
 			date_added,
+			public,
 			archived,
 			array_agg(tag :: TEXT) AS tags
 		FROM

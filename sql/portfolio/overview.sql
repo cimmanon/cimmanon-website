@@ -8,6 +8,7 @@ SELECT
 	component,
 	components.description,
 	date_added,
+	public,
 	archived,
 	tags,
 
