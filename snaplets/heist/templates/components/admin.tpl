@@ -20,7 +20,7 @@
 				<component><tr class="${public}">
 					<td><component>Design</component></td>
 					<td><date>2016-01-07</date></td>
-					<td><public>Public</public></td>
+					<td class="bool"><public>Public</public></td>
 					<td><archived><a href="/archives/${slug}/${date}/">Archived</a></archived></td>
 					<td><a href="./${component}/${date}/">Edit</a></td>
 				</tr></component>

@@ -244,6 +244,10 @@ fieldset ul, fieldset .inputList {
   color: #c5bab5;
 }
 
+td.bool {
+  text-align: center;
+}
+
 blockquote, .listing > *:only-child, .details {
   max-width: 30em;
   margin-left: auto;

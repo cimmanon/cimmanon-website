@@ -28,3 +28,7 @@ fieldset ul, fieldset .inputList {
 .False {
 	color: lighten($neutral-dark, 45%);
 }
+
+td.bool {
+	text-align: center;
+}
