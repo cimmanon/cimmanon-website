@@ -248,6 +248,23 @@ td.bool {
   text-align: center;
 }
 
+table.spreadsheet {
+  border-collapse: collapse;
+  border: 1px solid #EBE5DA;
+}
+table.spreadsheet th {
+  background: #EBE5DA;
+}
+table.spreadsheet td, table.spreadsheet th {
+  padding: .25em .5em;
+}
+table.spreadsheet td {
+  border-bottom: 1px solid #EBE5DA;
+}
+table.spreadsheet tbody tr:nth-child(even) {
+  background: #fff5fb;
+}
+
 blockquote, .listing > *:only-child, .details {
   max-width: 30em;
   margin-left: auto;

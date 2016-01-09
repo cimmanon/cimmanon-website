@@ -21,9 +21,17 @@ header h1:not(:last-child) {
 	margin-bottom: 0;
 }
 
+//***************************************************************************************************\
+//                                                                    | Forms
+//***************************************************************************************************/
+
 fieldset ul, fieldset .inputList {
 	margin-top: 0;
 }
+
+//***************************************************************************************************\
+//                                                                    | Tables
+//***************************************************************************************************/
 
 .False {
 	color: lighten($neutral-dark, 45%);
@@ -31,4 +39,25 @@ fieldset ul, fieldset .inputList {
 
 td.bool {
 	text-align: center;
+}
+
+table.spreadsheet {
+	border-collapse: collapse;
+	border: 1px solid $neutral-medium;
+
+	th {
+		background: $neutral-medium;
+	}
+
+	td,  th {
+		padding: .25em .5em;
+	}
+
+	td {
+		border-bottom: 1px solid $neutral-medium;
+	}
+
+	tbody tr:nth-child(even) {
+		background: $pink-light;
+	}
 }
