@@ -101,3 +101,61 @@ CREATE TABLE project_images (
 	FOREIGN KEY (project, component, date_added) REFERENCES project_components (project, component, date_added) ON UPDATE CASCADE
 );
 CREATE UNIQUE INDEX project_images_featured_idx ON project_images (project, component, date_added, featured) WHERE featured = true;
+
+/*----------------------------------------------------------------------------------------------------*\
+                                                                      | Helper Functions
+\*----------------------------------------------------------------------------------------------------*/
+
+CREATE OR REPLACE FUNCTION add_component(info PROJECT_COMPONENTs, tags TEXT[]) RETURNS VOID AS $$
+BEGIN
+	-- main data
+	INSERT INTO portfolio.project_components
+		(project, component, date_added, description, public, archived)
+	VALUES
+		(info.project, info.component, info.date_added, info.description, info.public, info.archived);
+
+	-- tags
+	INSERT INTO portfolio.project_tags
+		(project, component, date_added, tag)
+	SELECT
+		info.project,
+		info.component,
+		info.date_added,
+		tag
+	FROM
+		unnest(tags) AS x(tag);
+END;
+$$ LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION edit_component(info PROJECT_COMPONENTs, tags TEXT[]) RETURNS VOID AS $$
+BEGIN
+	-- main data
+	UPDATE portfolio.project_components
+	SET
+		description = info.description,
+		public = info.public,
+		archived = info.archived
+	WHERE
+		project = info.project
+		AND component = info.component
+		AND date_added = info.date_added;
+
+	-- remove the old tags
+	DELETE FROM portfolio.project_tags
+	WHERE
+		project = info.project
+		AND component = info.component
+		AND date_added = info.date_added;
+
+	-- add the new tags
+	INSERT INTO portfolio.project_tags
+		(project, component, date_added, tag)
+	SELECT
+		info.project,
+		info.component,
+		info.date_added,
+		tag
+	FROM
+		unnest(tags) AS x(tag);
+END;
+$$ LANGUAGE plpgsql VOLATILE;

@@ -19,7 +19,7 @@ import Data.Int (Int64)
 import Data.Maybe (listToMaybe)
 import Data.Text (Text, pack, replace, toLower)
 import Data.Time.Calendar
-import Data.Vector (toList)
+import Data.Vector (toList, fromList)
 import Text.Digestive
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database
@@ -72,18 +72,18 @@ list :: (HasPostgres m, Functor m) => Text -> m [(Component, [I.Image])]
 list project = ojoin1of2 <$> query [sqlFile|sql/portfolio/components.sql|] (Only project)
 
 get :: (HasPostgres m, Functor m) => Text -> Text -> Text -> m (Maybe Component)
-get p c d = listToMaybe <$> query "SELECT component, description, date_added, public, archived, array[] :: text[] AS tags FROM portfolio.project_components WHERE project = ? AND component = ? AND date_added = ?" (p, c, d)
+get p c d = listToMaybe <$> query [sqlFile|sql/portfolio/component.sql|] (p, c, d)
 
 ----------------------------------------------------------------------
 
 adminList :: HasPostgres m => Text -> m [Component]
 adminList project = query "SELECT component, description, date_added, public, archived, array[] :: text[] AS tags FROM portfolio.project_components WHERE project = ? ORDER BY date_added" (Only project)
 
-add :: (HasPostgres m, Functor m) => Text -> Component -> m (Either Text Int64)
-add project c = toEither' $ execute "INSERT INTO portfolio.project_components (project, component, description, public, archived) VALUES (?, ?, ?, ?)" (project, component c, description c, public c, archived c)
+add :: (HasPostgres m, Functor m) => Text -> Component -> m (Either Text [(Only ())])
+add project c = toEither' $ query "SELECT portfolio.add_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (project, component c, date c, description c, public c, archived c, fromList $ tags c)
 
-edit :: (HasPostgres m, Functor m) => Text -> Component -> m (Either Text Int64)
-edit project c = toEither' $ execute "UPDATE portfolio.project_components SET description = ?, public = ?, archived = ? WHERE project = ? AND component = ? AND date_added = ?" (description c, public c, archived c, project, component c, date c)
+edit :: (HasPostgres m, Functor m) => Text -> Component -> m (Either Text [(Only ())])
+edit project c = toEither' $ query "SELECT portfolio.edit_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (project, component c, date c, description c, public c, archived c, fromList $ tags c)
 
 ----------------------------------------------------------------------
 
