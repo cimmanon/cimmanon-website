@@ -75,9 +75,7 @@ projectRoutes p =
 	]
 	where
 		-- TODO: cleanup this mess
-		editComponentH' p (Just c) (Just d) = do
-			liftIO $ putStrLn $ show c
-			maybe pass (editComponentH p) =<< Component.get (Project.name p) c d
+		editComponentH' p (Just c) (Just d) = maybe pass (editComponentH p) =<< Component.get (Project.name p) c d
 		editComponentH' _ _ _ = pass
 
 ------------------------------------------------------------------------------
