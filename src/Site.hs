@@ -209,6 +209,7 @@ editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Com
 		viewH v = do
 			images <- Image.list p c
 			renderWithSplices "/components/edit" $ do
+				projectSplices p
 				"image" ## listToSplice imageSplices images
 				digestiveSplices v
 
