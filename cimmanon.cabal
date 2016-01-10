@@ -50,7 +50,9 @@ Executable cimmanon
     transformers,
     safe,
     process,
-    old-locale
+    old-locale,
+    directory,
+    filepath
 --    smtp-mail,
 --    digestive-functors-aeson,
 --    aeson

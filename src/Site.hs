@@ -12,7 +12,8 @@ module Site
 import Control.Applicative
 import Control.Lens ((&), (.~))
 import Data.ByteString (ByteString)
-import qualified Data.ByteString as B
+import qualified Data.ByteString as B hiding (pack)
+import qualified Data.ByteString.Char8 as B
 import Data.Monoid
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
@@ -30,6 +31,7 @@ import Splices
 
 import Text.Digestive.Heist
 import Snap.Handlers
+import Snap.Util.FileUploads
 import Heist.Splices.Common
 
 import Control.Monad
@@ -71,12 +73,14 @@ projectRoutes p =
 	[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
 	, ("/components/", ifTop $ modelH textParam "slug" Project.get (flip projectComponentsH Nothing))
 	, ("/components/:component/", ifTop $ textParam "component" >>= projectComponentsH p)
-	, ("/components/:component/:date/", ifTop =<< editComponentH' p <$> textParam "component" <*> textParam "date")
+	, ("/components/:component/:date/", route =<< componentRoutes <$> textParam "component" <*> textParam "date")
 	]
 	where
-		-- TODO: cleanup this mess
-		editComponentH' p (Just c) (Just d) = maybe pass (editComponentH p) =<< Component.get (Project.name p) c d
-		editComponentH' _ _ _ = pass
+		componentRoutes (Just c) (Just d) =
+			[ ("/", ifTop $ maybe pass (editComponentH p) =<< Component.get (Project.name p) c d)
+			, ("/upload", ifTop $ uploadH p c d)
+			]
+		componentRoutes _ _ = []
 
 ------------------------------------------------------------------------------
 -- | The application initializer.
@@ -199,7 +203,17 @@ projectComponentsH p c = processForm "form" (Component.componentForm (Left defau
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Component.edit (Project.name p))
-	(renderWithSplices "/components/edit" . digestiveSplices) (const redirectToSelf)
+	(viewH) (const redirectToSelf)
+	where
+		viewH v = do
+			images <- Image.list (Project.name p) (Component.component c) (T.pack $ show $ Component.date c)
+			renderWithSplices "/components/edit" $ do
+				"image" ## listToSplice imageSplices images
+				digestiveSplices v
+
+uploadH :: Project.Project -> T.Text -> T.Text -> AppHandler ()
+uploadH p c d = processForm "form" (Image.imageForm) (Image.add (Project.slug p) c d)
+	(renderWithSplices "/components/edit" . digestiveSplices) (const (redirect "./"))
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Web Archives

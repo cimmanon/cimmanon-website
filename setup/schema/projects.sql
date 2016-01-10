@@ -95,7 +95,7 @@ CREATE TABLE project_images (
 	filename TEXT NOT NULL,
 	width INT NOT NULL,
 	height INT NOT NULL,
-	featured BOOL NOT NULL DEFAULT TRUE,
+	featured BOOL NOT NULL DEFAULT false,
 
 	PRIMARY KEY (project, component, date_added, filename),
 	FOREIGN KEY (project, component, date_added) REFERENCES project_components (project, component, date_added) ON UPDATE CASCADE
