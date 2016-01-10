@@ -73,14 +73,15 @@ projectRoutes p =
 	[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
 	, ("/components/", ifTop $ modelH textParam "slug" Project.get (flip projectComponentsH Nothing))
 	, ("/components/:component/", ifTop $ textParam "component" >>= projectComponentsH p)
-	, ("/components/:component/:date/", route =<< componentRoutes <$> textParam "component" <*> textParam "date")
+	, ("/components/:component/:date/", id =<< componentRoutes <$> textParam "component" <*> textParam "date")
 	]
 	where
 		componentRoutes (Just c) (Just d) =
-			[ ("/", ifTop $ maybe pass (editComponentH p) =<< Component.get (Project.name p) c d)
-			, ("/upload", ifTop $ uploadH p c d)
-			]
-		componentRoutes _ _ = []
+			Component.get p c d >>= maybe pass (\c' -> route
+				[ ("/", ifTop $ editComponentH p c')
+				, ("/upload", ifTop $ uploadH p c')
+				])
+		componentRoutes _ _ = pass
 
 ------------------------------------------------------------------------------
 -- | The application initializer.
@@ -155,7 +156,7 @@ componentH = render "/projects/by_component"
 
 projectH :: Project.Project -> AppHandler ()
 projectH p = do
-	components <- Component.list $ Project.name p
+	components <- Component.list p
 	let
 		splices = do
 			projectSplices p
@@ -181,19 +182,19 @@ adminListH = processForm "form" (Project.projectForm Nothing) Project.add
 				digestiveSplices v
 
 editProjectH :: Project.Project -> AppHandler ()
-editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit (Project.slug p))
+editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit p)
 	(renderWithSplices "/projects/edit" . digestiveSplices) (const redirectToSelf)
 
 ----------------------------------------------------------------------
 
 projectComponentsH :: Project.Project -> Maybe T.Text -> AppHandler ()
-projectComponentsH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add (Project.name p))
+projectComponentsH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add p)
 	(viewH) (\c' -> redirect $ "./" <> (T.encodeUtf8 $ Component.path c'))
 	where
 		-- TODO: pull this from the database
 		defaultComp = fromMaybe "Design" c
 		viewH v =  do
-			components <- Component.adminList $ Project.name p
+			components <- Component.adminList p
 			types <- Component.types
 			renderWithSplices "/components/admin" $ do
 				projectSplices p
@@ -202,17 +203,17 @@ projectComponentsH p c = processForm "form" (Component.componentForm (Left defau
 				digestiveSplices v
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
-editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Component.edit (Project.name p))
+editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Component.edit p)
 	(viewH) (const redirectToSelf)
 	where
 		viewH v = do
-			images <- Image.list (Project.name p) (Component.component c) (T.pack $ show $ Component.date c)
+			images <- Image.list p c
 			renderWithSplices "/components/edit" $ do
 				"image" ## listToSplice imageSplices images
 				digestiveSplices v
 
-uploadH :: Project.Project -> T.Text -> T.Text -> AppHandler ()
-uploadH p c d = processForm "form" (Image.imageForm) (Image.add (Project.slug p) c d)
+uploadH :: Project.Project -> Component.Component -> AppHandler ()
+uploadH p c = processForm "form" (Image.imageForm) (Image.add p c)
 	(renderWithSplices "/components/edit" . digestiveSplices) (const (redirect "./"))
 
 {----------------------------------------------------------------------------------------------------{

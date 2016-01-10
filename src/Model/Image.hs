@@ -35,6 +35,7 @@ import Text.Digestive.Snap hiding (uploadPolicy, partPolicy)
 import Model.Types.Project as P
 import Model.Types.Component as C
 import Model.Types.Image as I
+import Model.Component as C (primaryKey)
 
 ----------------------------------------------------------------------
 
@@ -59,11 +60,11 @@ imageForm = "file" .: fileMultiple
                                                                        | Queries
 }----------------------------------------------------------------------------------------------------}
 
-list :: (HasPostgres m) => Text -> Text -> Text -> m [Image]
-list p c d = query "SELECT filename, width, height FROM portfolio.project_images WHERE project = ? AND component = ? AND date_added = ?" (p, c, d)
+list :: (HasPostgres m) => Project -> Component -> m [Image]
+list p c = query "SELECT filename, width, height FROM portfolio.project_images WHERE project = ? AND component = ? AND date_added = ?" (C.primaryKey p c)
 
-add :: (HasPostgres m, Functor m) => Text -> Text -> Text -> [FilePath] -> m (Either Text ())
-add slug component date xs = do
+add :: (HasPostgres m, Functor m) => Project -> Component -> [FilePath] -> m (Either Text ())
+add p c xs = do
 	res <- mapM processFile xs
 	let
 		failures = lefts res
@@ -73,14 +74,14 @@ add slug component date xs = do
 			liftIO $ putStrLn $ show failures
 			return $ Left $ "Images failed to upload: " <> pack (show $ length failures)
 	where
-		destDir = screenshotDirectory <> unpack slug <> "/"
+		destDir = screenshotDirectory <> unpack (P.slug p) <> "/"
 		processFile f = do
 			info <- liftIO $ identifyImage allowedTypes f
 			case info of
 				Left _ -> return $ Left f
 				Right i -> storeData f i
 		storeData f i = do
-			r <- toEither' $ execute [sqlFile|sql/portfolio/insert_image.sql|] (component, date, getFileName f, w i, h i, slug)
+			r <- toEither' $ execute [sqlFile|sql/portfolio/insert_image.sql|] (P.name p, C.component c, C.date c, getFileName f, w i, h i)
 			case r of
 				Left _ -> return $ Left f
 				Right _ -> do

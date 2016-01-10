@@ -4,6 +4,7 @@ module Model.Component
 	( Component(..)
 	, componentForm
 	, path
+	, primaryKey
 	, list
 	, get
 	, adminList
@@ -38,6 +39,9 @@ import qualified Model.Tag as T
 path :: Component -> Text
 path c = component c <> "/" <> (pack $ show $ date c)
 
+primaryKey :: Project -> Component -> (Text, Text, Day)
+primaryKey p c = (P.name p, C.component c, C.date c)
+
 {----------------------------------------------------------------------------------------------------{
                                                                        | Forms
 }----------------------------------------------------------------------------------------------------}
@@ -62,26 +66,26 @@ componentForm c = monadic $ do
                                                                        | Queries
 }----------------------------------------------------------------------------------------------------}
 
-list :: (HasPostgres m, Functor m) => Text -> m [(Component, [I.Image])]
-list project = ojoin1of2 <$> query [sqlFile|sql/portfolio/components.sql|] (Only project)
+list :: (HasPostgres m, Functor m) => Project -> m [(Component, [I.Image])]
+list p = ojoin1of2 <$> query [sqlFile|sql/portfolio/components.sql|] (Only $ P.name p)
 
-get :: (HasPostgres m, Functor m) => Text -> Text -> Text -> m (Maybe Component)
-get p c d = listToMaybe <$> query [sqlFile|sql/portfolio/component.sql|] (p, c, d)
+get :: (HasPostgres m, Functor m) => Project -> Text -> Text -> m (Maybe Component)
+get p c d = listToMaybe <$> query [sqlFile|sql/portfolio/component.sql|] (P.name p, c, d)
 
 ----------------------------------------------------------------------
 
-adminList :: HasPostgres m => Text -> m [Component]
-adminList project = query "SELECT component, description, date_added, public, archived, array[] :: text[] AS tags FROM portfolio.project_components WHERE project = ? ORDER BY date_added" (Only project)
+adminList :: HasPostgres m => Project -> m [Component]
+adminList p = query "SELECT component, description, date_added, public, archived, array[] :: text[] AS tags FROM portfolio.project_components WHERE project = ? ORDER BY date_added" (Only $ P.name p)
 
-add :: (HasPostgres m, Functor m) => Text -> Component -> m (Either Text Component)
-add project c = toEither' $ (const c) <$> q
+add :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text Component)
+add p c = toEither' $ (const c) <$> q
 	where
 		-- query split off here rather than write a one-liner to avoid ambiguity when the type is discarded above
 		q :: HasPostgres m => m [Only ()]
-		q = query "SELECT portfolio.add_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (project, component c, date c, description c, public c, archived c, fromList $ tags c)
+		q = query "SELECT portfolio.add_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, component c, date c, description c, public c, archived c, fromList $ tags c)
 
-edit :: (HasPostgres m, Functor m) => Text -> Component -> m (Either Text [(Only ())])
-edit project c = toEither' $ query "SELECT portfolio.edit_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (project, component c, date c, description c, public c, archived c, fromList $ tags c)
+edit :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text [(Only ())])
+edit p c = toEither' $ query "SELECT portfolio.edit_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, component c, date c, description c, public c, archived c, fromList $ tags c)
 
 ----------------------------------------------------------------------
 
