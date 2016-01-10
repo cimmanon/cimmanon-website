@@ -37,7 +37,7 @@ import qualified Model.Tag as T
 }----------------------------------------------------------------------------------------------------}
 
 path :: Component -> Text
-path c = component c <> "/" <> (pack $ show $ date c)
+path c = component c <> "/" <> pack (show $ date c)
 
 primaryKey :: Project -> Component -> (Text, Text, Day)
 primaryKey p c = (P.name p, C.component c, C.date c)
@@ -78,13 +78,13 @@ adminList :: HasPostgres m => Project -> m [Component]
 adminList p = query "SELECT component, description, date_added, public, archived, array[] :: text[] AS tags FROM portfolio.project_components WHERE project = ? ORDER BY date_added" (Only $ P.name p)
 
 add :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text Component)
-add p c = toEither' $ (const c) <$> q
+add p c = toEither' $ const c <$> q
 	where
 		-- query split off here rather than write a one-liner to avoid ambiguity when the type is discarded above
 		q :: HasPostgres m => m [Only ()]
 		q = query "SELECT portfolio.add_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, component c, date c, description c, public c, archived c, fromList $ tags c)
 
-edit :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text [(Only ())])
+edit :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text [Only ()])
 edit p c = toEither' $ query "SELECT portfolio.edit_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, component c, date c, description c, public c, archived c, fromList $ tags c)
 
 ----------------------------------------------------------------------

@@ -71,7 +71,7 @@ adminRoutes =
 projectRoutes :: Project.Project -> [(ByteString, AppHandler ())]
 projectRoutes p =
 	[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
-	, ("/components/", ifTop $ modelH textParam "slug" Project.get (flip projectComponentsH Nothing))
+	, ("/components/", ifTop $ modelH textParam "slug" Project.get (`projectComponentsH` Nothing))
 	, ("/components/:component/", ifTop $ textParam "component" >>= projectComponentsH p)
 	, ("/components/:component/:date/", id =<< componentRoutes <$> textParam "component" <*> textParam "date")
 	]
@@ -173,7 +173,7 @@ projectH p = do
 -- view list of projects & add new ones
 adminListH :: AppHandler ()
 adminListH = processForm "form" (Project.projectForm Nothing) Project.add
-	(viewH) (\p -> redirect $ "project/" <> T.encodeUtf8 (Project.slug p) <> "/components/")
+	viewH (\p -> redirect $ "project/" <> T.encodeUtf8 (Project.slug p) <> "/components/")
 	where
 		viewH v = do
 			projects <- Project.adminList
@@ -189,7 +189,7 @@ editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit
 
 projectComponentsH :: Project.Project -> Maybe T.Text -> AppHandler ()
 projectComponentsH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add p)
-	(viewH) (\c' -> redirect $ "./" <> (T.encodeUtf8 $ Component.path c') <> "/")
+	viewH (\c' -> redirect $ "./" <> T.encodeUtf8 (Component.path c') <> "/")
 	where
 		-- TODO: pull this from the database
 		defaultComp = fromMaybe "Design" c
@@ -204,7 +204,7 @@ projectComponentsH p c = processForm "form" (Component.componentForm (Left defau
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Component.edit p)
-	(viewH) (const redirectToSelf)
+	viewH (const redirectToSelf)
 	where
 		viewH v = do
 			images <- Image.list p c
@@ -213,7 +213,7 @@ editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Com
 				digestiveSplices v
 
 uploadH :: Project.Project -> Component.Component -> AppHandler ()
-uploadH p c = processForm "form" (Image.imageForm) (Image.add p c)
+uploadH p c = processForm "form" Image.imageForm (Image.add p c)
 	(renderWithSplices "/components/edit" . digestiveSplices) (const (redirect "./"))
 
 {----------------------------------------------------------------------------------------------------{

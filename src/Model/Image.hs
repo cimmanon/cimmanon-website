@@ -71,7 +71,7 @@ add p c xs = do
 	if null failures
 		then return $ Right ()
 		else do
-			liftIO $ putStrLn $ show failures
+			liftIO $ print failures
 			return $ Left $ "Images failed to upload: " <> pack (show $ length failures)
 	where
 		destDir = screenshotDirectory <> unpack (P.slug p) <> "/"
@@ -91,7 +91,7 @@ add p c xs = do
 saveFile :: FilePath -> FilePath -> IO ()
 saveFile dir file = do
 	createDirectoryIfMissing True dir
-	copyFile file $ dir <> (getFileName file) -- TODO: strip EXIF data
+	copyFile file $ dir <> getFileName file -- TODO: strip EXIF data
 
 -- filenames uploaded via Snap are prefixed like so:  _snap-c8XbTISLfW2rs
 getFileName :: FilePath -> FilePath
