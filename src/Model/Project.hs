@@ -27,24 +27,13 @@ import Text.Digestive
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 
-import Control.Monad.Trans (liftIO)
-import qualified Model.Component as C
-import qualified Model.Image as I
+import Model.Types.Project
+import Model.Types.Component as C hiding (description)
+import Model.Types.Image as I
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Records
 }----------------------------------------------------------------------------------------------------}
-
-data Project = Project
-	{ name :: Text
-	, description :: Text
-	, slug :: Text
-	, url :: Maybe Text
-	, featured :: Bool
-	} deriving (Show, Eq)
-
-instance FromRow Project where
-	fromRow = Project <$> field <*> field <*> field <*> field <*> field
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Forms
@@ -64,16 +53,16 @@ projectForm p = Project
                                                                        | Queries
 }----------------------------------------------------------------------------------------------------}
 
-list :: (HasPostgres m, Functor m) => m [(Project, [(C.Component, Maybe I.Image)])]
+list :: (HasPostgres m, Functor m) => m [(Project, [(Component, Maybe Image)])]
 list = join1of3 <$> query_ [sqlFile|sql/portfolio/overview.sql|]
 
-listByTag :: (HasPostgres m, Functor m) => Text -> m [(Project, [(C.Component, Maybe I.Image)])]
+listByTag :: (HasPostgres m, Functor m) => Text -> m [(Project, [(Component, Maybe Image)])]
 listByTag x = join1of3 <$> query [sqlFile|sql/portfolio/by_tag.sql|] (Only x)
 
-listByYear :: (HasPostgres m, Functor m) => Int -> m [(Project, [(C.Component, Maybe I.Image)])]
+listByYear :: (HasPostgres m, Functor m) => Int -> m [(Project, [(Component, Maybe Image)])]
 listByYear x = join1of3 <$> query [sqlFile|sql/portfolio/by_year.sql|] (Only x)
 
-listByComponent :: (HasPostgres m, Functor m) => Text -> m [(Project, [(C.Component, Maybe I.Image)])]
+listByComponent :: (HasPostgres m, Functor m) => Text -> m [(Project, [(Component, Maybe Image)])]
 listByComponent x = join1of3 <$> query [sqlFile|sql/portfolio/by_component.sql|] (Only x)
 
 get :: (HasPostgres m, Functor m) => Text -> m (Maybe Project)

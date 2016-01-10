@@ -26,24 +26,14 @@ import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 import Util.Form
 
-import qualified Model.Image as I
+import Model.Types.Project as P hiding (description)
+import Model.Types.Component as C
+import Model.Types.Image as I
 import qualified Model.Tag as T
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Records
 }----------------------------------------------------------------------------------------------------}
-
-data Component = Component
-	{ component :: Text
-	, description :: Text
-	, date :: Day
-	, public :: Bool
-	, archived :: Bool
-	, tags :: [Text]
-	} deriving (Show, Eq)
-
-instance FromRow Component where
-	fromRow = Component <$> field <*> field <*> field <*> field <*> field <*> (toList <$> field)
 
 path :: Component -> Text
 path c = component c <> "/" <> (pack $ show $ date c)
