@@ -55,33 +55,42 @@ routes =
 	, ("/projects/component/:component", ifTop $ textParam "component" >>= maybeH (listByH componentH <=< Project.listByComponent))
 	, ("/projects/component/", ifTop $ listByH componentH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
-	, ("/admin/", route adminRoutes)
+	, ("/admin/", adminRoutes)
 	, ("/archives/", archiveServe)
 	, ("/archives/", serveDirectory "archives")
 	, ("", heistServe) -- serve up static templates from your templates directory
 	, ("", serveDirectory "static")
 	]
 
-adminRoutes :: [(ByteString, AppHandler ())]
-adminRoutes =
-	[ ("/", ifTop adminListH)
-	, ("/project/:slug/", modelH textParam "slug" Project.get (route . projectRoutes))
+adminRoutes :: AppHandler ()
+adminRoutes = withSplices aSplices $ route
+	[ ("/", ifTop $ render "/_admin")
+	, ("/projects/", ifTop listProjectsH)
+	, ("/projects/add", ifTop addProjectH)
+	, ("/projects/:slug/", modelH textParam "slug" Project.get projectRoutes)
 	]
+	where
+		aSplices = do
+			"isProject" ## hideContents
+			"isComponent" ## hideContents
 
-projectRoutes :: Project.Project -> [(ByteString, AppHandler ())]
-projectRoutes p =
+projectRoutes :: Project.Project -> AppHandler ()
+projectRoutes p = withSplices pSplices $ route
 	[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
-	, ("/components/", ifTop $ modelH textParam "slug" Project.get (`projectComponentsH` Nothing))
-	, ("/components/:component/", ifTop $ textParam "component" >>= projectComponentsH p)
+	, ("/components/", ifTop $ listComponentsH p)
+	, ("/components/:component/", ifTop $ textParam "component" >>= addComponentH p)
 	, ("/components/:component/:date/", id =<< componentRoutes <$> textParam "component" <*> textParam "date")
 	]
 	where
 		componentRoutes (Just c) (Just d) =
-			Component.get p c d >>= maybeH (\c' -> route
+			Component.get p c d >>= maybeH (\c' -> withSplices ("isComponent" ## runChildrenWith $ componentSplices c') $ route
 				[ ("/", ifTop $ editComponentH p c')
-				, ("/upload", ifTop $ uploadH p c')
+				, ("/images", ifTop $ componentImagesH p c')
 				])
 		componentRoutes _ _ = pass
+		pSplices = do
+			projectSplices p
+			"isProject" ## showContents
 
 ------------------------------------------------------------------------------
 -- | The application initializer.
@@ -174,52 +183,54 @@ projectH p = do
                                                                       | Administration
 }----------------------------------------------------------------------------------------------------}
 
--- view list of projects & add new ones
-adminListH :: AppHandler ()
-adminListH = processForm "form" (Project.projectForm Nothing) Project.add
-	viewH (\p -> redirect $ "project/" <> T.encodeUtf8 (Project.slug p) <> "/components/")
-	where
-		viewH v = do
-			projects <- Project.adminList
-			renderWithSplices "/projects/admin" $ do
-				"project" ## listToSplice projectSplices projects
-				digestiveSplices v
+listProjectsH :: AppHandler ()
+listProjectsH = do
+	projects <- Project.adminList
+	renderWithSplices "/projects/list" $ "project" ## listToSplice projectSplices projects
+
+addProjectH :: AppHandler ()
+addProjectH = processForm "form" (Project.projectForm Nothing) Project.add
+	(renderWithSplices "/projects/add" . digestiveSplices)
+	(\p -> redirect $ "./" <> T.encodeUtf8 (Project.slug p) <> "/")
 
 editProjectH :: Project.Project -> AppHandler ()
 editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit p)
-	(renderWithSplices "/projects/edit" . digestiveSplices) (\p -> redirect $ "../" <> T.encodeUtf8 (Project.slug p) <> "/components/")
+	(renderWithSplices "/projects/edit" . digestiveSplices)
+	(\p -> redirect $ "../" <> T.encodeUtf8 (Project.slug p) <> "/components/")
 
 ----------------------------------------------------------------------
 
-projectComponentsH :: Project.Project -> Maybe T.Text -> AppHandler ()
-projectComponentsH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add p)
-	viewH (\c' -> redirect $ "./" <> T.encodeUtf8 (Component.path c') <> "/")
+listComponentsH :: Project.Project -> AppHandler ()
+listComponentsH p = do
+	components <- Component.adminList p
+	renderWithSplices "/components/list" $ "component" ## listToSplice componentSplices components
+
+addComponentH :: Project.Project -> Maybe T.Text -> AppHandler ()
+addComponentH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add p)
+	viewH (\c' -> redirect $ "./" <> B.pack (show $ Component.date c') <> "/")
 	where
 		-- TODO: pull this from the database
 		defaultComp = fromMaybe "Design" c
 		viewH v =  do
 			components <- Component.adminList p
 			types <- Component.types
-			renderWithSplices "/components/admin" $ do
-				projectSplices p
-				"component" ## listToSplice componentSplices components
+			renderWithSplices "/components/add" $ do
 				"type" ## listSplice "name" types
 				digestiveSplices v
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Component.edit p)
+	(renderWithSplices "/components/edit" . digestiveSplices) (const redirectToSelf)
+
+componentImagesH :: Project.Project -> Component.Component -> AppHandler ()
+componentImagesH p c = processForm "form" Image.imageForm (Image.add p c)
 	viewH (const redirectToSelf)
 	where
 		viewH v = do
 			images <- Image.list p c
-			renderWithSplices "/components/edit" $ do
-				projectSplices p
+			renderWithSplices "/components/images" $ do
 				"image" ## listToSplice imageSplices images
 				digestiveSplices v
-
-uploadH :: Project.Project -> Component.Component -> AppHandler ()
-uploadH p c = processForm "form" Image.imageForm (Image.add p c)
-	(renderWithSplices "/components/edit" . digestiveSplices) (const (redirect "./"))
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Web Archives

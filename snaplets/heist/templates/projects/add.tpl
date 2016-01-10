@@ -1,8 +1,8 @@
 <apply template="/_admin">
-<h1>Edit Component</h1>
+<h1>Add Project</h1>
 
 <dfForm class="simplified">
 	<apply template="_form" />
-	<input type="submit" value="Edit" />
+	<input type="submit" value="Update" />
 </dfForm>
 </apply>

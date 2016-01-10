@@ -576,3 +576,42 @@ main > h1:not(:first-child):before, .project > h1:before {
   background: url(../images/minor-divider.svg) center bottom/contain no-repeat;
   height: 1.25em;
 }
+
+.admin {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.admin > nav {
+  -ms-flex: 1 1 8em;
+  -webkit-flex: 1 1 8em;
+  flex: 1 1 8em;
+}
+.admin > nav ul ul {
+  margin-top: 0;
+}
+@media (min-width: 60em) {
+  .admin > nav {
+    border-right: 2px dotted #EBE5DA;
+    padding-right: 2em;
+    margin-right: 2em;
+  }
+}
+.admin > article {
+  margin-top: 0;
+  -ms-flex: 1 1 30em;
+  -webkit-flex: 1 1 30em;
+  flex: 1 1 30em;
+}
+@media (max-width: 60em) {
+  .admin > nav {
+    padding-bottom: 2em;
+    border-bottom: 2px dotted #EBE5DA;
+  }
+  .admin > article {
+    margin-top: 2em;
+  }
+}

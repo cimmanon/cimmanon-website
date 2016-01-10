@@ -1,5 +1,5 @@
-<apply template="/_layout">
-<h1>Edit Project</h1>
+<apply template="/_admin">
+<h1>Edit Project: <name>Project Name</name></h1>
 
 <dfForm class="simplified">
 	<apply template="_form" />

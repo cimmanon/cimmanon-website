@@ -1,0 +1,34 @@
+.admin {
+	@include display-flex;
+	@include flex-wrap(wrap);
+
+	> nav {
+		@include flex(1 1 8em);
+
+		ul ul {
+			margin-top: 0;
+		}
+
+		@media (min-width: $layout-2-col) {
+			border-right: $border-secondary;
+			padding-right: $spacing-primary;
+			margin-right: $spacing-primary;
+		}
+	}
+
+	> article {
+		margin-top: 0;
+		@include flex(1 1 30em);
+	}
+
+	@media (max-width: $layout-2-col) {
+		> nav {
+			padding-bottom: $spacing-primary;
+			border-bottom: $border-secondary;
+		}
+
+		> article {
+			margin-top: $spacing-primary;
+		}
+	}
+}
