@@ -188,7 +188,7 @@ editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit
 
 projectComponentsH :: Project.Project -> Maybe T.Text -> AppHandler ()
 projectComponentsH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add (Project.name p))
-	(viewH) (\c' -> redirect $ "./" <> (T.encodeUtf8 $ Component.component c') <> "/" <> (B.pack $ show $ Component.date c'))
+	(viewH) (\c' -> redirect $ "./" <> (T.encodeUtf8 $ Component.path c'))
 	where
 		-- TODO: pull this from the database
 		defaultComp = fromMaybe "Design" c

@@ -3,6 +3,7 @@
 module Model.Component
 	( Component(..)
 	, componentForm
+	, path
 	, list
 	, get
 	, adminList
@@ -43,6 +44,9 @@ data Component = Component
 
 instance FromRow Component where
 	fromRow = Component <$> field <*> field <*> field <*> field <*> field <*> (toList <$> field)
+
+path :: Component -> Text
+path c = component c <> "/" <> (pack $ show $ date c)
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Forms
