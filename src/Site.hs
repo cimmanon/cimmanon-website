@@ -187,7 +187,7 @@ adminListH = processForm "form" (Project.projectForm Nothing) Project.add
 
 editProjectH :: Project.Project -> AppHandler ()
 editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit p)
-	(renderWithSplices "/projects/edit" . digestiveSplices) (const redirectToSelf)
+	(renderWithSplices "/projects/edit" . digestiveSplices) (\p -> redirect $ "../" <> T.encodeUtf8 (Project.slug p) <> "/components/")
 
 ----------------------------------------------------------------------
 

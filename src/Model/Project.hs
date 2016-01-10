@@ -76,8 +76,8 @@ adminList = query_ "SELECT project, description, slug, url, featured FROM portfo
 add :: (HasPostgres m, Functor m) => Project -> m (Either Text Project)
 add p = toEither' $ const p <$> execute "INSERT INTO portfolio.projects (project, description, slug, url, featured) VALUES (?, ?, ?, ?, ?)" (name p, description p, slug p, url p, featured p)
 
-edit :: (HasPostgres m, Functor m) => Project -> Project -> m (Either Text Int64)
-edit original new = toEither' $ execute "UPDATE portfolio.projects SET project = ?, description = ?, slug = ?, url = ?, featured = ? WHERE name = ?" (name new, description new, slug new, url new, featured new, name original)
+edit :: (HasPostgres m, Functor m) => Project -> Project -> m (Either Text Project)
+edit original new = toEither' $ const new <$> execute "UPDATE portfolio.projects SET project = ?, description = ?, slug = ?, url = ?, featured = ? WHERE project = ?" (name new, description new, slug new, url new, featured new, name original)
 
 ----------------------------------------------------------------------
 
