@@ -48,11 +48,11 @@ import qualified Model.Tag as Tag
 routes :: [(ByteString, Handler App App ())]
 routes =
 	[ ("/", ifTop indexH)
-	, ("/projects/tags/:tag", ifTop $ textParam "tag" >>= maybe pass (listByH tagsH <=< Project.listByTag))
+	, ("/projects/tags/:tag", ifTop $ textParam "tag" >>= maybeH (listByH tagsH <=< Project.listByTag))
 	, ("/projects/tags/", ifTop $ listByH tagsH [])
-	, ("/projects/year/:year", ifTop $ intParam "year" >>= maybe pass (listByH yearH <=< Project.listByYear))
+	, ("/projects/year/:year", ifTop $ intParam "year" >>= maybeH (listByH yearH <=< Project.listByYear))
 	, ("/projects/year/", ifTop $ listByH yearH [])
-	, ("/projects/component/:component", ifTop $ textParam "component" >>= maybe pass (listByH componentH <=< Project.listByComponent))
+	, ("/projects/component/:component", ifTop $ textParam "component" >>= maybeH (listByH componentH <=< Project.listByComponent))
 	, ("/projects/component/", ifTop $ listByH componentH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
 	, ("/admin/", route adminRoutes)
@@ -77,7 +77,7 @@ projectRoutes p =
 	]
 	where
 		componentRoutes (Just c) (Just d) =
-			Component.get p c d >>= maybe pass (\c' -> route
+			Component.get p c d >>= maybeH (\c' -> route
 				[ ("/", ifTop $ editComponentH p c')
 				, ("/upload", ifTop $ uploadH p c')
 				])
@@ -115,6 +115,10 @@ app = makeSnaplet "app" "An snaplet example application." Nothing $ do
 			& hcSpliceConfig .~ sc
 			& hcNamespace .~ ""
 			& hcErrorNotBound .~ True
+
+-- TODO: move this to a library
+maybeH :: (a -> AppHandler ()) -> Maybe a -> AppHandler ()
+maybeH = maybe pass
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Handlers
