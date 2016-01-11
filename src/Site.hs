@@ -220,7 +220,7 @@ addComponentH p c = processForm "form" (Component.componentForm (Left defaultCom
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Component.edit p)
-	(renderWithSplices "/components/edit" . digestiveSplices) (const redirectToSelf)
+	(renderWithSplices "/components/edit" . digestiveSplices) (const (redirect "../../"))
 
 componentImagesH :: Project.Project -> Component.Component -> AppHandler ()
 componentImagesH p c = processForm "form" Image.imageForm (Image.add p c)
