@@ -207,7 +207,7 @@ listComponentsH p = do
 
 addComponentH :: Project.Project -> Maybe T.Text -> AppHandler ()
 addComponentH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add p)
-	viewH (\c' -> redirect $ "./" <> B.pack (show $ Component.date c') <> "/")
+	viewH (\c' -> redirect $ "./" <> B.pack (show $ Component.date c') <> "/images")
 	where
 		-- TODO: pull this from the database
 		defaultComp = fromMaybe "Design" c
