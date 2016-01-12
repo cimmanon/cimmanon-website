@@ -15,7 +15,7 @@
 
 	<tbody>
 		<image><tr>
-			<td><img src="/images/screenshots/${slug}/${filename}" width="200" alt="" /></td>
+			<td><img src="/screenshots/${slug}/${filename}" width="200" alt="" /></td>
 			<td><filename>example.jpg</filename></td>
 			<td class="numeric"><width>480</width>px</td>
 			<td class="numeric"><height>320</height>px</td>

@@ -8,6 +8,7 @@
 					<ul>
 						<isProject><li><name>Project Name</name>
 							<ul>
+								<li><a href="/projects/${slug}">View</a></li>
 								<li><a href="/admin/projects/${slug}/">Edit</a></li>
 								<li><a href="/admin/projects/${slug}/components/">Components</a>
 									<ul>

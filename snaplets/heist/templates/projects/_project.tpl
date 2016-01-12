@@ -10,6 +10,6 @@
 	<component><article>
 		<apply template="/components/_component" />
 
-		<image><img src="/images/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>
+		<image><img src="/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>
 	</article></component>
 </div>

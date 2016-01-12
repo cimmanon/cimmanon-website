@@ -21,7 +21,7 @@
 		</div>
 
 		<aside>
-			<image><img src="/images/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>
+			<image><img src="/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>
 
 			<p><a href="/projects/${slug}/" class="more">Project history</a></p>
 		</aside>
