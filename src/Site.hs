@@ -191,7 +191,7 @@ listProjectsH = do
 addProjectH :: AppHandler ()
 addProjectH = processForm "form" (Project.projectForm Nothing) Project.add
 	(renderWithSplices "/projects/add" . digestiveSplices)
-	(\p -> redirect $ "./" <> T.encodeUtf8 (Project.slug p) <> "/")
+	(\p -> redirect $ "./" <> T.encodeUtf8 (Project.slug p) <> "/components/")
 
 editProjectH :: Project.Project -> AppHandler ()
 editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit p)
