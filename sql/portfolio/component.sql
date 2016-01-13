@@ -4,10 +4,10 @@ SELECT
 	date_added,
 	public,
 	archived,
-	array_agg(tag :: TEXT) AS tags
+	COALESCE(NULLIF(array[NULL], array_agg(tag :: TEXT)), array[] :: TEXT[]) AS tags
 FROM
 	portfolio.project_components
-	JOIN portfolio.project_tags USING (project, component, date_added)
+	LEFT JOIN portfolio.project_tags USING (project, component, date_added)
 WHERE
 	project = ?
 	AND component = ?
