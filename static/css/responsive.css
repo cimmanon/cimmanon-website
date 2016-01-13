@@ -464,19 +464,13 @@ body > header:after {
 }
 
 main {
-  margin: 0 auto 1em;
+  margin: 0 0 1em;
   padding: 0 2em;
   position: relative;
   z-index: 100;
   -ms-flex: 1 0 auto;
   -webkit-flex: 1 0 auto;
   flex: 1 0 auto;
-}
-@supports (display: flex) {
-  main {
-    margin-left: 0;
-    margin-right: 0;
-  }
 }
 
 body > footer {

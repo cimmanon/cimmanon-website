@@ -75,7 +75,8 @@ body > header {
 //***************************************************************************************************/
 
 main {
-	margin: 0 auto 1em;
+//	margin: 0 auto 1em;
+	margin: 0 0 1em; // left/right margins need to be 0 for Presto/Mozilla
 	padding: 0 $spacing-primary;
 	//max-width: $absolute-max-width;
 	position: relative;
@@ -89,8 +90,8 @@ main {
 		// this is a fix for Presto and Mozilla
 		// for some reason the left/right auto margins cause it to be smaller than it should be
 		// it's only necessary for flexbox enabled browsers
-		margin-left: 0;
-		margin-right: 0;
+		//margin-left: 0;
+		//margin-right: 0;
 	}
 
 	@media (max-width: $layout-2-col) {
