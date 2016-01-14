@@ -91,6 +91,8 @@ imageSplices i = do
 	"filename" ## textSplice $ Image.filename i
 	"width" ## numericSplice $ Image.width i
 	"height" ## numericSplice $ Image.height i
+	"featured" ## showSplice $ Image.featured i
+	"isDefault" ## ifSplice' $ Image.featured i
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Archive Serve

@@ -7,7 +7,8 @@ SELECT
 	tags,
 	filename,
 	width,
-	height
+	height,
+	project_images.featured
 FROM
 	(
 		SELECT

@@ -14,7 +14,8 @@ SELECT
 
 	filename,
 	width,
-	height
+	height,
+	project_images.featured
 FROM
 	portfolio.projects
 	JOIN (

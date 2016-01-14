@@ -29,7 +29,7 @@ import Util.Database
 
 import Model.Types.Project
 import Model.Types.Component as C hiding (description)
-import Model.Types.Image as I
+import Model.Types.Image as I hiding (featured)
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Records

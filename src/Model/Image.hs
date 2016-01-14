@@ -61,7 +61,7 @@ imageForm = "file" .: fileMultiple
 }----------------------------------------------------------------------------------------------------}
 
 list :: (HasPostgres m) => Project -> Component -> m [Image]
-list p c = query "SELECT filename, width, height FROM portfolio.project_images WHERE project = ? AND component = ? AND date_added = ?" (C.primaryKey p c)
+list p c = query "SELECT filename, width, height, featured FROM portfolio.project_images WHERE project = ? AND component = ? AND date_added = ?" (C.primaryKey p c)
 
 add :: (HasPostgres m, Functor m) => Project -> Component -> [FilePath] -> m (Either Text ())
 add p c xs = do

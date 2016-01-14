@@ -12,13 +12,14 @@ data Image = Image
 	{ filename :: Text
 	, width :: Int
 	, height :: Int
+	, featured :: Bool
 	} deriving (Show, Eq)
 
 instance FromRow Image where
-	fromRow = Image <$> field <*> field <*> field
+	fromRow = Image <$> field <*> field <*> field <*> field
 
 instance FromRow (Maybe Image) where
-	fromRow = maybeImage <$> field <*> field <*> field
+	fromRow = maybeImage <$> field <*> field <*> field <*> field
 
-maybeImage :: Maybe Text -> Maybe Int -> Maybe Int -> Maybe Image
-maybeImage n w h = Image <$> n <*> w <*> h
+maybeImage :: Maybe Text -> Maybe Int -> Maybe Int -> Maybe Bool -> Maybe Image
+maybeImage n w h f = Image <$> n <*> w <*> h <*> f
