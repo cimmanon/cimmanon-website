@@ -87,7 +87,6 @@ CREATE INDEX project_tag_tag_idx ON project_tags (tag);
 
 --------------------------------------------------------------------- | Assets
 
--- should we allow multiple images per project?
 CREATE TABLE project_images (
 	project LABEL NOT NULL,
 	component LABEL NOT NULL,
@@ -97,7 +96,7 @@ CREATE TABLE project_images (
 	height INT NOT NULL,
 	featured BOOL NOT NULL DEFAULT false,
 
-	PRIMARY KEY (project, component, date_added, filename),
+	PRIMARY KEY (project, filename),
 	FOREIGN KEY (project, component, date_added) REFERENCES project_components (project, component, date_added) ON UPDATE CASCADE
 );
 CREATE UNIQUE INDEX project_images_featured_idx ON project_images (project, component, date_added, featured) WHERE featured = true;
