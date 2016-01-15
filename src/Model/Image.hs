@@ -2,37 +2,43 @@
 
 module Model.Image
 	( Image(..)
-	, imageForm
+	, uploadForm
+	, updateForm
 	, identifyImage
 	, formConfig
 	, uploadPolicy
 	, partPolicy
 	, list
 	, add
+	, update
 	) where
 
 import Control.Applicative
+import Control.Monad (mapM_)
 import Control.Monad.Trans (liftIO)
-import Data.Monoid ((<>))
+import Data.Monoid ((<>), mappend)
 import Snap.Snaplet.PostgresqlSimple
 
 import Data.Either (lefts)
 import Data.Maybe (listToMaybe)
 import Data.Text (Text, pack, unpack)
+import Data.Vector (fromList)
 import Text.Digestive
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database
+import Util.Form
 
 import Data.Char (toLower)
 import Data.Int (Int64)
+import Data.List (find)
 import Snap.Util.FileUploads
 import System.FilePath (takeFileName)
 import System.Exit (ExitCode (..))
 import System.Process (readProcessWithExitCode)
-import System.Directory (createDirectoryIfMissing, copyFile)
+import System.Directory (createDirectoryIfMissing, copyFile, removeFile)
 import Text.Digestive.Snap hiding (uploadPolicy, partPolicy)
 
-import Model.Types.Project as P
+import Model.Types.Project as P hiding (featured)
 import Model.Types.Component as C
 import Model.Types.Image as I
 import Model.Component as C (primaryKey)
@@ -53,8 +59,16 @@ allowedTypes = ["png", "gif", "jpg", "jpeg", "svg"]
                                                                        | Forms
 }----------------------------------------------------------------------------------------------------}
 
-imageForm :: Monad m => Form Text m [FilePath]
-imageForm = "file" .: fileMultiple
+uploadForm :: Monad m => Form Text m [FilePath]
+uploadForm = "file" .: fileMultiple
+
+updateForm :: Monad m => [Image] -> Form Text m (Text, [Text])
+updateForm xs = ( , )
+	<$> "featured" .: choiceWith choices current
+	<*> "delete" .: listOfText (map filename xs) []
+	where
+		choices = (map (\x -> (filename x, (filename x, filename x))) xs)
+		current = filename <$> find featured xs
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Queries
@@ -74,7 +88,6 @@ add p c xs = do
 			liftIO $ print failures
 			return $ Left $ "Images failed to upload: " <> pack (show $ length failures)
 	where
-		destDir = screenshotDirectory <> unpack (P.slug p) <> "/"
 		processFile f = do
 			info <- liftIO $ identifyImage allowedTypes f
 			case info of
@@ -85,17 +98,13 @@ add p c xs = do
 			case r of
 				Left _ -> return $ Left f
 				Right _ -> do
-					liftIO $ saveFile destDir f
+					liftIO $ saveFile (filePath p) f
 					return $ Right ()
 
-saveFile :: FilePath -> FilePath -> IO ()
-saveFile dir file = do
-	createDirectoryIfMissing True dir
-	copyFile file $ dir <> getFileName file -- TODO: strip EXIF data
-
--- filenames uploaded via Snap are prefixed like so:  _snap-c8XbTISLfW2rs
-getFileName :: FilePath -> FilePath
-getFileName = drop 6 . takeFileName
+update :: (HasPostgres m, Functor m) => Project -> Component -> (Text, [Text]) -> m (Either Text [Only ()])
+update p c (f, d) = do
+	liftIO $ mapM (removeFile . mappend (filePath p) . unpack) d
+	toEither' $ query "SELECT * FROM portfolio.update_images((?, ?, ?, null, false, false) :: portfolio.PROJECT_COMPONENTS, ?, ?)" (P.name p, C.component c, C.date c, f, fromList d)
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Upload Policy
@@ -140,3 +149,15 @@ identifyImage allowedTypes p = do
 				then Right $ FileInfo ext' (read width) (read height)
 				else Left DisallowedType
 		_ -> return $ Left UnknownType
+
+filePath :: Project -> FilePath
+filePath p = screenshotDirectory <> unpack (P.slug p) <> "/"
+
+saveFile :: FilePath -> FilePath -> IO ()
+saveFile dir file = do
+	createDirectoryIfMissing True dir
+	copyFile file $ dir <> getFileName file -- TODO: strip EXIF data
+
+-- filenames uploaded via Snap are prefixed like so:  _snap-c8XbTISLfW2rs
+getFileName :: FilePath -> FilePath
+getFileName = drop 6 . takeFileName

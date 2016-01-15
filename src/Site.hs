@@ -86,6 +86,7 @@ projectRoutes p = withSplices pSplices $ route
 			Component.get p c d >>= maybeH (\c' -> withSplices ("isComponent" ## runChildrenWith $ componentSplices c') $ route
 				[ ("/", ifTop $ editComponentH p c')
 				, ("/images", ifTop $ componentImagesH p c')
+				, ("/upload", ifTop $ uploadImagesH p c')
 				])
 		componentRoutes _ _ = pass
 		pSplices = do
@@ -223,14 +224,22 @@ editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Com
 	(renderWithSplices "/components/edit" . digestiveSplices) (const (redirect "../../"))
 
 componentImagesH :: Project.Project -> Component.Component -> AppHandler ()
-componentImagesH p c = processForm "form" Image.imageForm (Image.add p c)
-	viewH (const redirectToSelf)
+componentImagesH p c = do
+	images <- Image.list p c
+	processForm "update" (Image.updateForm images) (Image.update p c)
+		(viewH images) (const redirectToSelf)
 	where
-		viewH v = do
-			images <- Image.list p c
+		viewH images v =
 			renderWithSplices "/components/images" $ do
-				"image" ## listToSplice imageSplices images
+				"image" ## listToSplice iSplices $ zip [0..] images
 				digestiveSplices v
+		iSplices (i, img) =  do
+			imageSplices img
+			"indice" ## numericSplice i
+
+uploadImagesH :: Project.Project -> Component.Component -> AppHandler ()
+uploadImagesH p c = processForm "upload" Image.uploadForm (Image.add p c)
+	(const (redirect "./images")) (const (redirect "./images"))
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Web Archives

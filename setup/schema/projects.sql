@@ -158,3 +158,32 @@ BEGIN
 		unnest(tags) AS x(tag);
 END;
 $$ LANGUAGE plpgsql VOLATILE;
+
+CREATE OR REPLACE FUNCTION update_images(info PROJECT_COMPONENTS, _featured TEXT, _delete TEXT[]) RETURNS VOID AS $$
+BEGIN
+	-- unset the current featured image
+	UPDATE portfolio.project_images
+	SET
+		featured = false
+	WHERE
+		project = info.project
+		AND component = info.component
+		AND date_added = info.date_added;
+
+	-- set the new featured image
+	UPDATE portfolio.project_images
+	SET
+		featured = true
+	WHERE
+		project = info.project
+		AND component = info.component
+		AND date_added = info.date_added
+		AND filename = _featured;
+
+	-- delete files
+	DELETE FROM portfolio.project_images
+	WHERE
+		project = info.project
+		AND filename = any(_delete);
+END;
+$$ LANGUAGE plpgsql VOLATILE;
