@@ -64,7 +64,7 @@ routes =
 
 adminRoutes :: AppHandler ()
 adminRoutes = withSplices aSplices $ route
-	[ ("/", ifTop $ renderWithSplices "/_admin" $ "pageTitle" ## textSplice "Administration")
+	[ ("/", ifTop $ redirect "./projects/")
 	, ("/projects/", ifTop listProjectsH)
 	, ("/projects/add", ifTop addProjectH)
 	, ("/projects/:slug/", modelH textParam "slug" Project.get projectRoutes)
