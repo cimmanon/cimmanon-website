@@ -1,5 +1,6 @@
+<bind tag="pageTitle">Projects by Component</bind>
 <apply template="_project_list">
-	<h1>Projects by Component</h1>
+	<h1><pageTitle /></h1>
 
 	<!-- hard coded for now -->
 	<ul class="year_list">

@@ -1,3 +1,4 @@
+<bind tag="pageTitle">Featured Projects</bind>
 <apply template="_layout">
 	<h1>Portfolio</h1>
 

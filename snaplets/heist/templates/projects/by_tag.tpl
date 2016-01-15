@@ -1,5 +1,6 @@
+<bind tag="pageTitle">Projects by Tag</bind>
 <apply template="_project_list">
-	<h1>Projects by Tag</h1>
+	<h1><pageTitle /></h1>
 
 	<ul class="tag_list">
 		<category><li><name>Language</name>

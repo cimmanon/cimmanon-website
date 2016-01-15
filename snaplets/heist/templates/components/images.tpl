@@ -1,3 +1,4 @@
+<bind tag="pageTitle"><name>Project Name</name> Images</bind>
 <apply template="/_admin">
 <h1>Images</h1>
 

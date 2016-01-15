@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Cimmanon</title>
+	<title>Cimmanon - <pageTitle>Portfolio</pageTitle></title>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
 </head>

@@ -1,3 +1,4 @@
+<bind tag="pageTitle">Administrate Projects</bind>
 <apply template="/_admin">
 <h1>Projects</h1>
 

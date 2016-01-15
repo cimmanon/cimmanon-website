@@ -1,5 +1,6 @@
+<bind tag="pageTitle">R&eacute;sum&eacute;</bind>
 <apply template="_layout">
-	<h1>R&eacute;sum&eacute;</h1>
+	<h1><pageTitle /></h1>
 
 	<p>Resume goes here</p>
 </apply>
