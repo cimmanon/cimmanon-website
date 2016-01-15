@@ -104,7 +104,7 @@ add p c xs = do
 update :: (HasPostgres m, Functor m) => Project -> Component -> (Text, [Text]) -> m (Either Text [Only ()])
 update p c (f, d) = do
 	liftIO $ mapM (removeFile . mappend (filePath p) . unpack) d
-	toEither' $ query "SELECT * FROM portfolio.update_images((?, ?, ?, null, false, false) :: portfolio.PROJECT_COMPONENTS, ?, ?)" (P.name p, C.component c, C.date c, f, fromList d)
+	toEither' $ query "SELECT * FROM portfolio.update_images((?, ?, ?) :: portfolio.COMPONENT_IDENTITY, ?, ?)" (P.name p, C.component c, C.date c, f, fromList d)
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Upload Policy

@@ -56,6 +56,8 @@ CREATE TABLE project_components (
 CREATE INDEX project_components_component_idx ON project_components (component);
 CREATE INDEX project_components_year_idx ON project_components (extract(year FROM date_added) DESC);
 
+CREATE TYPE component_identity AS (project LABEL, component LABEL, date_added DATE);
+
 --------------------------------------------------------------------- | Tags
 
 CREATE TABLE tag_categories (
@@ -159,7 +161,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION update_images(info PROJECT_COMPONENTS, _featured TEXT, _delete TEXT[]) RETURNS VOID AS $$
+CREATE OR REPLACE FUNCTION update_images(info COMPONENT_IDENTITY, _featured TEXT, _delete TEXT[]) RETURNS VOID AS $$
 BEGIN
 	-- unset the current featured image
 	UPDATE portfolio.project_images
