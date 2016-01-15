@@ -248,6 +248,10 @@ td.bool {
   text-align: center;
 }
 
+td.fixed {
+  text-align: center;
+}
+
 table.spreadsheet {
   border-collapse: collapse;
   border: 1px solid #EBE5DA;

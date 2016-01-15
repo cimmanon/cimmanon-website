@@ -40,7 +40,7 @@ import Model.Component as C (primaryKey)
 ----------------------------------------------------------------------
 
 screenshotDirectory :: FilePath
-screenshotDirectory = "static/images/screenshots/"
+screenshotDirectory = "static/screenshots/"
 
 allowedTypes :: [String]
 allowedTypes = ["png", "gif", "jpg", "jpeg", "svg"]
