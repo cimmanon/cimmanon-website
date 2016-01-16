@@ -1,0 +1,12 @@
+ul.skills {
+	li {
+		@include inset($el: after) {
+			background-color: $green-light;
+		}
+	}
+	@for $i from 1 through 9 {
+		li[data-level="#{$i}"]:after {
+			max-width: $i * 10%;
+		}
+	}
+}

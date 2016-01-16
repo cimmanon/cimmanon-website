@@ -613,3 +613,47 @@ main > h1:not(:first-child):before, .project > h1:before {
     margin-top: 2em;
   }
 }
+
+ul.skills li {
+  position: relative;
+  padding: 2px;
+  z-index: 1;
+}
+ul.skills li:after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  background-color: #ddede4;
+}
+ul.skills li[data-level="1"]:after {
+  max-width: 10%;
+}
+ul.skills li[data-level="2"]:after {
+  max-width: 20%;
+}
+ul.skills li[data-level="3"]:after {
+  max-width: 30%;
+}
+ul.skills li[data-level="4"]:after {
+  max-width: 40%;
+}
+ul.skills li[data-level="5"]:after {
+  max-width: 50%;
+}
+ul.skills li[data-level="6"]:after {
+  max-width: 60%;
+}
+ul.skills li[data-level="7"]:after {
+  max-width: 70%;
+}
+ul.skills li[data-level="8"]:after {
+  max-width: 80%;
+}
+ul.skills li[data-level="9"]:after {
+  max-width: 90%;
+}
