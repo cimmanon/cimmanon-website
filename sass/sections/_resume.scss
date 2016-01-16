@@ -9,4 +9,32 @@ ul.skills {
 			max-width: $i * 10%;
 		}
 	}
+
+	@media print {
+		@include columns(8em);
+		list-style: none;
+
+		li:after {
+			background: none;
+		}
+	}
+}
+
+.resume {
+	@include two-column;
+
+	article {
+		page-break-inside: avoid;
+		@include break-inside(avoid);
+	}
+
+	h1 {
+		page-break-after: avoid;
+		@include break-after(avoid);
+
+		+ * {
+			page-break-before: avoid;
+			@include break-before(avoid);
+		}
+	}
 }

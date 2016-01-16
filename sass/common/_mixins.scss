@@ -3,3 +3,10 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+@mixin two-column {
+	@include columns(25em 2);
+	//@include column-fill(auto);
+	@include column-rule($border-secondary);
+	@include column-gap(4em);
+}

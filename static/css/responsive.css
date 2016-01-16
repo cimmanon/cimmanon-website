@@ -303,7 +303,7 @@ fieldset .tags {
   columns: 8em;
 }
 
-@media (min-width: 60em) {
+@media screen and (min-width: 60em) {
   .listing {
     -moz-columns: 25em 2;
     -webkit-columns: 25em 2;
@@ -656,4 +656,45 @@ ul.skills li[data-level="8"]:after {
 }
 ul.skills li[data-level="9"]:after {
   max-width: 90%;
+}
+@media print {
+  ul.skills {
+    -moz-columns: 8em;
+    -webkit-columns: 8em;
+    columns: 8em;
+    list-style: none;
+  }
+  ul.skills li:after {
+    background: none;
+  }
+}
+
+.resume {
+  -moz-columns: 25em 2;
+  -webkit-columns: 25em 2;
+  columns: 25em 2;
+  -moz-column-rule: 2px dotted #EBE5DA;
+  -webkit-column-rule: 2px dotted #EBE5DA;
+  column-rule: 2px dotted #EBE5DA;
+  -moz-column-gap: 4em;
+  -webkit-column-gap: 4em;
+  column-gap: 4em;
+}
+.resume article {
+  page-break-inside: avoid;
+  -moz-page-break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+}
+.resume h1 {
+  page-break-after: avoid;
+  -moz-page-break-after: avoid;
+  -webkit-column-break-after: avoid;
+  break-after: avoid;
+}
+.resume h1 + * {
+  page-break-before: avoid;
+  -moz-page-break-before: avoid;
+  -webkit-column-break-before: avoid;
+  break-before: avoid;
 }
