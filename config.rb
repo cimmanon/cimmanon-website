@@ -1,3 +1,4 @@
+require 'modular-scale'
 require 'cimma'
 require 'translucencss'
 require 'compass/import-once/activate'

@@ -28,6 +28,11 @@ ul.skills {
 		@include break-inside(avoid);
 	}
 
+	section:not(:first-child) {
+		margin-bottom: .5em;
+		margin-bottom: 1rem;
+	}
+
 	h1 {
 		page-break-after: avoid;
 		@include break-after(avoid);
