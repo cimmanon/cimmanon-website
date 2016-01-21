@@ -236,17 +236,21 @@ h1 {
   font-size: 1.95313em;
 }
 
+h2, article h1, section h1 {
+  font-size: 1.5625em;
+}
+
+h3, article h2, section h2, article article h1, article section h1, section article h1, section section h1 {
+  font-size: 1.25em;
+}
+
 header h1:not(:last-child) {
   margin-bottom: 0;
 }
 
 article h1, section h1 {
-  font-size: 1.5625em;
   margin-bottom: .5em;
   margin-bottom: 1rem;
-}
-article article h1, article section h1, section article h1, section section h1 {
-  font-size: 1.25em;
 }
 
 fieldset ul, fieldset .inputList {
@@ -288,7 +292,7 @@ blockquote, .listing > *:only-child, .details {
   margin-right: auto;
 }
 
-body > header, body > footer, main > h1:not(:first-child), .project > h1, main > h1 {
+body > header, body > footer, main > h1:not(:first-child), main > h2:not(:first-child), .project > h1, main > h1, main > h2 {
   margin-right: -50%;
   margin-right: -50vw;
   margin-left: -50%;
@@ -383,7 +387,7 @@ fieldset .tags {
   margin: .75em;
 }
 
-a.more {
+a.more, a.featured {
   -moz-border-radius: 0.5em;
   -webkit-border-radius: 0.5em;
   border-radius: 0.5em;
@@ -391,6 +395,9 @@ a.more {
   display: inline-block;
   margin: 0 auto;
   text-decoration: none;
+}
+
+a.more {
   background-color: #EBE5DA;
   border: 1px solid #d0c2a8;
   -moz-box-shadow: inset 0 1px 0 white, 0 1px 3px 1px rgba(204, 204, 204, 0.3);
@@ -420,6 +427,38 @@ a.more:active {
   -moz-box-shadow: inset 0 1px 2px #cbbb9e;
   -webkit-box-shadow: inset 0 1px 2px #cbbb9e;
   box-shadow: inset 0 1px 2px #cbbb9e;
+}
+
+a.featured {
+  background-color: #fff5fb;
+  border: 1px solid #ffa9dc;
+  -moz-box-shadow: inset 0 1px 0 white, 0 1px 3px 1px rgba(204, 204, 204, 0.3);
+  -webkit-box-shadow: inset 0 1px 0 white, 0 1px 3px 1px rgba(204, 204, 204, 0.3);
+  box-shadow: inset 0 1px 0 white, 0 1px 3px 1px rgba(204, 204, 204, 0.3);
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZjVmYiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmYzJlNyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fff5fb), color-stop(100%, #ffc2e7));
+  background-image: -moz-linear-gradient(#fff5fb, #ffc2e7);
+  background-image: -webkit-linear-gradient(#fff5fb, #ffc2e7);
+  background-image: linear-gradient(#fff5fb, #ffc2e7);
+  color: #c9007a;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+a.featured:hover {
+  background-color: #ffdcf1;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZGNmMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmYTlkYyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffdcf1), color-stop(100%, #ffa9dc));
+  background-image: -moz-linear-gradient(#ffdcf1, #ffa9dc);
+  background-image: -webkit-linear-gradient(#ffdcf1, #ffa9dc);
+  background-image: linear-gradient(#ffdcf1, #ffa9dc);
+  cursor: hand;
+  cursor: pointer;
+}
+a.featured:active {
+  -moz-box-shadow: inset 0 1px 2px #ff99d6;
+  -webkit-box-shadow: inset 0 1px 2px #ff99d6;
+  box-shadow: inset 0 1px 2px #ff99d6;
 }
 
 html {
@@ -514,7 +553,7 @@ body > footer > * {
   margin-left: 2em;
 }
 
-main > h1:not(:first-child), .project > h1, main > h1 {
+main > h1:not(:first-child), main > h2:not(:first-child), .project > h1, main > h1, main > h2 {
   background: #EBE5DA;
   border-top: 1px solid #007259;
   border-bottom: 1px solid #007259;
@@ -525,7 +564,7 @@ main > h1:not(:first-child), .project > h1, main > h1 {
   padding: 2px;
   z-index: 1;
 }
-main > h1:not(:first-child):after, .project > h1:after, main > h1:after {
+main > h1:not(:first-child):after, main > h2:not(:first-child):after, .project > h1:after, main > h1:after, main > h2:after {
   position: absolute;
   z-index: -1;
   content: '';
@@ -538,10 +577,10 @@ main > h1:not(:first-child):after, .project > h1:after, main > h1:after {
   border-bottom: 2px dotted;
 }
 
-main > h1:not(:first-child), .project > h1 {
+main > h1:not(:first-child), main > h2:not(:first-child), .project > h1 {
   margin-top: 2.6em;
 }
-main > h1:not(:first-child):before, .project > h1:before {
+main > h1:not(:first-child):before, main > h2:not(:first-child):before, .project > h1:before {
   content: '';
   height: 1.6em;
   margin-top: -1.6em;
@@ -550,10 +589,10 @@ main > h1:not(:first-child):before, .project > h1:before {
   display: block;
 }
 @media (min-width: 60em) {
-  main > h1:not(:first-child), .project > h1 {
+  main > h1:not(:first-child), main > h2:not(:first-child), .project > h1 {
     margin-top: 3em;
   }
-  main > h1:not(:first-child):before, .project > h1:before {
+  main > h1:not(:first-child):before, main > h2:not(:first-child):before, .project > h1:before {
     margin-top: -2em;
     height: 2em;
   }
@@ -569,23 +608,32 @@ main > h1:not(:first-child):before, .project > h1:before {
   text-align: center;
   margin-top: 2em;
 }
+.project .listing {
+  margin-top: 2em;
+}
 .project .listing + p {
   text-align: center;
+}
+.project .listing + aside p:only-child {
+  margin-top: -1em;
 }
 
 .details {
   text-align: center;
   margin-top: 2em;
+  /*
+  	&:after {
+  		content: '';
+  		display: block;
+  		//border-top: $border-secondary;
+  		margin: 1.5em auto;
+  		//width: 50%;
+  		background: url(../images/minor-divider.svg) center bottom / contain no-repeat;
+  		height: 1.25em;
+  	}*/
 }
 .details p {
   text-align: left;
-}
-.details:after {
-  content: '';
-  display: block;
-  margin: 1.5em auto;
-  background: url(../images/minor-divider.svg) center bottom/contain no-repeat;
-  height: 1.25em;
 }
 
 .admin {

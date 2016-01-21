@@ -17,8 +17,16 @@
 	}
 
 	// probably a bit more specific than we need it to be, but this will do for now
-	.listing + p {
-		text-align: center;
+	.listing {
+		margin-top: $spacing-primary;
+
+		+ p {
+			text-align: center;
+		}
+
+		+ aside p:only-child {
+			margin-top: $spacing-primary / -2;
+		}
 	}
 }
 
@@ -30,7 +38,7 @@
 	p {
 		text-align: left;
 	}
-
+/*
 	&:after {
 		content: '';
 		display: block;
@@ -39,5 +47,5 @@
 		//width: 50%;
 		background: url(../images/minor-divider.svg) center bottom / contain no-repeat;
 		height: 1.25em;
-	}
+	}*/
 }

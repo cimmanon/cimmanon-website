@@ -170,7 +170,7 @@ body > footer {
 	}
 }
 
-main > h1 {
+main > h1, main > h2 {
 	@extend %main-header;
 
 	&:not(:first-child) {

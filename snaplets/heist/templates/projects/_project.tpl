@@ -1,10 +1,8 @@
 <h1><name>Project Name</name></h1>
 
-<div class="details">
-	<url><address><a href="${href}"><href /></a></address></url>
+<apply template="_project_details" />
 
-	<p><description></description></p>
-</div>
+<h2>Components</h2>
 
 <div class="listing">
 	<component><article>

@@ -125,6 +125,10 @@ fieldset .tags {
 	display: inline-block;
 	margin: 0 auto;
 	text-decoration: none;
+}
+
+%button-neutral {
+	@extend %button;
 
 	@include button(simple, $neutral-medium) {
 		@include button-text($neutral-dark);
@@ -132,7 +136,20 @@ fieldset .tags {
 	}
 }
 
+%button-pink {
+	@extend %button;
+
+	@include button(simple, $pink-light) {
+		@include button-text($pink-dark);
+		@include button-states;
+	}
+}
+
 // extra specificity, otherwise the link state colors will override the text color
 a.more {
-	@extend %button;
+	@extend %button-neutral;
+}
+
+a.featured {
+	@extend %button-pink;
 }
