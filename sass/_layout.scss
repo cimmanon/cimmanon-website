@@ -143,10 +143,13 @@ body > footer {
 		border-top: 2px dotted;
 		border-bottom: 2px dotted;
 	}
+
+	+ * {
+		margin-top: $spacing-primary;
+	}
 }
 
-%ruled-header {
-	@extend %main-header;
+%floral-header {
 	$floral-swirl-max-height: 2em;
 
 	margin-top: $floral-swirl-max-height * .8 + ($spacing-primary / 2);
@@ -170,10 +173,17 @@ body > footer {
 	}
 }
 
-main > h1, main > h2 {
+main > h1 {
 	@extend %main-header;
 
 	&:not(:first-child) {
-		@extend %ruled-header;
+		@extend %floral-header;
+	}
+}
+
+%major-section {
+	> h1 {
+		@extend %main-header;
+		@extend %floral-header;
 	}
 }

@@ -3,13 +3,7 @@
 .project {
 	padding-bottom: $spacing-primary / 2; // padding instead of margin to deal with margin-collapse
 
-	> h1 {
-		@extend %ruled-header;
-
-		+ section {
-			margin-top: 0;
-		}
-	}
+	@extend %major-section;
 
 	aside {
 		text-align: center;
@@ -30,22 +24,14 @@
 	}
 }
 
+.history {
+	@extend %major-section;
+}
+
 .details {
 	@extend %max-width;
-	text-align: center;
-	margin-top: $spacing-primary;
 
-	p {
-		text-align: left;
+	address {
+		text-align: center;
 	}
-/*
-	&:after {
-		content: '';
-		display: block;
-		//border-top: $border-secondary;
-		margin: 1.5em auto;
-		//width: 50%;
-		background: url(../images/minor-divider.svg) center bottom / contain no-repeat;
-		height: 1.25em;
-	}*/
 }

@@ -292,7 +292,7 @@ blockquote, .listing > *:only-child, .details {
   margin-right: auto;
 }
 
-body > header, body > footer, main > h1:not(:first-child), main > h2:not(:first-child), .project > h1, main > h1, main > h2 {
+body > header, body > footer, main > h1, .project > h1, .history > h1 {
   margin-right: -50%;
   margin-right: -50vw;
   margin-left: -50%;
@@ -553,7 +553,7 @@ body > footer > * {
   margin-left: 2em;
 }
 
-main > h1:not(:first-child), main > h2:not(:first-child), .project > h1, main > h1, main > h2 {
+main > h1, .project > h1, .history > h1 {
   background: #EBE5DA;
   border-top: 1px solid #007259;
   border-bottom: 1px solid #007259;
@@ -564,7 +564,7 @@ main > h1:not(:first-child), main > h2:not(:first-child), .project > h1, main > 
   padding: 2px;
   z-index: 1;
 }
-main > h1:not(:first-child):after, main > h2:not(:first-child):after, .project > h1:after, main > h1:after, main > h2:after {
+main > h1:after, .project > h1:after, .history > h1:after {
   position: absolute;
   z-index: -1;
   content: '';
@@ -576,11 +576,14 @@ main > h1:not(:first-child):after, main > h2:not(:first-child):after, .project >
   border-top: 2px dotted;
   border-bottom: 2px dotted;
 }
+main > h1 + *, .project > h1 + *, .history > h1 + * {
+  margin-top: 2em;
+}
 
-main > h1:not(:first-child), main > h2:not(:first-child), .project > h1 {
+main > h1:not(:first-child), .project > h1, .history > h1 {
   margin-top: 2.6em;
 }
-main > h1:not(:first-child):before, main > h2:not(:first-child):before, .project > h1:before {
+main > h1:not(:first-child):before, .project > h1:before, .history > h1:before {
   content: '';
   height: 1.6em;
   margin-top: -1.6em;
@@ -589,10 +592,10 @@ main > h1:not(:first-child):before, main > h2:not(:first-child):before, .project
   display: block;
 }
 @media (min-width: 60em) {
-  main > h1:not(:first-child), main > h2:not(:first-child), .project > h1 {
+  main > h1:not(:first-child), .project > h1, .history > h1 {
     margin-top: 3em;
   }
-  main > h1:not(:first-child):before, main > h2:not(:first-child):before, .project > h1:before {
+  main > h1:not(:first-child):before, .project > h1:before, .history > h1:before {
     margin-top: -2em;
     height: 2em;
   }
@@ -600,9 +603,6 @@ main > h1:not(:first-child):before, main > h2:not(:first-child):before, .project
 
 .project {
   padding-bottom: 1em;
-}
-.project > h1 + section {
-  margin-top: 0;
 }
 .project aside {
   text-align: center;
@@ -618,22 +618,8 @@ main > h1:not(:first-child):before, main > h2:not(:first-child):before, .project
   margin-top: -1em;
 }
 
-.details {
+.details address {
   text-align: center;
-  margin-top: 2em;
-  /*
-  	&:after {
-  		content: '';
-  		display: block;
-  		//border-top: $border-secondary;
-  		margin: 1.5em auto;
-  		//width: 50%;
-  		background: url(../images/minor-divider.svg) center bottom / contain no-repeat;
-  		height: 1.25em;
-  	}*/
-}
-.details p {
-  text-align: left;
 }
 
 .admin {
