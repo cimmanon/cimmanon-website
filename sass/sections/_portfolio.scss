@@ -1,9 +1,7 @@
 @import "compass/css3/columns";
 
 .project {
-	padding-bottom: $spacing-primary / 2; // padding instead of margin to deal with margin-collapse
-
-	@extend %major-section;
+	//@extend %major-section;
 
 	aside {
 		text-align: center;
@@ -25,7 +23,8 @@
 }
 
 .history {
-	@extend %major-section;
+	// TODO: remove this
+	//@extend %major-section;
 }
 
 .details {

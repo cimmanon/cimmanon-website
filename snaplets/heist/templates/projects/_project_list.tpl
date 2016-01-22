@@ -1,7 +1,7 @@
 <apply template="/_layout">
 	<apply-content />
 
-	<article class="project"><project>
+	<article class="major project"><project>
 		<h1><name>Project Name</name></h1>
 
 		<div class="listing">

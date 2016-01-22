@@ -222,9 +222,25 @@ main > h1 {
 	}
 }
 
+//***************************************************************************************************\
+//                                                                    | Major Sections
+//***************************************************************************************************/
+
 %major-section {
 	> h1 {
 		@extend %main-header;
 		@extend %floral-header;
+	}
+}
+
+.major-section, article.major, section.major {
+	@extend %major-section;
+
+	&:not(:last-child) {
+		padding-bottom: $spacing-primary / 2; // padding instead of margin to deal with margin-collapse
+	}
+
+	> h1 + * {
+		//@extend %listing;
 	}
 }

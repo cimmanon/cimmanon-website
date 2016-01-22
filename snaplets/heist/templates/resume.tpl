@@ -2,10 +2,14 @@
 <apply template="_layout">
 	<h1><pageTitle /></h1>
 
-	<div class="resume">
-		<section id="skills">
-			<h1>Skills</h1>
+	<blockquote>
+		<p>I walk the line between designer and developer.  Some days I feel like a designer trying to muddle my way through code, other days I think I'm a developer struggling to make something look nice.</p>
+	</blockquote>
 
+	<section id="skills" class="major">
+		<h1>Skills</h1>
+
+		<div class="listing">
 			<article>
 				<h1>Design</h1>
 
@@ -50,14 +54,16 @@
 					<li data-level="5">Query Optimization</li>
 				</ul>
 			</article>
-		</section>
+		</div>
+	</section>
 
-		<section id="experience">
-			<h1>Work Experience</h1>
+	<section id="experience" class="major">
+		<h1>Work Experience</h1>
 
+		<div class="listing">
 			<article>
 				<header>
-					<h1>Data Modeler/Haskell Developer, Zalora</h1>
+				<h1>Data Modeler/Haskell Developer, Zalora</h1>
 					<time>March 2014</time> to <time>February 2015</time>
 				</header>
 
@@ -72,11 +78,13 @@
 
 				<p>My first project was a web application to manage the planning of flyers for a grocery store.  We used as an experiment on how we were going to rewrite the application that runs snapd.  The first version was written in PHP using the Zend framework, but I found it to be difficult to maintain in the long run.  After exploring frameworks in both Scala and Haskell, I settled on Haskell's Snap framework.  Over the course of 2 months, the application was completely rewritten and included a number of improvements over the original.</p>
 			</article>
-		</section>
+		</div>
+	</section>
 
-		<section id="opensource">
-			<h1>Open Source Contributions</h1>
+	<section id="opensource" class="major">
+		<h1>Open Source Contributions</h1>
 
+		<div class="listing">
 			<article>
 				<header>
 					<h1>Digestive Functors (Haskell)</h1>
@@ -112,6 +120,6 @@
 
 				<p>I rewrote their collection of Flexbox mixins for the 0.12 version.  The original mixins were for the 2009 Flexbox specification, but a few browsers had been supporting the standard specification from 2012 for quite a while when I made the pull request.</p>
 			</article>
-		</section>
-	</div>
+		</div>
+	</section>
 </apply>

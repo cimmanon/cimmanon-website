@@ -4,7 +4,7 @@
 
 <apply template="_project_details" />
 
-<section class="history">
+<section class="major">
 	<h1>History</h1>
 
 	<div class="listing">

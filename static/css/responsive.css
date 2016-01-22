@@ -292,7 +292,7 @@ blockquote, .listing > *:only-child, .details {
   margin-right: auto;
 }
 
-body > header, body > footer, main > h1, .project > h1, .history > h1 {
+body > header, body > footer, main > h1, .major-section > h1, article.major > h1, section.major > h1 {
   margin-right: -75%;
   margin-right: -50vw;
   margin-left: -75%;
@@ -586,7 +586,7 @@ body > footer > * {
   margin-left: 2em;
 }
 
-main > h1, .project > h1, .history > h1 {
+main > h1, .major-section > h1, article.major > h1, section.major > h1 {
   background: #EBE5DA;
   border-top: 1px solid #007259;
   border-bottom: 1px solid #007259;
@@ -597,7 +597,7 @@ main > h1, .project > h1, .history > h1 {
   padding: 2px;
   z-index: 1;
 }
-main > h1:after, .project > h1:after, .history > h1:after {
+main > h1:after, .major-section > h1:after, article.major > h1:after, section.major > h1:after {
   position: absolute;
   z-index: -1;
   content: '';
@@ -609,14 +609,14 @@ main > h1:after, .project > h1:after, .history > h1:after {
   border-top: 2px dotted;
   border-bottom: 2px dotted;
 }
-main > h1 + *, .project > h1 + *, .history > h1 + * {
+main > h1 + *, .major-section > h1 + *, article.major > h1 + *, section.major > h1 + * {
   margin-top: 2em;
 }
 
-main > h1:not(:first-child), .project > h1, .history > h1 {
+main > h1:not(:first-child), .major-section > h1, article.major > h1, section.major > h1 {
   margin-top: 2.6em;
 }
-main > h1:not(:first-child):before, .project > h1:before, .history > h1:before {
+main > h1:not(:first-child):before, .major-section > h1:before, article.major > h1:before, section.major > h1:before {
   content: '';
   height: 1.6em;
   margin-top: -1.6em;
@@ -625,18 +625,19 @@ main > h1:not(:first-child):before, .project > h1:before, .history > h1:before {
   display: block;
 }
 @media (min-width: 60em) {
-  main > h1:not(:first-child), .project > h1, .history > h1 {
+  main > h1:not(:first-child), .major-section > h1, article.major > h1, section.major > h1 {
     margin-top: 3em;
   }
-  main > h1:not(:first-child):before, .project > h1:before, .history > h1:before {
+  main > h1:not(:first-child):before, .major-section > h1:before, article.major > h1:before, section.major > h1:before {
     margin-top: -2em;
     height: 2em;
   }
 }
 
-.project {
+.major-section:not(:last-child), article.major:not(:last-child), section.major:not(:last-child) {
   padding-bottom: 1em;
 }
+
 .project aside {
   text-align: center;
   margin-top: 2em;
@@ -749,36 +750,30 @@ ul.skills li[data-level="9"]:after {
   }
 }
 
+/*
+// since the resume was restructured, I don't think the following styles will be necessary anymore.
+// leaving here just in case I change my mind.
 .resume {
-  -moz-columns: 25em 2;
-  -webkit-columns: 25em 2;
-  columns: 25em 2;
-  -moz-column-rule: 2px dotted #EBE5DA;
-  -webkit-column-rule: 2px dotted #EBE5DA;
-  column-rule: 2px dotted #EBE5DA;
-  -moz-column-gap: 4em;
-  -webkit-column-gap: 4em;
-  column-gap: 4em;
+	@include two-column;
+
+	article {
+		page-break-inside: avoid;
+		@include break-inside(avoid);
+	}
+
+	section:not(:first-child) {
+		margin-bottom: .5em;
+		margin-bottom: 1rem;
+	}
+
+	h1 {
+		page-break-after: avoid;
+		@include break-after(avoid);
+
+		+ * {
+			page-break-before: avoid;
+			@include break-before(avoid);
+		}
+	}
 }
-.resume article {
-  page-break-inside: avoid;
-  -moz-page-break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  break-inside: avoid;
-}
-.resume section:not(:first-child) {
-  margin-bottom: .5em;
-  margin-bottom: 1rem;
-}
-.resume h1 {
-  page-break-after: avoid;
-  -moz-page-break-after: avoid;
-  -webkit-column-break-after: avoid;
-  break-after: avoid;
-}
-.resume h1 + * {
-  page-break-before: avoid;
-  -moz-page-break-before: avoid;
-  -webkit-column-break-before: avoid;
-  break-before: avoid;
-}
+*/
