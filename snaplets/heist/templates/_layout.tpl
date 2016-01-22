@@ -10,12 +10,14 @@
 	<header>
 		<h1><a href="/">Cimmanon</a></h1>
 
-		<!--<nav>
+		<nav>
 			<ul>
-				<li><a href="#">Design</a></li>
-				<li><a href="#">Development</a></li>
+				<li><a href="/projects/tags/">Tags</a></li>
+				<li><a href="/projects/year/">Years</a></li>
+				<li><a href="/projects/type/">Types</a></li>
+				<li><a href="/resume">R&eacute;sum&eacute;</a></li>
 			</ul>
-		</nav>-->
+		</nav>
 	</header>
 
 	<main>
