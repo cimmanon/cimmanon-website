@@ -11,6 +11,7 @@ module Model.Image
 	, list
 	, add
 	, update
+	, screenshotDirectory
 	) where
 
 import Control.Applicative

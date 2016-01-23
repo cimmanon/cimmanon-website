@@ -12,24 +12,35 @@ module Model.Project
 	, add
 	, edit
 	, years
+	, archivesDirectory
 	) where
 
 import Control.Applicative
+import Control.Exception (catch, IOException)
+import Control.Monad (when)
+import Control.Monad.Trans (liftIO)
 import Data.Monoid ((<>))
 import Snap.Snaplet.PostgresqlSimple
 
 import Data.Int (Int64)
 import Data.Maybe (listToMaybe)
-import Data.Text (Text, pack, replace, toLower)
+import Data.Text (Text, pack, unpack)
 import Data.Time.Calendar
 import Data.Vector (toList)
 import Text.Digestive
+import System.Directory (renameDirectory)
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 
 import Model.Types.Project
 import Model.Types.Component as C hiding (description)
 import Model.Types.Image as I hiding (featured)
+import Model.Image as I (screenshotDirectory)
+
+----------------------------------------------------------------------
+
+archivesDirectory :: FilePath
+archivesDirectory = "archives/"
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Records
@@ -77,7 +88,18 @@ add :: (HasPostgres m, Functor m) => Project -> m (Either Text Project)
 add p = toEither' $ const p <$> execute "INSERT INTO portfolio.projects (project, description, slug, url, featured) VALUES (?, ?, ?, ?, ?)" (name p, description p, slug p, url p, featured p)
 
 edit :: (HasPostgres m, Functor m) => Project -> Project -> m (Either Text Project)
-edit original new = toEither' $ const new <$> execute "UPDATE portfolio.projects SET project = ?, description = ?, slug = ?, url = ?, featured = ? WHERE project = ?" (name new, description new, slug new, url new, featured new, name original)
+edit original new = do
+	liftIO $ when (oldName /= newName) moveDirectories
+	toEither' $ const new <$> execute "UPDATE portfolio.projects SET project = ?, description = ?, slug = ?, url = ?, featured = ? WHERE project = ?" (name new, description new, slug new, url new, featured new, name original)
+	where
+		oldName = unpack $ slug original
+		newName = unpack $ slug new
+		catchAndIgnore x = catch x ignore
+		ignore :: IOException -> IO ()
+		ignore = const (return ())
+		moveDirectories = do
+			catchAndIgnore $ renameDirectory (I.screenshotDirectory <> oldName) (I.screenshotDirectory <> newName)
+			catchAndIgnore $ renameDirectory (archivesDirectory <> oldName) (archivesDirectory <> newName)
 
 ----------------------------------------------------------------------
 
