@@ -180,7 +180,7 @@ body > footer {
 
 	@extend %full-width;
 
-	@include inset(2px, after) {
+	@include inset(2px) {
 		border-top: 2px dotted;
 		border-bottom: 2px dotted;
 	}

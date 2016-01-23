@@ -593,7 +593,7 @@ main > h1, .major-section > h1, article.major > h1, section.major > h1 {
   text-align: center;
   color: #007259;
   position: relative;
-  position: after;
+  position: relative;
   padding: 2px;
   z-index: 1;
 }
