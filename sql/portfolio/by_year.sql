@@ -5,7 +5,7 @@ SELECT
 	url,
 	projects.featured,
 
-	component,
+	type,
 	components.description,
 	date_added,
 	public,
@@ -22,7 +22,7 @@ FROM
 		SELECT
 			MAX(date_added) OVER (PARTITION BY project) AS last_update,
 			project,
-			component,
+			type,
 			description,
 			date_added,
 			public,
@@ -30,15 +30,15 @@ FROM
 			array_agg(tag :: TEXT) AS tags
 		FROM
 			portfolio.project_components
-			JOIN portfolio.project_tags USING (project, component, date_added)
+			JOIN portfolio.project_tags USING (project, type, date_added)
 		WHERE
 			extract(year from date_added) = ?
 			AND project_components.public = true
 		GROUP BY
 			project,
-			component,
+			type,
 			date_added) AS components USING (project)
-	LEFT JOIN portfolio.project_images USING (project, component, date_added)
+	LEFT JOIN portfolio.project_images USING (project, type, date_added)
 WHERE
 	project_images.featured = true OR project_images.featured IS NULL
 ORDER BY

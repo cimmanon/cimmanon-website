@@ -52,7 +52,7 @@ routes =
 	, ("/projects/tags/", ifTop $ listByH tagsH [])
 	, ("/projects/year/:year", ifTop $ intParam "year" >>= maybeH (listByH yearH <=< Project.listByYear))
 	, ("/projects/year/", ifTop $ listByH yearH [])
-	, ("/projects/type/:component", ifTop $ textParam "component" >>= maybeH (listByH componentH <=< Project.listByComponent))
+	, ("/projects/type/:type", ifTop $ textParam "type" >>= maybeH (listByH componentH <=< Project.listByType))
 	, ("/projects/type/", ifTop $ listByH componentH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
 	, ("/admin/", adminRoutes)
@@ -78,8 +78,8 @@ projectRoutes :: Project.Project -> AppHandler ()
 projectRoutes p = withSplices pSplices $ route
 	[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
 	, ("/components/", ifTop $ listComponentsH p)
-	, ("/components/:component/", ifTop $ textParam "component" >>= addComponentH p)
-	, ("/components/:component/:date/", id =<< componentRoutes <$> textParam "component" <*> textParam "date")
+	, ("/components/:type/", ifTop $ textParam "type" >>= addComponentH p)
+	, ("/components/:type/:date/", id =<< componentRoutes <$> textParam "type" <*> textParam "date")
 	]
 	where
 		componentRoutes (Just c) (Just d) =
@@ -156,7 +156,7 @@ yearH = do
 	renderWithSplices "projects/by_year" $ "year" ## listToSplice (\x -> "name" ## numericSplice x) years
 
 componentH :: AppHandler ()
-componentH = render "/projects/by_component"
+componentH = render "/projects/by_type"
 
 projectH :: Project.Project -> AppHandler ()
 projectH p = do

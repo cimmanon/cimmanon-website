@@ -1,6 +1,6 @@
 
-INSERT INTO components
-	(component)
+INSERT INTO project_types
+	(type)
 VALUES
 	('Design'),
 	('Development')
@@ -19,8 +19,8 @@ VALUES
 	('Database')
 ;
 
-INSERT INTO component_tags
-	(component, category, tag)
+INSERT INTO project_type_tags
+	(type, category, tag)
 VALUES
 	-- design
 	('Design', 'Layout', 'fixed'),

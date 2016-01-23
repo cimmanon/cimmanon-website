@@ -9,7 +9,7 @@ import Snap.Snaplet.PostgresqlSimple
 ----------------------------------------------------------------------
 
 data Component = Component
-	{ component :: Text
+	{ typ :: Text
 	, description :: Text
 	, date :: Day
 	, public :: Bool

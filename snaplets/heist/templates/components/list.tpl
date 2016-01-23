@@ -16,12 +16,12 @@
 
 	<tbody>
 		<component><tr class="${public}">
-			<td><component>Design</component></td>
+			<td><type>Design</type></td>
 			<td><date>2016-01-07</date></td>
 			<td class="bool"><public>Public</public></td>
 			<td><archived><a href="/archives/${slug}/${date}/">Archived</a></archived></td>
-			<td><a href="./${component}/${date}/">Edit</a></td>
-			<td><a href="./${component}/${date}/images">Images</a></td>
+			<td><a href="./${type}/${date}/">Edit</a></td>
+			<td><a href="./${type}/${date}/images">Images</a></td>
 		</tr></component>
 	</tbody>
 </table>

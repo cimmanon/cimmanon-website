@@ -1,5 +1,5 @@
 SELECT
-	component,
+	type,
 	description,
 	date_added,
 	public,
@@ -13,7 +13,7 @@ FROM
 	(
 		SELECT
 			project,
-			component,
+			type,
 			description,
 			date_added,
 			public,
@@ -21,14 +21,14 @@ FROM
 			array_agg(tag :: TEXT) AS tags
 		FROM
 			portfolio.project_components
-			JOIN portfolio.project_tags USING (project, component, date_added)
+			JOIN portfolio.project_tags USING (project, type, date_added)
 		WHERE
 			project = ?
 			AND project_components.public = true
 		GROUP BY
 			project,
-			component,
+			type,
 			date_added) AS components
-	LEFT JOIN portfolio.project_images USING (project, component, date_added)
+	LEFT JOIN portfolio.project_images USING (project, type, date_added)
 ORDER BY
 	date_added DESC

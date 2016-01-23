@@ -3,7 +3,7 @@
 module Model.Tag
 	( Category(..)
 	, list
-	, listByComponent
+	, listByType
 	) where
 
 import Control.Applicative
@@ -43,5 +43,5 @@ instance FromRow Category where
 list :: (HasPostgres m, Functor m) => m [Category]
 list = query_ [sqlFile|sql/portfolio/tag_list.sql|]
 
-listByComponent :: (HasPostgres m, Functor m) => Text -> m [Text]
-listByComponent c = map fromOnly <$> query "SELECT tag FROM portfolio.component_tags WHERE component = ?" (Only c)
+listByType :: (HasPostgres m, Functor m) => Text -> m [Text]
+listByType c = map fromOnly <$> query "SELECT tag FROM portfolio.project_type_tags WHERE type = ?" (Only c)

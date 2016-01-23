@@ -12,10 +12,10 @@
 								<li><a href="/admin/projects/${slug}/">Edit</a></li>
 								<li><a href="/admin/projects/${slug}/components/">Components</a>
 									<ul>
-										<isComponent><li><component>Component</component> (<date>2016-01-10</date>)
+										<isComponent><li><type>Component</type> (<date>2016-01-10</date>)
 											<ul>
-												<li><a href="/admin/projects/${slug}/components/${component}/${date}/">Edit</a></li>
-												<li><a href="/admin/projects/${slug}/components/${component}/${date}/images">Images</a></li>
+												<li><a href="/admin/projects/${slug}/components/${type}/${date}/">Edit</a></li>
+												<li><a href="/admin/projects/${slug}/components/${type}/${date}/images">Images</a></li>
 											</ul></li></isComponent>
 										<li><a href="/admin/projects/${slug}/components/Design/">Add Design</a></li>
 										<li><a href="/admin/projects/${slug}/components/Development/">Add Development</a></li>

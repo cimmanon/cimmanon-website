@@ -1,4 +1,4 @@
-Type: <dfPlainText ref="component" />
+Type: <dfPlainText ref="type" />
 
 <dfLabel ref="date">Date</dfLabel>
 <td><dfInput type="date" ref="date" required />

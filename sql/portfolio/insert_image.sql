@@ -1,4 +1,4 @@
 INSERT INTO portfolio.project_images
-	(project, component, date_added, filename, width, height)
+	(project, type, date_added, filename, width, height)
 VALUES
 	(?, ?, ?, ?, ?, ?);

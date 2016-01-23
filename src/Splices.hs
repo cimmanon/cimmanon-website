@@ -66,7 +66,7 @@ projectSplices p = do
 
 componentSplices :: Monad m => Component.Component -> Splices (Splice m)
 componentSplices c = do
-	"component" ## textSplice $ Component.component c
+	"type" ## textSplice $ Component.typ c
 	"description" ## textSplice $ Component.description c
 	"date" ## showSplice $ Component.date c
 	"public" ## showSplice $ Component.public c

@@ -37,10 +37,10 @@ import qualified Model.Tag as T
 }----------------------------------------------------------------------------------------------------}
 
 path :: Component -> Text
-path c = component c <> "/" <> pack (show $ date c)
+path c = typ c <> "/" <> pack (show $ date c)
 
 primaryKey :: Project -> Component -> (Text, Text, Day)
-primaryKey p c = (P.name p, C.component c, C.date c)
+primaryKey p c = (P.name p, C.typ c, C.date c)
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Forms
@@ -48,9 +48,9 @@ primaryKey p c = (P.name p, C.component c, C.date c)
 
 componentForm :: (HasPostgres m, Monad m, Functor m) => Either Text Component -> Form Text m Component
 componentForm c = monadic $ do
-	tags' <- T.listByComponent $ either id component c
+	tags' <- T.listByType $ either id typ c
 	return $ Component
-		<$> "component" .: disable (text (either Just (Just . component) c))
+		<$> "type" .: disable (text (either Just (Just . typ) c))
 		<*> "description" .: notEmpty (text (description <$> toMaybe c))
 		<*> "date" .: eitherDisable (dateFormlet "%F" (date <$> toMaybe c))
 		<*> "public" .: bool (either (const (Just True)) (Just . public) c)
@@ -75,19 +75,19 @@ get p c d = listToMaybe <$> query [sqlFile|sql/portfolio/component.sql|] (P.name
 ----------------------------------------------------------------------
 
 adminList :: HasPostgres m => Project -> m [Component]
-adminList p = query "SELECT component, description, date_added, public, archived, array[] :: text[] AS tags FROM portfolio.project_components WHERE project = ? ORDER BY date_added" (Only $ P.name p)
+adminList p = query "SELECT type, description, date_added, public, archived, array[] :: text[] AS tags FROM portfolio.project_components WHERE project = ? ORDER BY date_added" (Only $ P.name p)
 
 add :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text Component)
 add p c = toEither' $ const c <$> q
 	where
 		-- query split off here rather than write a one-liner to avoid ambiguity when the type is discarded above
 		q :: HasPostgres m => m [Only ()]
-		q = query "SELECT portfolio.add_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, component c, date c, description c, public c, archived c, fromList $ tags c)
+		q = query "SELECT portfolio.add_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, typ c, date c, description c, public c, archived c, fromList $ tags c)
 
 edit :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text [Only ()])
-edit p c = toEither' $ query "SELECT portfolio.edit_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, component c, date c, description c, public c, archived c, fromList $ tags c)
+edit p c = toEither' $ query "SELECT portfolio.edit_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, typ c, date c, description c, public c, archived c, fromList $ tags c)
 
 ----------------------------------------------------------------------
 
 types :: (HasPostgres m, Functor m) => m [Text]
-types = map fromOnly <$> query_ "SELECT component FROM portfolio.components ORDER BY component"
+types = map fromOnly <$> query_ "SELECT type FROM portfolio.project_types ORDER BY type"

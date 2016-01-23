@@ -1,5 +1,5 @@
 <header>
-	<h1><component>Design</component></h1>
+	<h1><type>Design</type></h1>
 
 	<time><date /></time> <archived><a href="/archives/${slug}/${date}/">(Archived)</a></archived>
 

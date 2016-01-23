@@ -6,7 +6,7 @@ module Model.Project
 	, list
 	, listByTag
 	, listByYear
-	, listByComponent
+	, listByType
 	, get
 	, adminList
 	, add
@@ -73,8 +73,8 @@ listByTag x = join1of3 <$> query [sqlFile|sql/portfolio/by_tag.sql|] (Only x)
 listByYear :: (HasPostgres m, Functor m) => Int -> m [(Project, [(Component, Maybe Image)])]
 listByYear x = join1of3 <$> query [sqlFile|sql/portfolio/by_year.sql|] (Only x)
 
-listByComponent :: (HasPostgres m, Functor m) => Text -> m [(Project, [(Component, Maybe Image)])]
-listByComponent x = join1of3 <$> query [sqlFile|sql/portfolio/by_component.sql|] (Only x)
+listByType :: (HasPostgres m, Functor m) => Text -> m [(Project, [(Component, Maybe Image)])]
+listByType x = join1of3 <$> query [sqlFile|sql/portfolio/by_type.sql|] (Only x)
 
 get :: (HasPostgres m, Functor m) => Text -> m (Maybe Project)
 get s = listToMaybe <$> query "SELECT project, description, slug, url, featured FROM portfolio.projects WHERE slug = ?" (Only s)

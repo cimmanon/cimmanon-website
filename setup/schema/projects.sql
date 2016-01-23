@@ -35,28 +35,28 @@ CREATE TABLE projects (
 	UNIQUE (slug)
 );
 
---------------------------------------------------------------------- | Components
+--------------------------------------------------------------------- | Project types
 
-CREATE TABLE components (
-	component LABEL NOT NULL PRIMARY KEY
+CREATE TABLE project_types (
+	type LABEL NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE project_components (
 	project LABEL NOT NULL,
-	component LABEL NOT NULL,
+	type LABEL NOT NULL,
 	date_added DATE NOT NULL DEFAULT NOW(),
 	description TEXT NOT NULL,
 	public BOOL NOT NULL default true,
 	archived BOOL NOT NULL DEFAULT false,
 
-	PRIMARY KEY (project, component, date_added),
+	PRIMARY KEY (project, type, date_added),
 	FOREIGN KEY (project) REFERENCES projects (project) ON UPDATE CASCADE,
-	FOREIGN KEY (component) REFERENCES components (component) ON UPDATE CASCADE
+	FOREIGN KEY (type) REFERENCES project_types (type) ON UPDATE CASCADE
 );
-CREATE INDEX project_components_component_idx ON project_components (component);
+CREATE INDEX project_components_component_idx ON project_components (type);
 CREATE INDEX project_components_year_idx ON project_components (extract(year FROM date_added) DESC);
 
-CREATE TYPE component_identity AS (project LABEL, component LABEL, date_added DATE);
+CREATE TYPE component_identity AS (project LABEL, type LABEL, date_added DATE);
 
 --------------------------------------------------------------------- | Tags
 
@@ -64,34 +64,34 @@ CREATE TABLE tag_categories (
 	category LABEL NOT NULL PRIMARY KEY
 );
 
-CREATE TABLE component_tags (
-	component LABEL NOT NULL,
+CREATE TABLE project_type_tags (
+	type LABEL NOT NULL,
 	tag LABEL NOT NULL,
 	category LABEL NOT NULL,
 
-	PRIMARY KEY (component, tag)
+	PRIMARY KEY (type, tag)
 );
-CREATE INDEX componen_tags_tag_idx ON component_tags (tag);
-CREATE INDEX componen_tags_category_idx ON component_tags (category);
+CREATE INDEX componen_tags_tag_idx ON project_type_tags (tag);
+CREATE INDEX componen_tags_category_idx ON project_type_tags (category);
 
 CREATE TABLE project_tags (
 	project LABEL NOT NULL,
-	component LABEL NOT NULL,
+	type LABEL NOT NULL,
 	date_added DATE NOT NULL,
 	tag LABEL NOT NULL,
 
-	PRIMARY KEY (project, component, date_added, tag),
-	FOREIGN KEY (project, component, date_added) REFERENCES project_components (project, component, date_added) ON UPDATE CASCADE,
-	FOREIGN KEY (component, tag) REFERENCES component_tags (component, tag) ON UPDATE CASCADE
+	PRIMARY KEY (project, type, date_added, tag),
+	FOREIGN KEY (project, type, date_added) REFERENCES project_components (project, type, date_added) ON UPDATE CASCADE,
+	FOREIGN KEY (type, tag) REFERENCES project_type_tags (type, tag) ON UPDATE CASCADE
 );
-CREATE INDEX project_tag_component_idx ON project_tags (component);
+CREATE INDEX project_tag_component_idx ON project_tags (type);
 CREATE INDEX project_tag_tag_idx ON project_tags (tag);
 
 --------------------------------------------------------------------- | Assets
 
 CREATE TABLE project_images (
 	project LABEL NOT NULL,
-	component LABEL NOT NULL,
+	type LABEL NOT NULL,
 	date_added DATE NOT NULL,
 	filename TEXT NOT NULL,
 	width INT NOT NULL,
@@ -99,9 +99,9 @@ CREATE TABLE project_images (
 	featured BOOL NOT NULL DEFAULT false,
 
 	PRIMARY KEY (project, filename),
-	FOREIGN KEY (project, component, date_added) REFERENCES project_components (project, component, date_added) ON UPDATE CASCADE
+	FOREIGN KEY (project, type, date_added) REFERENCES project_components (project, type, date_added) ON UPDATE CASCADE
 );
-CREATE UNIQUE INDEX project_images_featured_idx ON project_images (project, component, date_added, featured) WHERE featured = true;
+CREATE UNIQUE INDEX project_images_featured_idx ON project_images (project, type, date_added, featured) WHERE featured = true;
 
 /*----------------------------------------------------------------------------------------------------*\
                                                                       | Helper Functions
@@ -111,16 +111,16 @@ CREATE OR REPLACE FUNCTION add_component(info PROJECT_COMPONENTs, tags TEXT[]) R
 BEGIN
 	-- main data
 	INSERT INTO portfolio.project_components
-		(project, component, date_added, description, public, archived)
+		(project, type, date_added, description, public, archived)
 	VALUES
-		(info.project, info.component, info.date_added, info.description, info.public, info.archived);
+		(info.project, info.type, info.date_added, info.description, info.public, info.archived);
 
 	-- tags
 	INSERT INTO portfolio.project_tags
-		(project, component, date_added, tag)
+		(project, type, date_added, tag)
 	SELECT
 		info.project,
-		info.component,
+		info.type,
 		info.date_added,
 		tag
 	FROM
@@ -138,22 +138,22 @@ BEGIN
 		archived = info.archived
 	WHERE
 		project = info.project
-		AND component = info.component
+		AND type = info.type
 		AND date_added = info.date_added;
 
 	-- remove the old tags
 	DELETE FROM portfolio.project_tags
 	WHERE
 		project = info.project
-		AND component = info.component
+		AND type = info.type
 		AND date_added = info.date_added;
 
 	-- add the new tags
 	INSERT INTO portfolio.project_tags
-		(project, component, date_added, tag)
+		(project, type, date_added, tag)
 	SELECT
 		info.project,
-		info.component,
+		info.type,
 		info.date_added,
 		tag
 	FROM
@@ -169,7 +169,7 @@ BEGIN
 		featured = false
 	WHERE
 		project = info.project
-		AND component = info.component
+		AND type = info.type
 		AND date_added = info.date_added;
 
 	-- set the new featured image
@@ -178,7 +178,7 @@ BEGIN
 		featured = true
 	WHERE
 		project = info.project
-		AND component = info.component
+		AND type = info.type
 		AND date_added = info.date_added
 		AND filename = _featured;
 
