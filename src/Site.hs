@@ -97,15 +97,14 @@ projectRoutes p = withSplices pSplices $ route
 -- | The application initializer.
 app :: SnapletInit App App
 app = makeSnaplet "app" "An snaplet example application." Nothing $ do
---	h <- nestSnaplet "" heist $ heistInit "templates"
+	addRoutes routes
+
+	h <- nestSnaplet "" heist $ heistInit "templates"
 	-- ^ default Heist behavior (serves raw templates ahead of configured routes)
-	h <- nestSnaplet "" heist $ heistInit' "templates" defaultHeistConfig
-	-- ^ removes setting up routes for your templates, allowing your routes to take precidence
 	s <- nestSnaplet "sess" sess $
 		initCookieSessionManager "site_key.txt" "sess" (Just 3600)
 	d <- nestSnaplet "db" db pgsInit
 
-	addRoutes routes
 	addTemplatesAt h "archives" "archives" -- for archiveServe
 
 	wrapSite (<|> notFound)
@@ -116,15 +115,6 @@ app = makeSnaplet "app" "An snaplet example application." Nothing $ do
 --	initFlashNotice h sess
 	addConfig h $ mempty & scInterpretedSplices .~ userSessionSplices sess
 	return $ App h s d
-	where
-		-- I don't understand any of this, but it works
-		-- borrowed from Snap.Snaplet.Heist.Internal.gHeistInit
-		-- why doesn't Snap make defaultConfig accessible?  it would make life easier
-		sc = (.~) scLoadTimeSplices defaultLoadTimeSplices mempty
-		defaultHeistConfig = emptyHeistConfig
-			& hcSpliceConfig .~ sc
-			& hcNamespace .~ ""
-			& hcErrorNotBound .~ True
 
 -- TODO: move this to a library
 maybeH :: (a -> AppHandler ()) -> Maybe a -> AppHandler ()
