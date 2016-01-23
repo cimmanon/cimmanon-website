@@ -72,7 +72,7 @@ fieldset .tags {
 
 			&:last-child:nth-child(2) {
 				//background: $pink-light;
-				page-break-inside: column;
+				//page-break-before: always; this doesn't seem to do anything for Firefox?
 				@include break-before(column);
 				margin-top: 0; // Presto fix (see above)
 			}

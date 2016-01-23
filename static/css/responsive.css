@@ -346,7 +346,6 @@ fieldset .tags {
     margin-bottom: 0;
   }
   .listing > *:last-child:nth-child(2) {
-    page-break-inside: column;
     -moz-page-break-before: column;
     -webkit-column-break-before: column;
     break-before: column;
