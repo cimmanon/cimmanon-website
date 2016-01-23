@@ -2,7 +2,9 @@
 <apply template="_layout">
 	<h1><pageTitle /></h1>
 
-	<p>I don't know what to put here now :-(</p>
+	<blockquote>
+		<p>These projects best represent my abilities as a web designer and developer.  No matter how much I improve over the years, I'm always finding better, more efficient ways to do things.</p>
+	</blockquote>
 
 	<project><article class="major project">
 		<h1><name>Project Name</name></h1>
