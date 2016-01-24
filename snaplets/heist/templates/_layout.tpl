@@ -50,7 +50,7 @@
 		<section class="about">
 			<h1>About Me</h1>
 
-			<p>I got into arts and crafts at an extremely young age.  I thought I was going to go into the fashion industry when I graduated from high school, but I discovered web design a few years later.  Today I design web sites, data modeling, and writing Haskell.</p>
+			<p>I got into arts and crafts at an extremely young age.  I thought I was going to go into the fashion industry when I graduated from high school, but I discovered web design a few years later.  Today I design web sites, data modeling, and write Haskell.</p>
 
 			<p>I'm a big fan of graceful degredation and slim pages that use JavaScript as an <em>enhancement</em> rather than for the entire document.  When I'm not sitting in front of my computer, I'm out walking <a href="http://cimmanon.imgur.com/">my handsome doge</a>.</p>
 		</section>
