@@ -155,6 +155,7 @@ body > footer {
 	position: relative;
 	@include display-flex;
 	@include flex-wrap(wrap);
+	@include flex(0 0 auto); // fix for IE11 (otherwise element won't extend to contain all of the content)
 
 	@include inset(2px, $padding: null, $position: null) {
 		border-top: 2px dotted $green-dark;
