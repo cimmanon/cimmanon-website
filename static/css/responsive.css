@@ -371,17 +371,17 @@ fieldset .tags {
   margin-bottom: 0;
 }
 
-.tag_list {
+.nested-keywords {
   -moz-columns: 9em;
   -webkit-columns: 9em;
   columns: 9em;
 }
 
-.year_list {
+.keywords {
   text-align: center;
   margin: 1em -.75em;
 }
-.year_list li {
+.keywords li {
   display: inline-block;
   margin: .75em;
 }

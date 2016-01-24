@@ -101,11 +101,11 @@ fieldset .tags {
 	}
 }
 
-.tag_list {
+.nested-keywords {
 	@include columns(9em);
 }
 
-.year_list {
+.keywords {
 	text-align: center;
 	margin: 1em -.75em;
 

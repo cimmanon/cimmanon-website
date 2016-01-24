@@ -2,7 +2,7 @@
 <apply template="_project_list">
 	<h1><pageTitle /></h1>
 
-	<ul class="year_list">
+	<ul class="keywords">
 		<year><li><a href="/projects/year/${name}"><name>2000</name></a></li></year>
 	</ul>
 </apply>
