@@ -71,8 +71,8 @@ CREATE TABLE project_type_tags (
 
 	PRIMARY KEY (type, tag)
 );
-CREATE INDEX componen_tags_tag_idx ON project_type_tags (tag);
-CREATE INDEX componen_tags_category_idx ON project_type_tags (category);
+CREATE INDEX project_type_tags_tag_idx ON project_type_tags (tag);
+CREATE INDEX project_type_tags_category_idx ON project_type_tags (category);
 
 CREATE TABLE project_tags (
 	project LABEL NOT NULL,
@@ -84,8 +84,8 @@ CREATE TABLE project_tags (
 	FOREIGN KEY (project, type, date_added) REFERENCES project_components (project, type, date_added) ON UPDATE CASCADE,
 	FOREIGN KEY (type, tag) REFERENCES project_type_tags (type, tag) ON UPDATE CASCADE
 );
-CREATE INDEX project_tag_component_idx ON project_tags (type);
-CREATE INDEX project_tag_tag_idx ON project_tags (tag);
+CREATE INDEX project_tags_component_idx ON project_tags (type);
+CREATE INDEX project_tags_tag_idx ON project_tags (tag);
 
 --------------------------------------------------------------------- | Assets
 
