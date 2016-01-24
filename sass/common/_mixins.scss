@@ -10,3 +10,11 @@
 	@include column-rule($border-secondary);
 	@include column-gap(4em);
 }
+
+@mixin background-swirls {
+	// fallback for non-SVG enabled browsers
+	background: url('../images/floral-swirls.png') center bottom no-repeat;
+	-webkit-background-size: contain;
+	// for SVG enabled browsers
+	background: url('../images/floral-swirls.svg') center bottom / contain no-repeat;
+}

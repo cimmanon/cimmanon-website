@@ -491,6 +491,8 @@ body > header {
   padding-top: 1em;
 }
 body > header h1 {
+  background: url("../images/cimmanon.png") 0 0 no-repeat;
+  -webkit-background-size: cover;
   background: url("../images/cimmanon.svg") 0 0/cover no-repeat;
   text-indent: -100em;
   margin: 0 auto;
@@ -538,6 +540,8 @@ body > header:after {
   display: block;
   content: '';
   height: 2.4rem;
+  background: url("../images/floral-swirls.png") center bottom no-repeat;
+  -webkit-background-size: contain;
   background: url("../images/floral-swirls.svg") center bottom/contain no-repeat;
   margin-top: 1em;
 }
@@ -646,6 +650,8 @@ main > h1:not(:first-child):before, .major-section > h1:before, article.major > 
   content: '';
   height: 1.6em;
   margin-top: -1.6em;
+  background: url("../images/floral-swirls.png") center bottom no-repeat;
+  -webkit-background-size: contain;
   background: url("../images/floral-swirls.svg") center bottom/contain no-repeat;
   transform: translateY(-2px);
   display: block;

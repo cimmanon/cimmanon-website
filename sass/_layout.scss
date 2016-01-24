@@ -37,6 +37,10 @@ body > header {
 	padding-top: 1em;
 
 	h1 {
+		// fallback for non-SVG enabled browsers
+		background: url('../images/cimmanon.png') 0 0 no-repeat;
+		-webkit-background-size: cover;
+		// for SVG enabled browsers
 		background: url('../images/cimmanon.svg') 0 0 / cover no-repeat;
 		text-indent: -100em;
 		margin: 0 auto;
@@ -95,7 +99,7 @@ body > header {
 		display: block;
 		content: '';
 		height: $floral-swirl-max-height * .8;
-		background: url('../images/floral-swirls.svg') center bottom / contain no-repeat;
+		@include background-swirls;
 		margin-top: 1em;
 	}
 
@@ -217,7 +221,7 @@ body > footer {
 		content: '';
 		height: $floral-swirl-max-height * .8;
 		margin-top: -$floral-swirl-max-height * .8;
-		background: url('../images/floral-swirls.svg') center bottom / contain no-repeat;
+		@include background-swirls;
 		transform: translateY(-2px);
 		display: block;
 	}
