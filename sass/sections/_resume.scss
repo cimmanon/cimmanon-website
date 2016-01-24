@@ -19,30 +19,3 @@ ul.skills {
 		}
 	}
 }
-/*
-// since the resume was restructured, I don't think the following styles will be necessary anymore.
-// leaving here just in case I change my mind.
-.resume {
-	@include two-column;
-
-	article {
-		page-break-inside: avoid;
-		@include break-inside(avoid);
-	}
-
-	section:not(:first-child) {
-		margin-bottom: .5em;
-		margin-bottom: 1rem;
-	}
-
-	h1 {
-		page-break-after: avoid;
-		@include break-after(avoid);
-
-		+ * {
-			page-break-before: avoid;
-			@include break-before(avoid);
-		}
-	}
-}
-*/
