@@ -48,6 +48,7 @@ import qualified Model.Tag as Tag
 routes :: [(ByteString, Handler App App ())]
 routes =
 	[ ("/", ifTop indexH)
+	, ("/projects/", ifTop projectsH)
 	, ("/projects/tags/:tag", ifTop $ textParam "tag" >>= maybeH (listByH tagsH <=< Project.listByTag))
 	, ("/projects/tags/", ifTop $ listByH tagsH [])
 	, ("/projects/year/:year", ifTop $ intParam "year" >>= maybeH (listByH yearH <=< Project.listByYear))
@@ -133,6 +134,11 @@ indexH = do
 			"component" ## listToSplice (componentSplices . fst) cx
 			"image" ## listToSplice imageSplices $ mapMaybe snd cx
 	renderWithSplices "index" $ "project" ## listToSplice splices projects
+
+projectsH :: AppHandler ()
+projectsH = do
+	projects <- Project.adminList
+	renderWithSplices "projects/list" $ do "project" ## listToSplice projectSplices projects
 
 listByH :: AppHandler () -> [(Project.Project, [(Component.Component, Maybe Image.Image)])] -> AppHandler ()
 listByH handler xs =
