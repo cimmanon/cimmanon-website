@@ -65,7 +65,7 @@ routes =
 adminRoutes :: AppHandler ()
 adminRoutes = withSplices aSplices $ route
 	[ ("/", ifTop $ redirect "./projects/")
-	, ("/projects/", ifTop listProjectsH)
+	, ("/projects/", ifTop adminProjectsH)
 	, ("/projects/add", ifTop addProjectH)
 	, ("/projects/:slug/", modelH textParam "slug" Project.get projectRoutes)
 	]
@@ -77,7 +77,7 @@ adminRoutes = withSplices aSplices $ route
 projectRoutes :: Project.Project -> AppHandler ()
 projectRoutes p = withSplices pSplices $ route
 	[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
-	, ("/components/", ifTop $ listComponentsH p)
+	, ("/components/", ifTop $ adminComponentsH p)
 	, ("/components/:type/", ifTop $ textParam "type" >>= addComponentH p)
 	, ("/components/:type/:date/", id =<< componentRoutes <$> textParam "type" <*> textParam "date")
 	]
@@ -174,10 +174,10 @@ projectH p = do
                                                                       | Administration
 }----------------------------------------------------------------------------------------------------}
 
-listProjectsH :: AppHandler ()
-listProjectsH = do
+adminProjectsH :: AppHandler ()
+adminProjectsH = do
 	projects <- Project.adminList
-	renderWithSplices "/projects/list" $ "project" ## listToSplice projectSplices projects
+	renderWithSplices "/projects/admin" $ "project" ## listToSplice projectSplices projects
 
 addProjectH :: AppHandler ()
 addProjectH = processForm "form" (Project.projectForm Nothing) Project.add
@@ -191,10 +191,10 @@ editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit
 
 ----------------------------------------------------------------------
 
-listComponentsH :: Project.Project -> AppHandler ()
-listComponentsH p = do
+adminComponentsH :: Project.Project -> AppHandler ()
+adminComponentsH p = do
 	components <- Component.adminList p
-	renderWithSplices "/components/list" $ "component" ## listToSplice componentSplices components
+	renderWithSplices "/components/admin" $ "component" ## listToSplice componentSplices components
 
 addComponentH :: Project.Project -> Maybe T.Text -> AppHandler ()
 addComponentH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add p)
