@@ -165,11 +165,12 @@ body > footer {
 		border-top: 2px dotted $green-dark;
 	}
 
-	// TODO: figure out a more permanent solution for this
-	// needed so that the contents line up with the rest of the document
 	> *, > section:first-child { // pseudo element here to ensure we override `section:first-child` from our baseline
-		margin: .5em $spacing-primary;
+		margin: .5em 0;
 		@include flex(1 1 8em);
+		padding: 0 $spacing-primary;
+		@include box-sizing(border-box);
+		min-width: 25%;
 	}
 
 	h1 {
@@ -219,19 +220,19 @@ body > footer {
 
 	&:before {
 		content: '';
-		height: $floral-swirl-max-height * .8;
-		margin-top: -$floral-swirl-max-height * .8;
+		height: $floral-swirl-max-height;
+		margin-top: -$floral-swirl-max-height;
 		@include background-swirls;
 		transform: translateY(-2px);
 		display: block;
+		font-size: .8em;
 	}
 
 	@media (min-width: $layout-2-col) {
 		margin-top: $floral-swirl-max-height + ($spacing-primary / 2);
 
 		&:before {
-			margin-top: -$floral-swirl-max-height;
-			height: $floral-swirl-max-height;
+			font-size: 1em;
 		}
 	}
 }

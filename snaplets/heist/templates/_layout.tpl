@@ -50,9 +50,9 @@
 		<section class="about">
 			<h1>About Me</h1>
 
-			<p>I got into arts and crafts at an extremely young age.  I thought I was going to go into the fashion industry when I graduated from high school, but I discovered web design a few years later.  Today I design web sites, data modeling, and write Haskell.</p>
+			<p>I got into arts and crafts at an extremely young age and have been designing things ever since:  from toys I'd like to have to clothes I wanted to make.  In 1998, the internet became a big part of my life after getting hooked on playing Diablo online.  Today I design web sites, do data modeling, and write programs in Haskell.</p>
 
-			<p>I'm a big fan of graceful degredation and slim pages that use JavaScript as an <em>enhancement</em> rather than for the entire document.  When I'm not sitting in front of my computer, I'm out walking <a href="http://cimmanon.imgur.com/">my handsome doge</a>.</p>
+			<p>I'm a big fan of graceful degradation, cross-browser compatibility, and slim pages that use JavaScript as an <em>enhancement</em> rather than a requirement.  When I'm not sitting in front of my computer, I'm out walking <a href="http://cimmanon.imgur.com/">my handsome doge</a>.</p>
 		</section>
 
 		<p class="copyright">&copy; 2000-2016 C. Siepker</p>
