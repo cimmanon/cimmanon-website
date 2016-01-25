@@ -521,7 +521,7 @@ body > header nav li {
   display: inline-block;
   margin: .5em 1em;
 }
-@media (min-width: 32em) {
+@media (min-width: 28em) {
   body > header nav {
     position: absolute;
     right: 0;
@@ -548,7 +548,7 @@ body > header nav li {
     width: 5.96875em;
   }
   body > header nav li {
-    min-width: 4em;
+    min-width: 3em;
     text-align: right;
   }
   body > header nav li:nth-child(2) ~ li {
@@ -558,7 +558,7 @@ body > header nav li {
     order: 2;
   }
 }
-@media (min-width: 32em) and (max-width: 60em) {
+@media (min-width: 28em) and (max-width: 60em) {
   body > header nav ul:before, body > header nav ul:after {
     font-size: 0.8em;
   }

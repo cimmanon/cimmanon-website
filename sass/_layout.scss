@@ -67,7 +67,7 @@ body > header {
 			margin: .5em 1em;
 		}
 
-		@media (min-width: 32em) {
+		@media (min-width: 28em) {
 			position: absolute;
 			right: 0;
 			left: 0;
@@ -97,7 +97,7 @@ body > header {
 			}
 
 			li {
-				min-width: 4em;
+				min-width: 3em;
 				text-align: right;
 
 				// the first 2 items should be aligned right

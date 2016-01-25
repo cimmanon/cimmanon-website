@@ -12,10 +12,10 @@
 
 		<nav>
 			<ul>
+				<li><a href="/projects/type/">Types</a></li>
 				<li><a href="/projects/tags/">Tags</a></li>
 				<li><a href="/projects/year/">Years</a></li>
-				<li><a href="/projects/type/">Types</a></li>
-				<li><a href="/resume">R&eacute;sum&eacute;</a></li>
+				<li><a href="#footer">More</a></li>
 			</ul>
 		</nav>
 	</header>
@@ -24,14 +24,14 @@
 		<apply-content />
 	</main>
 
-	<footer>
+	<footer id="footer">
 		<section>
 			<h1>Here</h1>
 
 			<ul>
+				<li><a href="/projects/type/">Projects by Type</a></li>
 				<li><a href="/projects/tags/">Projects by Tag</a></li>
 				<li><a href="/projects/year/">Projects by Year</a></li>
-				<li><a href="/projects/type/">Projects by Type</a></li>
 				<li><a href="/resume">R&eacute;sum&eacute;</a></li>
 				<li><a href="/admin/">Admin</a></li>
 			</ul>
@@ -44,6 +44,8 @@
 				<li><a href="http://github.com/cimmanon/">Github</a></li>
 				<li><a href="http://bitbucket.com/cimmanon/">BitBucket</a></li>
 				<li><a href="http://codepen.io/cimmanon/">CodePen</a></li>
+				<li><a href="https://www.codeeval.com/profile/cimmanon/">CodeEval</a></li>
+				<li><a href="http://www.codewars.com/users/cimmanon">Codewars</a></li>
 			</ul>
 		</section>
 
