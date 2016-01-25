@@ -28,8 +28,6 @@ body {
 //***************************************************************************************************/
 
 body > header {
-	$width: 8em;
-
 	background: $green-light;
 	position: relative;
 
@@ -37,21 +35,22 @@ body > header {
 	padding-top: 1em;
 
 	h1 {
-		// fallback for non-SVG enabled browsers
-		background: url('../images/cimmanon.png') 0 0 no-repeat;
-		-webkit-background-size: cover;
-		// for SVG enabled browsers
-		background: url('../images/cimmanon.svg') 0 0 / cover no-repeat;
+		@include graceful-svg('../images/cimmanon.svg');
 		text-indent: -100em;
 		margin: 0 auto;
+		font-size: ms(1);
 
-		width: $width * .6;
-		height: $width * $logo-aspect-ratio * .6;
+		$width: 8em;
+		width: $width;
+		height: $width * $logo-aspect-ratio;
 
 		a {
 			display: block;
 			width: 100%;
 			height: 100%;
+		}
+		@media (min-width: $layout-2-col) {
+			font-size: ms(3);
 		}
 	}
 
@@ -68,11 +67,34 @@ body > header {
 			margin: .5em 1em;
 		}
 
-		@media (min-width: 42em) {
+		@media (min-width: 32em) {
 			position: absolute;
 			right: 0;
 			left: 0;
 			bottom: .5em; // bump this up to 1em to be consistent with the rest of the spacing?
+
+			// unfortunately, none of this works in old Webkit browsers (Safari, Android)
+			// thankfully, most Android users probably won't be hitting this breakpoint anyway
+
+			// the idea here is to use pseudo elements so we can adjust their size via font-size
+			// to match how the swirls are being resized down below.  thanks to flexbox, we can
+			// reorder the pseudo elements to be in the middle of our list.  the end result is
+			// significantly simpler/smaller code than trying to use margins.
+			ul {
+				@include display-flex;
+				@include justify-content(center);
+
+				// this isn't perfectly centered, but it's close enough for our purposes
+				&:before, &:after {
+					$width: $floral-swirl-width / 16 / 2 * 1em; // this approximation of the width of the swirls is close enough
+
+					@include flex(0 0 auto);
+					@include order(1);
+					display: block;
+					content: '';
+					width: $width / 2;
+				}
+			}
 
 			li {
 				min-width: 4em;
@@ -81,15 +103,20 @@ body > header {
 				// the first 2 items should be aligned right
 				// the last 2 items should be aligned left
 				&:nth-child(2) {
-					margin-right: $width;
-
-					& ~ li {
+					~ li {
 						text-align: left;
+						@include order(2);
 					}
 				}
+			}
 
-				&:nth-child(3) {
-					margin-left: $width;
+			@media (max-width: $layout-2-col) {
+				ul:before, ul:after {
+					font-size: ms(-1);
+				}
+
+				li {
+					margin: .5em;
 				}
 			}
 		}
@@ -98,19 +125,11 @@ body > header {
 	&:after {
 		display: block;
 		content: '';
-		height: $floral-swirl-max-height * .8;
+		height: 3em;
 		@include background-swirls;
 		margin-top: 1em;
-	}
-
-	@media (min-width: $layout-2-col) {
-		h1 {
-			width: $width;
-			height: $width * $logo-aspect-ratio;
-		}
-
-		&:after {
-			height: $floral-swirl-max-height;
+		@media (max-width: $layout-2-col) {
+			font-size: ms(-1);
 		}
 	}
 }
@@ -223,7 +242,7 @@ body > footer {
 		height: $floral-swirl-max-height;
 		margin-top: -$floral-swirl-max-height;
 		@include background-swirls;
-		transform: translateY(-2px);
+		transform: translateY(-2px); // fixes an undesirable 2px gap
 		display: block;
 		font-size: .8em;
 	}

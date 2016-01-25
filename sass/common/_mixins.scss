@@ -12,9 +12,14 @@
 }
 
 @mixin background-swirls {
+	@include graceful-svg('../images/floral-swirls.svg', center bottom, contain);
+}
+
+@mixin graceful-svg($svg-path, $position: 0 0, $size: cover) {
+	$png-path: '#{str-slice($svg-path, 1, -4)}png';
 	// fallback for non-SVG enabled browsers
-	background: url('../images/floral-swirls.png') center bottom no-repeat;
-	-webkit-background-size: contain;
+	background: url($png-path) $position no-repeat;
+	-webkit-background-size: $size;
 	// for SVG enabled browsers
-	background: url('../images/floral-swirls.svg') center bottom / contain no-repeat;
+	background: url($svg-path) $position / $size no-repeat;
 }
