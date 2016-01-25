@@ -27,105 +27,6 @@
        id="path-effect4276"
        is_visible="true" />
     <inkscape:path-effect
-       is_visible="true"
-       id="path-effect4274"
-       effect="spiro" />
-    <inkscape:path-effect
-       pattern-nodetypes="cccccc"
-       fuse_tolerance="0"
-       vertical_pattern="false"
-       prop_units="false"
-       tang_offset="0"
-       normal_offset="0"
-       spacing="0"
-       scale_y_rel="false"
-       prop_scale="0.25"
-       copytype="single_stretched"
-       pattern="m 159.9966,152.00931 -45,-5 -85.000011,0 c 0.36872,6.0065 0.36872,6.0065 0,10.00001 l 90.000011,0 40,-5.00001"
-       is_visible="true"
-       id="path-effect4272"
-       effect="skeletal" />
-    <inkscape:path-effect
-       is_visible="true"
-       id="path-effect4270"
-       effect="spiro" />
-    <inkscape:path-effect
-       fuse_tolerance="0"
-       vertical_pattern="false"
-       prop_units="false"
-       tang_offset="0"
-       normal_offset="0"
-       spacing="0"
-       scale_y_rel="false"
-       prop_scale="0.3"
-       copytype="single_stretched"
-       pattern="M 163.49999,48.750001 118.5,43.750005 l -84.99999,0 -40.0000103,4.999996 40.0000103,5 89.99999,0 39.99999,-5"
-       is_visible="true"
-       id="path-effect4247"
-       effect="skeletal" />
-    <inkscape:path-effect
-       is_visible="true"
-       id="path-effect4245"
-       effect="spiro" />
-    <inkscape:path-effect
-       effect="skeletal"
-       id="path-effect4243"
-       is_visible="true"
-       pattern="M 163.74999,45.500001 118.75,40.500005 l -84.99999,0 -40.0000103,4.999996 40.0000103,5 89.99999,0 39.99999,-5"
-       copytype="single_stretched"
-       prop_scale="0.3"
-       scale_y_rel="false"
-       spacing="0"
-       normal_offset="0"
-       tang_offset="0"
-       prop_units="false"
-       vertical_pattern="false"
-       fuse_tolerance="0" />
-    <inkscape:path-effect
-       effect="spiro"
-       id="path-effect4241"
-       is_visible="true" />
-    <inkscape:path-effect
-       fuse_tolerance="0"
-       vertical_pattern="false"
-       prop_units="false"
-       tang_offset="0"
-       normal_offset="0"
-       spacing="0"
-       scale_y_rel="false"
-       prop_scale="0.3"
-       copytype="single_stretched"
-       pattern="M 162.24999,3.499996 117.25,-1.5 l -84.99999,0 -40.0000105,4.999996 40.0000105,5 89.99999,0 39.99999,-5"
-       is_visible="true"
-       id="path-effect4239"
-       effect="skeletal" />
-    <inkscape:path-effect
-       is_visible="true"
-       id="path-effect4237"
-       effect="spiro" />
-    <inkscape:path-effect
-       effect="skeletal"
-       id="path-effect4230"
-       is_visible="true"
-       pattern="M 169.99999,4.999996 125,0 40.00001,0 0,4.999996 l 40.00001,5 89.99999,0 39.99999,-5"
-       copytype="single_stretched"
-       prop_scale="0.3"
-       scale_y_rel="false"
-       spacing="0"
-       normal_offset="0"
-       tang_offset="0"
-       prop_units="false"
-       vertical_pattern="false"
-       fuse_tolerance="0" />
-    <inkscape:path-effect
-       effect="spiro"
-       id="path-effect4217"
-       is_visible="true" />
-    <inkscape:path-effect
-       effect="spiro"
-       id="path-effect4202"
-       is_visible="true" />
-    <inkscape:path-effect
        effect="skeletal"
        id="path-effect4200"
        is_visible="true"
@@ -143,18 +44,6 @@
        effect="spiro"
        id="path-effect4198"
        is_visible="true" />
-    <inkscape:path-effect
-       is_visible="true"
-       id="path-effect4196"
-       effect="spiro" />
-    <inkscape:path-effect
-       effect="spiro"
-       id="path-effect4194"
-       is_visible="true" />
-    <inkscape:path-effect
-       is_visible="true"
-       id="path-effect4190"
-       effect="spiro" />
     <inkscape:path-effect
        effect="skeletal"
        id="path-effect4187"
@@ -200,42 +89,6 @@
        normal_offset="0"
        spacing="0"
        scale_y_rel="false"
-       prop_scale="0.25"
-       copytype="single_stretched"
-       pattern="M 129.99999,5 84.999998,0 0,0 c 0.368726,6.006493 0.368726,6.006493 0,10 l 89.999998,0 39.999992,-5"
-       is_visible="true"
-       id="path-effect4252"
-       effect="skeletal" />
-    <inkscape:path-effect
-       is_visible="true"
-       id="path-effect4250"
-       effect="spiro" />
-    <inkscape:path-effect
-       fuse_tolerance="0"
-       vertical_pattern="false"
-       prop_units="false"
-       tang_offset="0"
-       normal_offset="0"
-       spacing="0"
-       scale_y_rel="false"
-       prop_scale="0.3"
-       copytype="single_stretched"
-       pattern="m 180.39036,40.864735 -44.99999,-5 -84.999988,0 -40.000007,5 40.000007,5 89.999988,0 39.99999,-5"
-       is_visible="true"
-       id="path-effect4226"
-       effect="skeletal" />
-    <inkscape:path-effect
-       effect="spiro"
-       id="path-effect4224"
-       is_visible="true" />
-    <inkscape:path-effect
-       fuse_tolerance="0"
-       vertical_pattern="false"
-       prop_units="false"
-       tang_offset="0"
-       normal_offset="0"
-       spacing="0"
-       scale_y_rel="false"
        prop_scale="0.5"
        copytype="single_stretched"
        pattern="m 180.39036,40.864735 -44.99999,-5 -84.999988,0 -40.000007,5 40.000007,5 89.999988,0 39.99999,-5"
@@ -247,50 +100,9 @@
        id="path-effect4220"
        is_visible="true" />
     <inkscape:path-effect
-       effect="spiro"
-       id="path-effect4218"
-       is_visible="true" />
-    <inkscape:path-effect
        is_visible="true"
        id="path-effect4216"
        effect="spiro" />
-    <inkscape:path-effect
-       effect="spiro"
-       id="path-effect4220-5"
-       is_visible="true" />
-    <inkscape:path-effect
-       fuse_tolerance="0"
-       vertical_pattern="false"
-       prop_units="false"
-       tang_offset="0"
-       normal_offset="0"
-       spacing="0"
-       scale_y_rel="false"
-       prop_scale="0.5"
-       copytype="single_stretched"
-       pattern="m 170.60479,-21.867044 -44.99999,-5 -84.999985,0 -40.00000728,5 40.00000728,5 89.999985,0 39.99999,-5"
-       is_visible="true"
-       id="path-effect4222-9"
-       effect="skeletal" />
-    <inkscape:path-effect
-       effect="spiro"
-       id="path-effect4290-4"
-       is_visible="true" />
-    <inkscape:path-effect
-       effect="skeletal"
-       id="path-effect4292-8"
-       is_visible="true"
-       pattern="m 71.125228,-47.401743 -44.99999,-5 -85.000004,0 c 0.368726,6.006493 0.368726,6.006493 0,10 l 90.000004,0 39.99999,-5"
-       copytype="single_stretched"
-       prop_scale="0.25"
-       scale_y_rel="false"
-       spacing="0"
-       normal_offset="0"
-       tang_offset="0"
-       prop_units="false"
-       vertical_pattern="false"
-       fuse_tolerance="0"
-       pattern-nodetypes="cccccc" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -300,7 +112,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="64.900055"
+     inkscape:cx="-39.398192"
      inkscape:cy="-72.339855"
      inkscape:document-units="px"
      inkscape:current-layer="swirls"
