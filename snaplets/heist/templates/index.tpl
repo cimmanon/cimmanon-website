@@ -12,6 +12,8 @@
 		<div class="listing">
 			<component><section>
 				<apply template="components/_component" />
+
+				<image><img src="/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>
 			</section></component>
 		</div>
 

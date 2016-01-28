@@ -128,12 +128,7 @@ maybeH = maybe pass
 indexH :: AppHandler ()
 indexH = do
 	projects <- Project.list
-	let
-		splices (p, cx) = do
-			projectSplices p
-			"component" ## listToSplice (componentSplices . fst) cx
-			"image" ## listToSplice imageSplices $ mapMaybe snd cx
-	renderWithSplices "index" $ "project" ## listToSplice splices projects
+	renderWithSplices "index" $ "project" ## listToSplice projectComponentSplices projects
 
 projectsH :: AppHandler ()
 projectsH = do
@@ -142,14 +137,7 @@ projectsH = do
 
 listByH :: AppHandler () -> [(Project.Project, [(Component.Component, Maybe Image.Image)])] -> AppHandler ()
 listByH handler xs =
-	let
-		splices (p, cx) = do
-			projectSplices p
-			"component" ## listToSplice cSplices cx
-		cSplices (c, i) = do
-			componentSplices c
-			"image" ## maybeSplice (runChildrenWith . imageSplices) i
-	in withSplices ("project" ## listToSplice splices xs) handler
+	withSplices ("project" ## listToSplice projectComponentSplices xs) handler
 
 tagsH :: AppHandler ()
 tagsH = do
@@ -167,14 +155,7 @@ componentH = render "/projects/by_type"
 projectH :: Project.Project -> AppHandler ()
 projectH p = do
 	components <- Component.list p
-	let
-		splices = do
-			projectSplices p
-			"component" ## listToSplice cSplices components
-		cSplices (c, xs) = do
-			componentSplices c
-			"image" ## listToSplice imageSplices xs
-	renderWithSplices "projects/project" splices
+	renderWithSplices "projects/project" $ projectComponentSplices' (p, components)
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Administration

@@ -12,6 +12,10 @@
 			</article></component>
 		</div>
 
-		<apply template="_links" />
+		<aside>
+			<image><img src="/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>
+
+			<apply template="_links" />
+		</aside>
 	</project></article>
 </apply>

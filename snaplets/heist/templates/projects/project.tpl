@@ -4,7 +4,7 @@
 
 <apply template="_project_details" />
 
-<section class="major">
+<section class="major project">
 	<h1>History</h1>
 
 	<div class="listing">
@@ -14,5 +14,9 @@
 			<image><img src="/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" /></image>
 		</article></component>
 	</div>
+
+	<image><aside>
+		<img src="/screenshots/${slug}/${filename}" width="${width}" height="${height}" alt="" />
+	</aside></image>
 </section>
 </apply>

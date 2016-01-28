@@ -16,7 +16,7 @@ import Snap.Snaplet.Session (SessionManager)
 import Snap.Snaplet.Heist (SnapletISplice)
 
 import Data.Functor
-import Data.Maybe (fromMaybe)
+import Data.Maybe (fromMaybe, mapMaybe)
 import Data.Monoid ((<>), mempty)
 import Heist.Splices.Common
 
@@ -59,6 +59,35 @@ projectSplices p = do
 	"slug" ## textSplice $ Project.slug p
 	"url" ## maybeSplice (\x -> runChildrenWith $ "href" ## textSplice x) $ Project.url p
 	"featured" ##  showSplice $ Project.featured p
+
+-- TODO: reduce code duplication here
+projectComponentSplices :: Monad m => (Project.Project, [(Component.Component, Maybe Image.Image)]) -> Splices (Splice m)
+projectComponentSplices (p, cx) = do
+	projectSplices p
+	"component" ## listToSplice cSplices cx
+	"image" ## listToSplice imageSplices $ if hasImages then images else []
+	where
+		images = mapMaybe snd cx
+		hasImages = length images == 1
+		cSplices (c, xs) = do
+			componentSplices c
+			"image" ## if hasImages
+				then hideContents
+				else maybeSplice (runChildrenWith . imageSplices) xs
+
+projectComponentSplices' :: Monad m => (Project.Project, [(Component.Component, [Image.Image])]) -> Splices (Splice m)
+projectComponentSplices' (p, cx) = do
+	projectSplices p
+	"component" ## listToSplice cSplices cx
+	"image" ## listToSplice imageSplices $ if hasImages then images else []
+	where
+		images = concatMap snd cx
+		hasImages = length images == 1
+		cSplices (c, xs) = do
+			componentSplices c
+			"image" ## if hasImages
+				then hideContents
+				else listToSplice imageSplices xs
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Component Splices
