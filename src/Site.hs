@@ -36,7 +36,7 @@ import Heist.Splices.Common
 
 import Control.Monad
 import Control.Monad.IO.Class (liftIO) -- just for debugging
-import Data.Maybe (isJust, fromJust, fromMaybe, mapMaybe)
+import Data.Maybe (fromMaybe)
 
 import qualified Model.Component as Component
 import qualified Model.Image as Image
@@ -174,7 +174,7 @@ addProjectH = processForm "form" (Project.projectForm Nothing) Project.add
 editProjectH :: Project.Project -> AppHandler ()
 editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit p)
 	(renderWithSplices "/projects/edit" . digestiveSplices)
-	(\p -> redirect $ "../" <> T.encodeUtf8 (Project.slug p) <> "/components/")
+	(\p' -> redirect $ "../" <> T.encodeUtf8 (Project.slug p') <> "/components/")
 
 ----------------------------------------------------------------------
 
@@ -190,7 +190,6 @@ addComponentH p c = processForm "form" (Component.componentForm (Left defaultCom
 		-- TODO: pull this from the database
 		defaultComp = fromMaybe "Design" c
 		viewH v =  do
-			components <- Component.adminList p
 			types <- Component.types
 			renderWithSplices "/components/add" $ do
 				"type" ## listSplice "name" types
@@ -208,7 +207,7 @@ componentImagesH p c = do
 	where
 		viewH images v =
 			renderWithSplices "/components/images" $ do
-				"image" ## listToSplice iSplices $ zip [0..] images
+				"image" ## listToSplice iSplices $ zip ([0..] :: [Int]) images
 				digestiveSplices v
 		iSplices (i, img) =  do
 			imageSplices img

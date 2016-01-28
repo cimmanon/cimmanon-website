@@ -11,13 +11,13 @@ import Heist.SpliceAPI
 import qualified Text.XmlHtml as X
 
 -- for Session stuff
-import Snap.Snaplet (SnapletLens, withTop)
+import Snap.Snaplet (SnapletLens)
 import Snap.Snaplet.Session (SessionManager)
 import Snap.Snaplet.Heist (SnapletISplice)
 
-import Data.Functor
-import Data.Maybe (fromMaybe, mapMaybe)
-import Data.Monoid ((<>), mempty)
+--import Data.Functor
+import Data.Maybe (mapMaybe)
+--import Data.Monoid ((<>), mempty)
 import Heist.Splices.Common
 
 import Heist.Splices.Session
@@ -152,6 +152,7 @@ archiveServeSplices = do
 			"date" ## dateFormatSplice defaultTimeLocale d
 			"title" ## textSplice t
 
+		photos :: [(Int, T.Text)]
 		photos =
 			[ (1, "Painted Sky")
 			, (2, "Boy Chasing Seagull")
