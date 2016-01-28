@@ -50,7 +50,7 @@ SELECT
 	filename,
 	width,
 	height,
-	project_images.featured
+	images.featured
 FROM
 	portfolio.projects
 	JOIN (
@@ -60,9 +60,7 @@ FROM
 		-- select the top 10 from the remaining components
 		(SELECT * FROM components WHERE position > 1 ORDER BY position, last_update DESC, date_added DESC LIMIT 10)
 		) AS components USING (project)
-	LEFT JOIN portfolio.project_images USING (project, type, date_added)
-WHERE
-	project_images.featured = true OR project_images.featured IS NULL
+	LEFT JOIN (SELECT * FROM portfolio.project_images WHERE featured = true) AS images USING (project, type, date_added)
 ORDER BY
 	last_update DESC,
 	project,
