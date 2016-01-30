@@ -23,10 +23,10 @@
 									</ul></li>
 							</ul></li></isProject>
 						<li><a href="/admin/projects/add">Add Project</a></li>
-						<li><a href="/admin/reload">Reload Templates</a></li>
 					</ul></li>
 				<li>Components</li>
 				<li>Tags</li>
+				<li><a href="/admin/reload">Reload Templates</a></li>
 			</ul>
 		</nav>
 
