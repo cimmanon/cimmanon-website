@@ -6,5 +6,6 @@
 	<ul class="keywords">
 		<li><a href="/projects/type/design">Design</a></li>
 		<li><a href="/projects/type/development">Development</a></li>
+		<li><a href="/projects/type/flash">Flash</a></li>
 	</ul>
 </apply>

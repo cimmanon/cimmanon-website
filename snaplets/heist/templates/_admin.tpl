@@ -19,6 +19,7 @@
 											</ul></li></isComponent>
 										<li><a href="/admin/projects/${slug}/components/Design/">Add Design</a></li>
 										<li><a href="/admin/projects/${slug}/components/Development/">Add Development</a></li>
+										<li><a href="/admin/projects/${slug}/components/Flash/">Add Flash</a></li>
 									</ul></li>
 							</ul></li></isProject>
 						<li><a href="/admin/projects/add">Add Project</a></li>
