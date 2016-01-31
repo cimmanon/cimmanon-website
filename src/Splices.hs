@@ -37,6 +37,11 @@ import Data.Time.Clock
 maybeSplice :: Monad m => (a -> Splice m) -> Maybe a -> Splice m
 maybeSplice = maybe hideContents
 
+nameSplices :: Monad m => T.Text -> Splices (Splice m)
+nameSplices x = do
+	"name" ## textSplice x
+	"lcname" ## textSplice $ T.toLower x
+
 {----------------------------------------------------------------------------------------------------{
                                                                       | Session Splices
 }----------------------------------------------------------------------------------------------------}

@@ -19,6 +19,7 @@
 					<li><a href="/projects/${slug}/">View</a></li>
 					<li><a href="/admin/projects/${slug}/">Edit</a></li>
 					<li><a href="/admin/projects/${slug}/components/">Components</a></li>
+					<type><li><a href="/admin/projects/${slug}/components/${name}/">Add <name>Type</name></a></li></type>
 				</ul>
 			</section></isProject>
 

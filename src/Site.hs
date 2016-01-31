@@ -49,12 +49,12 @@ routes :: [(ByteString, Handler App App ())]
 routes =
 	[ ("/", ifTop indexH)
 	, ("/projects/", ifTop projectsH)
-	, ("/projects/tags/:tag", ifTop $ textParam "tag" >>= maybeH (listByH tagsH <=< Project.listByTag))
-	, ("/projects/tags/", ifTop $ listByH tagsH [])
-	, ("/projects/year/:year", ifTop $ intParam "year" >>= maybeH (listByH yearH <=< Project.listByYear))
-	, ("/projects/year/", ifTop $ listByH yearH [])
-	, ("/projects/type/:type", ifTop $ textParam "type" >>= maybeH (listByH componentH <=< Project.listByType))
-	, ("/projects/type/", ifTop $ listByH componentH [])
+	, ("/projects/tags/:tag", ifTop $ textParam "tag" >>= maybeH (listByH byTagH <=< Project.listByTag))
+	, ("/projects/tags/", ifTop $ listByH byTagH [])
+	, ("/projects/year/:year", ifTop $ intParam "year" >>= maybeH (listByH byYearH <=< Project.listByYear))
+	, ("/projects/year/", ifTop $ listByH byYearH [])
+	, ("/projects/type/:type", ifTop $ textParam "type" >>= maybeH (listByH byTypeH <=< Project.listByType))
+	, ("/projects/type/", ifTop $ listByH byTypeH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
 	, ("/admin/", adminRoutes)
 	, ("/archives/", archiveServe)
@@ -76,12 +76,14 @@ adminRoutes = withSplices aSplices $ route
 			"isComponent" ## hideContents
 
 projectRoutes :: Project.Project -> AppHandler ()
-projectRoutes p = withSplices pSplices $ route
-	[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
-	, ("/components/", ifTop $ adminComponentsH p)
-	, ("/components/:type/", ifTop $ textParam "type" >>= addComponentH p)
-	, ("/components/:type/:date/", id =<< componentRoutes <$> textParam "type" <*> textParam "date")
-	]
+projectRoutes p = do
+	types <- Component.types
+	withSplices (pSplices types) $ route
+		[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
+		, ("/components/", ifTop $ adminComponentsH p)
+		, ("/components/:type/", ifTop $ textParam "type" >>= addComponentH p)
+		, ("/components/:type/:date/", id =<< componentRoutes <$> textParam "type" <*> textParam "date")
+		]
 	where
 		componentRoutes (Just c) (Just d) =
 			Component.get p c d >>= maybeH (\c' -> withSplices ("isComponent" ## runChildrenWith $ componentSplices c') $ route
@@ -90,9 +92,10 @@ projectRoutes p = withSplices pSplices $ route
 				, ("/upload", ifTop $ uploadImagesH p c')
 				])
 		componentRoutes _ _ = pass
-		pSplices = do
+		pSplices types = do
 			projectSplices p
 			"isProject" ## showContents
+			"type" ## listToSplice nameSplices types
 
 ------------------------------------------------------------------------------
 -- | The application initializer.
@@ -139,18 +142,20 @@ listByH :: AppHandler () -> [(Project.Project, [(Component.Component, Maybe Imag
 listByH handler xs =
 	withSplices ("project" ## listToSplice projectComponentSplices xs) handler
 
-tagsH :: AppHandler ()
-tagsH = do
+byTagH :: AppHandler ()
+byTagH = do
 	tags <- Tag.list
 	renderWithSplices "projects/by_tag" $ "category" ## listToSplice tagCategorySplices tags
 
-yearH :: AppHandler ()
-yearH = do
+byYearH :: AppHandler ()
+byYearH = do
 	years <- Project.years
 	renderWithSplices "projects/by_year" $ "year" ## listToSplice (\x -> "name" ## numericSplice x) years
 
-componentH :: AppHandler ()
-componentH = render "/projects/by_type"
+byTypeH :: AppHandler ()
+byTypeH = do
+	types <- Component.types
+	renderWithSplices "/projects/by_type" $ "type" ## listToSplice nameSplices types
 
 projectH :: Project.Project -> AppHandler ()
 projectH p = do
@@ -185,15 +190,11 @@ adminComponentsH p = do
 
 addComponentH :: Project.Project -> Maybe T.Text -> AppHandler ()
 addComponentH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add p)
-	viewH (\c' -> redirect $ "./" <> B.pack (show $ Component.date c') <> "/images")
+	(renderWithSplices "/components/add" . digestiveSplices)
+	(\c' -> redirect $ "./" <> B.pack (show $ Component.date c') <> "/images")
 	where
-		-- TODO: pull this from the database
+		-- TODO: pull this from the database?
 		defaultComp = fromMaybe "Design" c
-		viewH v =  do
-			types <- Component.types
-			renderWithSplices "/components/add" $ do
-				"type" ## listSplice "name" types
-				digestiveSplices v
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Component.edit p)

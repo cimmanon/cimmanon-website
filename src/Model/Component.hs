@@ -90,4 +90,4 @@ edit p c = toEither' $ query "SELECT portfolio.edit_component((?, ?, ?, ?, ?, ?)
 ----------------------------------------------------------------------
 
 types :: (HasPostgres m, Functor m) => m [Text]
-types = map fromOnly <$> query_ "SELECT type FROM portfolio.project_types ORDER BY type"
+types = map fromOnly <$> query_ "SELECT type :: TEXT FROM portfolio.project_types ORDER BY type"
