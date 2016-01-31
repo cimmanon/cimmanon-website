@@ -1,6 +1,5 @@
 .admin {
-	@include display-flex;
-	@include flex-wrap(wrap);
+	$layout-2-col: 55em;
 
 	> nav {
 		@include flex(1 1 8em);
@@ -9,17 +8,11 @@
 		ul ul {
 			margin-top: 0;
 		}
-
-		@media (min-width: $layout-2-col) {
-			border-right: $border-secondary;
-			padding-right: $spacing-primary;
-			margin-right: $spacing-primary;
-		}
 	}
 
 	> article {
 		margin-top: 0;
-		@include flex(1 1 34em);
+		@include flex(3 1 34em);
 	}
 
 	@media (max-width: $layout-2-col) {
@@ -30,6 +23,18 @@
 
 		> article {
 			margin-top: $spacing-primary;
+		}
+	}
+
+	@media (min-width: $layout-2-col) {
+		@include display-flex;
+
+		> nav {
+			@media (min-width: $layout-2-col) {
+				border-right: $border-secondary;
+				padding-right: $spacing-primary;
+				margin-right: $spacing-primary;
+			}
 		}
 	}
 }

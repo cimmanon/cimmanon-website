@@ -11,7 +11,7 @@ body {
 	margin: 0 auto;
 	padding: 0;
 	overflow-x: hidden;
-	max-width: $max-width;
+	//max-width: $max-width;
 
 	// for sticky footer
 	@include display-flex;

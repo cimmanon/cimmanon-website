@@ -51,7 +51,12 @@ fieldset .tags {
 }
 
 .listing, %listing {
+	max-width: $max-width;
+	margin-left: auto;
+	margin-right: auto;
+
 	@media screen and (min-width: $layout-2-col) {
+		max-width: none;
 		@include two-column;
 
 		> * {

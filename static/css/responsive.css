@@ -320,8 +320,14 @@ fieldset .tags {
   columns: 8em;
 }
 
+.listing {
+  max-width: 30em;
+  margin-left: auto;
+  margin-right: auto;
+}
 @media screen and (min-width: 60em) {
   .listing {
+    max-width: none;
     -moz-columns: 25em 2;
     -webkit-columns: 25em 2;
     columns: 25em 2;
@@ -470,7 +476,6 @@ body {
   margin: 0 auto;
   padding: 0;
   overflow-x: hidden;
-  max-width: 30em;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -720,14 +725,6 @@ main > h1:not(:first-child):before, .major-section > h1:before, article.major > 
   text-align: center;
 }
 
-.admin {
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
 .admin > nav {
   -ms-flex: 1 1 8em;
   -webkit-flex: 1 1 8em;
@@ -739,26 +736,33 @@ main > h1:not(:first-child):before, .major-section > h1:before, article.major > 
 .admin > nav ul ul {
   margin-top: 0;
 }
-@media (min-width: 60em) {
-  .admin > nav {
-    border-right: 2px dotted #EBE5DA;
-    padding-right: 2em;
-    margin-right: 2em;
-  }
-}
 .admin > article {
   margin-top: 0;
-  -ms-flex: 1 1 34em;
-  -webkit-flex: 1 1 34em;
-  flex: 1 1 34em;
+  -ms-flex: 3 1 34em;
+  -webkit-flex: 3 1 34em;
+  flex: 3 1 34em;
 }
-@media (max-width: 60em) {
+@media (max-width: 55em) {
   .admin > nav {
     padding-bottom: 2em;
     border-bottom: 2px dotted #EBE5DA;
   }
   .admin > article {
     margin-top: 2em;
+  }
+}
+@media (min-width: 55em) {
+  .admin {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
+}
+@media (min-width: 55em) and (min-width: 55em) {
+  .admin > nav {
+    border-right: 2px dotted #EBE5DA;
+    padding-right: 2em;
+    margin-right: 2em;
   }
 }
 
