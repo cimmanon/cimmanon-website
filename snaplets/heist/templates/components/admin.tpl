@@ -1,6 +1,6 @@
 <bind tag="pageTitle"><name>Project Name</name> Components</bind>
 <apply template="/_admin">
-<h1><pageTitle /></h1>
+<h1>Components</h1>
 
 <table class="spreadsheet">
 	<thead>

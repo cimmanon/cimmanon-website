@@ -4,6 +4,7 @@
 
 	> nav {
 		@include flex(1 1 8em);
+		@include columns(10em);
 
 		ul ul {
 			margin-top: 0;
@@ -18,7 +19,7 @@
 
 	> article {
 		margin-top: 0;
-		@include flex(1 1 30em);
+		@include flex(1 1 34em);
 	}
 
 	@media (max-width: $layout-2-col) {

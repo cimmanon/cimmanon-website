@@ -732,6 +732,9 @@ main > h1:not(:first-child):before, .major-section > h1:before, article.major > 
   -ms-flex: 1 1 8em;
   -webkit-flex: 1 1 8em;
   flex: 1 1 8em;
+  -moz-columns: 10em;
+  -webkit-columns: 10em;
+  columns: 10em;
 }
 .admin > nav ul ul {
   margin-top: 0;
@@ -745,9 +748,9 @@ main > h1:not(:first-child):before, .major-section > h1:before, article.major > 
 }
 .admin > article {
   margin-top: 0;
-  -ms-flex: 1 1 30em;
-  -webkit-flex: 1 1 30em;
-  flex: 1 1 30em;
+  -ms-flex: 1 1 34em;
+  -webkit-flex: 1 1 34em;
+  flex: 1 1 34em;
 }
 @media (max-width: 60em) {
   .admin > nav {
