@@ -1,6 +1,4 @@
 .admin {
-	$layout-2-col: 55em;
-
 	> nav {
 		@include flex(1 1 8em);
 		@include columns(10em);
@@ -15,7 +13,7 @@
 		@include flex(3 1 34em);
 	}
 
-	@media (max-width: $layout-2-col) {
+	@media (max-width: $layout-max-width) {
 		> nav {
 			padding-bottom: $spacing-primary;
 			border-bottom: $border-secondary;
@@ -26,11 +24,11 @@
 		}
 	}
 
-	@media (min-width: $layout-2-col) {
+	@media (min-width: $layout-max-width) {
 		@include display-flex;
 
 		> nav {
-			@media (min-width: $layout-2-col) {
+			@media (min-width: $layout-max-width) {
 				border-right: $border-secondary;
 				padding-right: $spacing-primary;
 				margin-right: $spacing-primary;
