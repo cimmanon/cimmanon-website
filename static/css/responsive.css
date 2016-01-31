@@ -628,9 +628,9 @@ body > footer:after {
 }
 body > footer > *, body > footer > section:first-child {
   margin: .5em 0;
-  -ms-flex: 1 1 8em;
-  -webkit-flex: 1 1 8em;
-  flex: 1 1 8em;
+  -ms-flex: 1 1 12em;
+  -webkit-flex: 1 1 12em;
+  flex: 1 1 12em;
   padding: 0 2em;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
