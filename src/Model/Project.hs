@@ -22,11 +22,8 @@ import Control.Monad.Trans (liftIO)
 import Data.Monoid ((<>))
 import Snap.Snaplet.PostgresqlSimple
 
-import Data.Int (Int64)
 import Data.Maybe (listToMaybe)
-import Data.Text (Text, pack, unpack)
-import Data.Time.Calendar
-import Data.Vector (toList)
+import Data.Text (Text, unpack)
 import Text.Digestive
 import System.Directory (renameDirectory)
 import Database.PostgreSQL.Simple.Tuple

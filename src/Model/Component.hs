@@ -17,11 +17,10 @@ import Control.Applicative
 import Data.Monoid ((<>))
 import Snap.Snaplet.PostgresqlSimple
 
-import Data.Int (Int64)
 import Data.Maybe (listToMaybe)
-import Data.Text (Text, pack, replace, toLower)
+import Data.Text (Text, pack)
 import Data.Time.Calendar
-import Data.Vector (toList, fromList)
+import Data.Vector (fromList)
 import Text.Digestive
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database

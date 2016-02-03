@@ -14,23 +14,21 @@ module Model.Image
 	) where
 
 import Control.Applicative
-import Control.Monad (mapM_)
 import Control.Monad.Trans (liftIO)
 import Data.Monoid ((<>), mappend)
 import Snap.Snaplet.PostgresqlSimple
 
 import Data.Either (lefts)
-import Data.Maybe (listToMaybe)
+--import Data.Maybe (listToMaybe)
 import Data.Text (Text, pack, unpack)
 import Data.Vector (fromList)
 import Text.Digestive
-import Database.PostgreSQL.Simple.Tuple
+--import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 import Util.Form
 
 import qualified Codec.Picture as I
 import qualified Codec.Picture.Types as I
-import Data.Char (toLower)
 import Data.Int (Int64)
 import Data.List (find)
 import Snap.Util.FileUploads
@@ -47,9 +45,6 @@ import Model.Component as C (primaryKey)
 
 screenshotDirectory :: FilePath
 screenshotDirectory = "static/screenshots/"
-
-allowedTypes :: [String]
-allowedTypes = ["png", "gif", "jpg", "jpeg", "svg"]
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Records
@@ -131,9 +126,9 @@ filePath :: Project -> FilePath
 filePath p = screenshotDirectory <> unpack (P.slug p) <> "/"
 
 saveFile :: FilePath -> FilePath -> IO ()
-saveFile dir file = do
+saveFile dir filename = do
 	createDirectoryIfMissing True dir
-	copyFile file $ dir <> "-" <> getFileName file -- TODO: strip EXIF data
+	copyFile filename $ dir <> "-" <> getFileName filename -- TODO: strip EXIF data
 
 -- filenames uploaded via Snap are prefixed like so:  _snap-c8XbTISLfW2rs
 getFileName :: FilePath -> FilePath

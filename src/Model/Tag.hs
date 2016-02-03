@@ -7,15 +7,14 @@ module Model.Tag
 	) where
 
 import Control.Applicative
-import Data.Monoid ((<>))
+--import Data.Monoid ((<>))
 import Snap.Snaplet.PostgresqlSimple
 
-import Data.Maybe (listToMaybe)
-import Data.Text (Text, pack, replace, toLower)
-import Data.Time.Calendar
+--import Data.Maybe (listToMaybe)
+import Data.Text (Text)
 import Data.Vector (toList)
 --import Text.Digestive
-import Database.PostgreSQL.Simple.Tuple
+--import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 
 {----------------------------------------------------------------------------------------------------{

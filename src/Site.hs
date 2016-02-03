@@ -31,7 +31,6 @@ import Splices
 
 import Text.Digestive.Heist
 import Snap.Handlers
-import Snap.Util.FileUploads
 import Heist.Splices.Common
 
 import Control.Monad
