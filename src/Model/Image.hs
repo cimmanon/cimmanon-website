@@ -128,7 +128,7 @@ filePath p = screenshotDirectory <> unpack (P.slug p) <> "/"
 saveFile :: FilePath -> FilePath -> IO ()
 saveFile dir filename = do
 	createDirectoryIfMissing True dir
-	copyFile filename $ dir <> "-" <> getFileName filename -- TODO: strip EXIF data
+	copyFile filename $ dir <> getFileName filename -- TODO: strip EXIF data
 
 -- filenames uploaded via Snap are prefixed like so:  _snap-c8XbTISLfW2rs
 getFileName :: FilePath -> FilePath
