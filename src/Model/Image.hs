@@ -4,7 +4,6 @@ module Model.Image
 	( Image(..)
 	, uploadForm
 	, updateForm
-	, identifyImage
 	, formConfig
 	, uploadPolicy
 	, partPolicy
@@ -29,19 +28,19 @@ import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 import Util.Form
 
+import qualified Codec.Picture as I
+import qualified Codec.Picture.Types as I
 import Data.Char (toLower)
 import Data.Int (Int64)
 import Data.List (find)
 import Snap.Util.FileUploads
 import System.FilePath (takeFileName)
-import System.Exit (ExitCode (..))
-import System.Process (readProcessWithExitCode)
 import System.Directory (createDirectoryIfMissing, copyFile, removeFile)
 import Text.Digestive.Snap hiding (uploadPolicy, partPolicy)
 
 import Model.Types.Project as P hiding (featured)
 import Model.Types.Component as C
-import Model.Types.Image as I
+import Model.Types.Image
 import Model.Component as C (primaryKey)
 
 ----------------------------------------------------------------------
@@ -90,12 +89,12 @@ add p c xs = do
 			return $ Left $ "Images failed to upload: " <> pack (show $ length failures)
 	where
 		processFile f = do
-			info <- liftIO $ identifyImage allowedTypes f
-			case info of
+			img <- liftIO $ I.readImage f
+			case img of
 				Left _ -> return $ Left f
 				Right i -> storeData f i
 		storeData f i = do
-			r <- toEither' $ execute [sqlFile|sql/portfolio/insert_image.sql|] (P.name p, C.typ c, C.date c, getFileName f, w i, h i)
+			r <- toEither' $ execute [sqlFile|sql/portfolio/insert_image.sql|] (P.name p, C.typ c, C.date c, getFileName f, getWidth i, getHeight i)
 			case r of
 				Left _ -> return $ Left f
 				Right _ -> do
@@ -128,37 +127,21 @@ partPolicy maxSize p =
                                                                       | Helper Functions
 }----------------------------------------------------------------------------------------------------}
 
-data UploadError = UnknownType | DisallowedType | EmptyFile deriving (Show)
-
--- For Image Magick identification
-data FileInfo = FileInfo
-	{ extension :: String
-	, w :: Int
-	, h :: Int
-	} deriving (Show)
-
-identifyImage :: [String] -> FilePath -> IO (Either UploadError FileInfo)
-identifyImage allowedTypes p = do
-	result <- readProcessWithExitCode "identify" ["-format", "%m %w %h", p] []
-	case result of
-		(ExitSuccess, r, _) ->
-			let
-				-- r will contain a string that looks like this: "SVG 448 103\n"
-				(ext : width : height : _) = words r
-				ext' = map toLower ext
-			in return $ if ext' `elem` allowedTypes
-				then Right $ FileInfo ext' (read width) (read height)
-				else Left DisallowedType
-		_ -> return $ Left UnknownType
-
 filePath :: Project -> FilePath
 filePath p = screenshotDirectory <> unpack (P.slug p) <> "/"
 
 saveFile :: FilePath -> FilePath -> IO ()
 saveFile dir file = do
 	createDirectoryIfMissing True dir
-	copyFile file $ dir <> getFileName file -- TODO: strip EXIF data
+	copyFile file $ dir <> "-" <> getFileName file -- TODO: strip EXIF data
 
 -- filenames uploaded via Snap are prefixed like so:  _snap-c8XbTISLfW2rs
 getFileName :: FilePath -> FilePath
 getFileName = drop 6 . takeFileName
+
+-- extracting dimensions from JuicyPixels Image type
+getWidth :: I.DynamicImage -> Int
+getWidth = I.dynamicMap I.imageWidth
+
+getHeight :: I.DynamicImage -> Int
+getHeight = I.dynamicMap I.imageHeight

@@ -49,10 +49,10 @@ Executable cimmanon
 --    blaze-builder,
     transformers,
     safe,
-    process,
     old-locale,
     directory,
-    filepath
+    filepath,
+    JuicyPixels
 --    smtp-mail,
 --    digestive-functors-aeson,
 --    aeson
