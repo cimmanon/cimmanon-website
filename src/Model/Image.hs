@@ -132,7 +132,9 @@ saveFile dir filename = do
 
 -- filenames uploaded via Snap are prefixed like so:  _snap-c8XbTISLfW2rs
 getFileName :: FilePath -> FilePath
-getFileName = drop 6 . takeFileName
+getFileName = addDash . splitAt 13 . drop 6 . takeFileName
+	where
+		addDash (a, b) = a <> ('-' : b)
 
 -- extracting dimensions from JuicyPixels Image type
 getWidth :: I.DynamicImage -> Int
