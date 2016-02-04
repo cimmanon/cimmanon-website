@@ -19,6 +19,7 @@ import Snap.Snaplet.Heist (SnapletISplice)
 import Data.Maybe (mapMaybe)
 --import Data.Monoid ((<>), mempty)
 import Heist.Splices.Common
+import Heist.Splices.Types
 
 import Heist.Splices.Session
 import qualified Model.Component as Component
@@ -102,7 +103,7 @@ componentSplices :: Monad m => Component.Component -> Splices (Splice m)
 componentSplices c = do
 	"type" ## textSplice $ Component.typ c
 	"description" ## textSplice $ Component.description c
-	"date" ## showSplice $ Component.date c
+	"date" ## dateSplice $ Component.date c
 	"public" ## showSplice $ Component.public c
 	"archived" ## toggleSplice $ Component.archived c
 	"tag" ## listSplice "name" $ Component.tags c
@@ -132,14 +133,8 @@ imageSplices i = do
                                                                       | Archive Serve
 }----------------------------------------------------------------------------------------------------}
 
-dateFormatSplice :: (Monad m, FormatTime t) => TimeLocale -> t -> Splice m
-dateFormatSplice locale t = do
-	node <- getParamNode
-	let
-		format = maybe defaultFormat T.unpack $ X.getAttribute "format" node
-	textSplice $ T.pack $ formatTime locale format t
-	where
-		defaultFormat = "%Y-%m-%d"
+dateSplice :: (Monad m, FormatTime t) => t -> Splice m
+dateSplice t = dateFormatSplice defaultTimeLocale "%Y-%m-%d" t
 
 archiveServeSplices :: (Monad m) => Splices (Splice m)
 archiveServeSplices = do
@@ -154,7 +149,7 @@ archiveServeSplices = do
 			, (UTCTime (fromGregorian 2000 9 17) 78937, "Fall is coming")
 			]
 		eSplices (d, t) = do
-			"date" ## dateFormatSplice defaultTimeLocale d
+			"date" ## dateSplice d
 			"title" ## textSplice t
 
 		photos :: [(Int, T.Text)]
