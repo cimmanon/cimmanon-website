@@ -56,6 +56,7 @@ routes =
 	, ("/projects/type/:type", ifTop $ textParam "type" >>= maybeH (listByH byTypeH <=< Project.listByType))
 	, ("/projects/type/", ifTop $ listByH byTypeH [])
 	, ("/projects/:slug/", ifTop $ modelH textParam "slug" Project.get projectH)
+	, ("/projects/:slug/:type/:date/", id =<< archiveH' <$> textParam "slug" <*> textParam "type" <*> textParam "date")
 	, ("/admin/", adminRoutes)
 	, ("/archives/", archiveServe)
 	, ("/archives/", serveDirectory "archives")
@@ -228,3 +229,14 @@ archiveServe = do
 	let
 		template = "archives/" <> url
 	renderWithSplices template archiveServeSplices <|> renderWithSplices (template <> "index") archiveServeSplices
+
+
+archiveH' :: Maybe T.Text -> Maybe T.Text -> Maybe T.Text -> AppHandler ()
+archiveH' (Just s) (Just t) (Just d) = maybeH archiveH =<< Project.getWithComponent s t d
+archiveH' _ _ _ = pass
+
+archiveH :: (Project.Project, Component.Component) -> AppHandler ()
+archiveH (p, c) = do
+	renderWithSplices "components/archive" $ do
+		projectSplices p
+		componentSplices c

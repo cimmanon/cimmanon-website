@@ -1,25 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Cimmanon - <pageTitle>Portfolio</pageTitle></title>
-	<meta charset="UTF-8" />
-	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
-</head>
-
-<body>
-	<header>
-		<h1><a href="/">Cimmanon</a></h1>
-
-		<nav>
-			<ul>
-				<li><a href="/projects/type/">Types</a></li>
-				<li><a href="/projects/tags/">Tags</a></li>
-				<li><a href="/projects/year/">Years</a></li>
-				<li><a href="#footer">More</a></li>
-			</ul>
-		</nav>
-	</header>
-
+<bind tag="bodyId"></bind>
+<apply template="_layout_header_only">
 	<main>
 		<apply-content />
 	</main>
@@ -59,5 +39,4 @@
 
 		<p class="copyright">&copy; 2000-2016 C. Siepker</p>
 	</footer>
-</body>
-</html>
+</apply>

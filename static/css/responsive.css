@@ -292,7 +292,7 @@ blockquote, .listing > *:only-child, .details {
   margin-right: auto;
 }
 
-body > header, body > footer, main > h1, .major-section > h1, article.major > h1, section.major > h1 {
+body > header, body > footer, main > h1, .major-section > h1, article.major > h1, section.major > h1, #archive main footer {
   margin-right: -75%;
   margin-right: -50vw;
   margin-left: -75%;
@@ -819,4 +819,47 @@ ul.skills li[data-level="9"]:after {
   ul.skills li:after {
     background: none;
   }
+}
+
+#archive {
+  max-width: none;
+}
+#archive main {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+#archive main h1 {
+  margin-bottom: 0;
+}
+#archive main iframe {
+  -ms-flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+  border: none;
+  margin: 0;
+}
+#archive main footer {
+  border-top: 1px solid #007259;
+  position: relative;
+  padding: 1em;
+  z-index: 1;
+  background: #ddede4;
+  text-align: center;
+}
+#archive main footer:after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  border-top: 1px dotted #007259;
 }

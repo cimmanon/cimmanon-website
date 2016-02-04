@@ -1,0 +1,30 @@
+#archive {
+	max-width: none;
+
+	main {
+		@include display-flex;
+		@include flex-direction(column);
+		margin: 0;
+		padding: 0;
+
+		h1 {
+			margin-bottom: 0;
+		}
+
+		iframe {
+			@include flex(1 1 auto);
+			border: none;
+			margin: 0;
+		}
+
+		footer {
+			border-top: 1px solid $green-dark;
+			@include inset($padding: 1em) {
+				border-top: 1px dotted $green-dark;
+			}
+			background: $green-light;
+			text-align: center;
+			@extend %full-width;
+		}
+	}
+}

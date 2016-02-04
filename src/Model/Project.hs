@@ -8,6 +8,7 @@ module Model.Project
 	, listByYear
 	, listByType
 	, get
+	, getWithComponent
 	, adminList
 	, add
 	, edit
@@ -75,6 +76,9 @@ listByType x = join1of3 <$> query [sqlFile|sql/portfolio/by_type.sql|] (Only x)
 
 get :: (HasPostgres m, Functor m) => Text -> m (Maybe Project)
 get s = listToMaybe <$> query "SELECT project, description, slug, url, featured FROM portfolio.projects WHERE slug = ?" (Only s)
+
+getWithComponent :: (HasPostgres m, Functor m) => Text -> Text -> Text -> m (Maybe (Project, Component))
+getWithComponent s t d = listToMaybe . map tuple2 <$> query [sqlFile|sql/portfolio/get_with_component.sql|]  (s, t, d)
 
 ----------------------------------------------------------------------
 
