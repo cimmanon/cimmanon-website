@@ -31,8 +31,7 @@ import Splices
 
 import Text.Digestive.Heist
 import Snap.Handlers
-import Heist.Splices.Common
-import Heist.Splices.Types
+import Heist.Splices.Camellia
 
 import Control.Monad
 import Control.Monad.IO.Class (liftIO) -- just for debugging

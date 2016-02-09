@@ -18,10 +18,9 @@ import Snap.Snaplet.Heist (SnapletISplice)
 --import Data.Functor
 import Data.Maybe (mapMaybe)
 --import Data.Monoid ((<>), mempty)
-import Heist.Splices.Common
-import Heist.Splices.Types
+import Heist.Splices.Camellia
+import Heist.Splices.Camellia.Session
 
-import Heist.Splices.Session
 import qualified Model.Component as Component
 import qualified Model.Image as Image
 import qualified Model.Project as Project
@@ -34,9 +33,6 @@ import Data.Time.Clock
 
 ----------------------------------------------------------------------
 -- TODO: move these to a library
-
-maybeSplice :: Monad m => (a -> Splice m) -> Maybe a -> Splice m
-maybeSplice = maybe hideContents
 
 nameSplices :: Monad m => T.Text -> Splices (Splice m)
 nameSplices x = do

@@ -43,7 +43,7 @@ Executable cimmanon
     vector,
 --    snap-extras,
     snap-handlers,
-    heist-splices,
+    camellia-splices,
     postgresql-simple-tuple,
     template-haskell,
 --    blaze-builder,
