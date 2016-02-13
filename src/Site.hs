@@ -60,7 +60,7 @@ routes =
 	, ("/archives/", archiveServe)
 	, ("/archives/", serveDirectory "archives")
 	, ("", heistServe) -- serve up static templates from your templates directory
-	, ("", serveDirectory "static")
+	, ("", setCache 604800 >> serveDirectory "static")
 	]
 
 adminRoutes :: AppHandler ()
