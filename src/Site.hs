@@ -21,7 +21,8 @@ import Snap.Core
 import Snap.Snaplet
 import Snap.Snaplet.Heist
 import Snap.Snaplet.Session.Backends.CookieSession
-import Snap.Util.FileServe
+import Snap.Util.FileServe (serveDirectory)
+import Snap.Util.GZip (withCompression)
 import Heist
 import Heist.Interpreted
 import Snap.Snaplet.PostgresqlSimple
@@ -112,6 +113,7 @@ app = makeSnaplet "app" "An snaplet example application." Nothing $ do
 	addTemplatesAt h "archives" "archives" -- for archiveServe
 
 	wrapSite (<|> notFound)
+	wrapSite withCompression
 
 	-- only display a pretty error if we are not in development mode
 	initPrettyProductionErrors
