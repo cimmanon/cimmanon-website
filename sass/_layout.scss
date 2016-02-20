@@ -86,7 +86,7 @@ body > header {
 
 				// this isn't perfectly centered, but it's close enough for our purposes
 				&:before, &:after {
-					$width: $floral-swirl-width / 16 / 2 * 1em; // this approximation of the width of the swirls is close enough
+					$width: $floral-swirl-aspect-ratio * 3em; // this approximation of the width of the swirls is close enough
 
 					@include flex(0 0 auto);
 					@include order(1);
