@@ -21,12 +21,7 @@
    inkscape:export-xdpi="9.6000004"
    inkscape:export-ydpi="9.6000004">
   <defs
-     id="defs4">
-    <inkscape:path-effect
-       effect="spiro"
-       id="path-effect4138"
-       is_visible="true" />
-  </defs>
+     id="defs4" />
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -34,11 +29,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="51.611534"
-     inkscape:cy="82.46002"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="53.478153"
+     inkscape:cy="-0.34717712"
      inkscape:document-units="px"
-     inkscape:current-layer="svg2"
+     inkscape:current-layer="petals"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -86,7 +81,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -98,42 +93,38 @@
     <path
        style="fill:#eb65a1;fill-opacity:0.49803922;fill-rule:evenodd;stroke:none;stroke-width:1.01444399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 54.292935,178.98678 c 0.280674,50 25,75 74.999995,75 0,-50 -24.99999,-75 -74.999995,-75 z"
-       id="left_petal"
+       id="left"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc" />
     <use
        x="0"
        y="0"
-       xlink:href="#left_petal"
+       xlink:href="#left"
        id="middle_left"
-       inkscape:transform-center-x="21.154344"
-       inkscape:transform-center-y="-48.606384"
-       width="100%"
-       height="100%"
-       transform="matrix(0.93090253,0.36526768,-0.36526768,0.93090253,101.70698,-29.676686)" />
-    <use
-       x="0"
-       y="0"
-       xlink:href="#left_petal"
-       id="middle"
-       inkscape:transform-center-y="75"
-       width="100%"
-       height="100%"
-       transform="matrix(0.70711164,0.70710678,-0.70711164,0.70710678,217.46772,-17.032895)" />
-    <use
-       x="0"
-       y="0"
-       xlink:href="#middle_left"
-       inkscape:transform-center-x="-21.154348"
-       inkscape:transform-center-y="-48.606384"
-       id="middle_right"
-       transform="matrix(-1,0,0,1,258.58595,8.0302683e-6)"
+       transform="matrix(0.92387953,0.38268343,-0.38268343,0.92387953,107.03857,-30.144662)"
        width="100%"
        height="100%" />
     <use
        x="0"
        y="0"
-       xlink:href="#left_petal"
+       xlink:href="#left"
+       id="middle"
+       inkscape:transform-center-y="75"
+       width="100%"
+       height="100%"
+       transform="matrix(0.70711164,0.70710678,-0.70711164,0.70710678,217.42772,-17.032894)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#left"
+       id="middle_right"
+       width="100%"
+       height="100%"
+       transform="matrix(0.38268343,0.92387953,-0.92387953,0.38268343,314.46774,37.339164)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#left"
        id="right"
        transform="matrix(-1,0,0,1,258.58586,0)"
        width="100%"

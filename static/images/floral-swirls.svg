@@ -18,8 +18,8 @@
    inkscape:version="0.91 r13725"
    sodipodi:docname="floral-swirls.svg"
    inkscape:export-filename="Z:\websites\cimmanon\static\images\floral-swirls.png"
-   inkscape:export-xdpi="34.871414"
-   inkscape:export-ydpi="34.871414">
+   inkscape:export-xdpi="30.15"
+   inkscape:export-ydpi="30.15">
   <defs
      id="defs4222">
     <inkscape:path-effect
@@ -112,10 +112,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.0000001"
-     inkscape:cx="-35.60411"
+     inkscape:cx="154.63705"
      inkscape:cy="112.45524"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="svg4220"
      showgrid="false"
      units="px"
      inkscape:window-width="1920"
@@ -148,7 +148,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -238,58 +238,47 @@
     </g>
   </g>
   <g
-     inkscape:groupmode="layer"
-     id="layer1"
-     inkscape:label="Flower"
-     style="display:inline"
-     transform="translate(4.8528807e-8,14.37312)">
-    <g
-       transform="matrix(0.74666676,0,0,0.74666707,142.21128,-124.82086)"
-       id="petals"
-       inkscape:label="Flower">
-      <path
-         sodipodi:nodetypes="ccc"
-         inkscape:connector-curvature="0"
-         id="left_petal"
-         d="m 54.292935,178.98678 c 0.280674,50 25,75 74.999995,75 0,-50 -24.99999,-75 -74.999995,-75 z"
-         style="fill:#eb65a1;fill-opacity:0.49803922;fill-rule:evenodd;stroke:none;stroke-width:1.01444399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <use
-         transform="matrix(0.93090253,0.36526768,-0.36526768,0.93090253,101.70698,-29.676686)"
-         height="100%"
-         width="100%"
-         inkscape:transform-center-y="-48.606384"
-         inkscape:transform-center-x="21.154344"
-         id="middle_left"
-         xlink:href="#left_petal"
-         y="0"
-         x="0" />
-      <use
-         transform="matrix(0.70711164,0.70710678,-0.70711164,0.70710678,217.46772,-17.032895)"
-         height="100%"
-         width="100%"
-         inkscape:transform-center-y="75"
-         id="middle"
-         xlink:href="#left_petal"
-         y="0"
-         x="0" />
-      <use
-         height="100%"
-         width="100%"
-         transform="matrix(-1,0,0,1,258.58595,8.0302683e-6)"
-         id="middle_right"
-         inkscape:transform-center-y="-48.606384"
-         inkscape:transform-center-x="-21.154348"
-         xlink:href="#middle_left"
-         y="0"
-         x="0" />
-      <use
-         height="100%"
-         width="100%"
-         transform="matrix(-1,0,0,1,258.58586,0)"
-         id="right"
-         xlink:href="#left_petal"
-         y="0"
-         x="0" />
-    </g>
+     transform="matrix(0.74666676,0,0,0.74666676,142.21129,-110.44765)"
+     id="petals"
+     inkscape:label="Flower">
+    <path
+       sodipodi:nodetypes="ccc"
+       inkscape:connector-curvature="0"
+       id="left"
+       d="m 54.292935,178.98678 c 0.280674,50 25,75 74.999995,75 0,-50 -24.99999,-75 -74.999995,-75 z"
+       style="fill:#eb65a1;fill-opacity:0.49803922;fill-rule:evenodd;stroke:none;stroke-width:1.01444399px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <use
+       height="100%"
+       width="100%"
+       transform="matrix(0.92387953,0.38268343,-0.38268343,0.92387953,107.03857,-30.144662)"
+       id="middle_left"
+       xlink:href="#left"
+       y="0"
+       x="0" />
+    <use
+       transform="matrix(0.70711164,0.70710678,-0.70711164,0.70710678,217.42772,-17.032894)"
+       height="100%"
+       width="100%"
+       inkscape:transform-center-y="75"
+       id="middle"
+       xlink:href="#left"
+       y="0"
+       x="0" />
+    <use
+       transform="matrix(0.38268343,0.92387953,-0.92387953,0.38268343,314.46774,37.339164)"
+       height="100%"
+       width="100%"
+       id="middle_right"
+       xlink:href="#left"
+       y="0"
+       x="0" />
+    <use
+       height="100%"
+       width="100%"
+       transform="matrix(-1,0,0,1,258.58586,0)"
+       id="right"
+       xlink:href="#left"
+       y="0"
+       x="0" />
   </g>
 </svg>
