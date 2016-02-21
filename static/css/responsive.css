@@ -524,7 +524,7 @@ body > header nav ul {
 }
 body > header nav li {
   display: inline-block;
-  margin: .5em 1em;
+  margin: .5em .75em;
 }
 @media (min-width: 28em) {
   body > header nav {
@@ -551,6 +551,12 @@ body > header nav li {
     display: block;
     content: '';
     width: 4.97917em;
+  }
+  body > header nav ul:before {
+    margin-left: 1em;
+  }
+  body > header nav ul:after {
+    margin-right: 1em;
   }
   body > header nav li {
     min-width: 3em;

@@ -64,7 +64,7 @@ body > header {
 
 		li {
 			display: inline-block;
-			margin: .5em 1em;
+			margin: .5em .75em;
 		}
 
 		@media (min-width: 28em) {
@@ -93,6 +93,14 @@ body > header {
 					display: block;
 					content: '';
 					width: $width / 2;
+				}
+
+				&:before {
+					margin-left: 1em;
+				}
+
+				&:after {
+					margin-right: 1em;
 				}
 			}
 
