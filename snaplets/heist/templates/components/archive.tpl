@@ -1,7 +1,7 @@
 <bind tag="bodyId">archive</bind>
 <bind tag="pageTitle">Project Archive: <name>Project Name</name></bind>
 <apply template="_layout_header_only">
-<main id="archive">
+<main>
 	<h1><name>Project Name</name></h1>
 
 	<archived><iframe src="/archives/${slug}/${date}/" /></archived>
