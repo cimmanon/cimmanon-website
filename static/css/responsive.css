@@ -2,13 +2,13 @@ body {
   font: 100%/1.4 Segoe, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6, p, ul, ol, dl, table, blockquote, div, main, section, article, aside, fieldset, hgroup {
+h1, h2, h3, h4, h5, h6, p, ul, ol, dl, table, blockquote, div, main, section, article, aside, fieldset {
   margin: 1em 0;
 }
-h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child, p:first-child, ul:first-child, ol:first-child, dl:first-child, table:first-child, blockquote:first-child, div:first-child, main:first-child, section:first-child, article:first-child, aside:first-child, fieldset:first-child, hgroup:first-child {
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child, p:first-child, ul:first-child, ol:first-child, dl:first-child, table:first-child, blockquote:first-child, div:first-child, main:first-child, section:first-child, article:first-child, aside:first-child, fieldset:first-child {
   margin-top: 0;
 }
-h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child, p:last-child, ul:last-child, ol:last-child, dl:last-child, table:last-child, blockquote:last-child, div:last-child, main:last-child, section:last-child, article:last-child, aside:last-child, fieldset:last-child, hgroup:last-child {
+h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child, p:last-child, ul:last-child, ol:last-child, dl:last-child, table:last-child, blockquote:last-child, div:last-child, main:last-child, section:last-child, article:last-child, aside:last-child, fieldset:last-child {
   margin-bottom: 0;
 }
 
@@ -39,7 +39,7 @@ small {
   font-size: .8em;
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+article, aside, details, figcaption, figure, footer, header, main, nav, section, summary {
   display: block;
 }
 
