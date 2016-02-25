@@ -232,6 +232,10 @@ blockquote {
   text-align: center;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: Optima, Candara, Segoe, "Segoe UI", Arial, sans-serif;
+}
+
 h1 {
   font-size: 1.95313em;
 }
