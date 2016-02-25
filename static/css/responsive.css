@@ -834,6 +834,15 @@ ul.skills li[data-level="9"]:after {
 #archive {
   max-width: none;
 }
+#archive > header h1 {
+  font-size: 1.25em;
+}
+#archive > header nav ul:before, #archive > header nav ul:after {
+  font-size: 0.8em;
+}
+#archive > header:after {
+  font-size: 0.8em;
+}
 #archive main {
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -846,6 +855,9 @@ ul.skills li[data-level="9"]:after {
 }
 #archive main h1 {
   margin-bottom: 0;
+}
+#archive main h1:before {
+  font-size: .8em;
 }
 #archive main iframe {
   -ms-flex: 1 1 auto;

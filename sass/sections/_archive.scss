@@ -1,6 +1,23 @@
 #archive {
 	max-width: none;
 
+	> header {
+		// font-size adjustments to match narrow width layout
+		h1 {
+			font-size: ms(1);
+		}
+
+		nav {
+			ul:before, ul:after {
+				font-size: ms(-1);
+			}
+		}
+
+		&:after {
+			font-size: ms(-1);
+		}
+	}
+
 	main {
 		@include display-flex;
 		@include flex-direction(column);
@@ -9,6 +26,10 @@
 
 		h1 {
 			margin-bottom: 0;
+
+			&:before {
+				font-size: .8em; // to match narrow width layout
+			}
 		}
 
 		iframe {
