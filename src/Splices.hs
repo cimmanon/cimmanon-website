@@ -39,6 +39,11 @@ nameSplices x = do
 	"name" ## textSplice x
 	"lcname" ## textSplice $ T.toLower x
 
+
+generalSplices :: Monad m => Splices (Splice m)
+generalSplices = do
+	"archivePath" ## stringSplice Project.archivesDirectory
+
 {----------------------------------------------------------------------------------------------------{
                                                                       | Session Splices
 }----------------------------------------------------------------------------------------------------}
@@ -101,7 +106,8 @@ componentSplices c = do
 	"description" ## textSplice $ Component.description c
 	"date" ## dateSplice $ Component.date c
 	"public" ## showSplice $ Component.public c
-	"archived" ## toggleSplice $ Component.archived c
+	"archived" ## maybeSplice (\x -> ifSplice' $ "/" == T.take 1 x) $ Component.archived c
+	"href" ## maybeSplice textSplice $ Component.archived c
 	"tag" ## listSplice "name" $ Component.tags c
 
 {----------------------------------------------------------------------------------------------------{

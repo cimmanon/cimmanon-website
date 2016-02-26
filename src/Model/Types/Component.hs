@@ -13,7 +13,7 @@ data Component = Component
 	, description :: Text
 	, date :: Day
 	, public :: Bool
-	, archived :: Bool
+	, archived :: Maybe Text
 	, tags :: [Text]
 	} deriving (Show, Eq)
 

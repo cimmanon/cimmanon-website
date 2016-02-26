@@ -4,7 +4,7 @@
 <main>
 	<h1><name>Project Name</name></h1>
 
-	<archived><iframe src="/archives/${slug}/${date}/" /></archived>
+	<archived><iframe src="${href}" /></archived>
 
 	<footer>
 		<a href="/projects/${slug}/"><name>Project Name</name></a>, as it appeared <date format="%B %Y">February 2016</date>

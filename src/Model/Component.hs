@@ -53,7 +53,7 @@ componentForm c = monadic $ do
 		<*> "description" .: notEmpty (text (description <$> toMaybe c))
 		<*> "date" .: eitherDisable (dateFormlet "%F" (date <$> toMaybe c))
 		<*> "public" .: bool (either (const (Just True)) (Just . public) c)
-		<*> "archived" .: bool (archived <$> toMaybe c)
+		<*> "archived" .: optionalText (archived =<< toMaybe c)
 		<*> "tags" .: listOfText tags' (either (const []) tags c)
 	where
 		notEmpty = check "Cannot be empty" (/= "")

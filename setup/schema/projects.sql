@@ -47,7 +47,7 @@ CREATE TABLE project_components (
 	date_added DATE NOT NULL DEFAULT NOW(),
 	description TEXT NOT NULL,
 	public BOOL NOT NULL default true,
-	archived BOOL NOT NULL DEFAULT false,
+	archived TEXT,
 
 	PRIMARY KEY (project, type, date_added),
 	FOREIGN KEY (project) REFERENCES projects (project) ON UPDATE CASCADE,
@@ -57,6 +57,24 @@ CREATE INDEX project_components_component_idx ON project_components (type);
 CREATE INDEX project_components_year_idx ON project_components (extract(year FROM date_added) DESC);
 
 CREATE TYPE component_identity AS (project LABEL, type LABEL, date_added DATE);
+
+--------
+
+CREATE OR REPLACE FUNCTION update_local_archive_path() RETURNS TRIGGER AS $$
+BEGIN
+	UPDATE portfolio.project_components
+	SET
+		archived = replace(archived, OLD.slug, NEW.slug)
+	WHERE
+		project = NEW.project
+		AND substring(archived from 1 for 1) = '/';
+	RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+COMMENT ON FUNCTION update_local_archive_path() IS 'Updates the slug information in local paths';
+
+CREATE CONSTRAINT TRIGGER roster_revision_checks AFTER UPDATE ON projects
+	FOR EACH ROW EXECUTE PROCEDURE update_local_archive_path();
 
 --------------------------------------------------------------------- | Tags
 

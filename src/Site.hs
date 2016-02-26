@@ -119,8 +119,12 @@ app = makeSnaplet "app" "An snaplet example application." Nothing $ do
 	initPrettyProductionErrors
 
 --	initFlashNotice h sess
-	addConfig h $ mempty & scInterpretedSplices .~ userSessionSplices sess
+	addConfig h $ mempty & scInterpretedSplices .~ defaultSplices
 	return $ App h s d
+	where
+		defaultSplices = do
+			userSessionSplices sess
+			generalSplices
 
 -- TODO: move this to a library
 maybeH :: (a -> AppHandler ()) -> Maybe a -> AppHandler ()

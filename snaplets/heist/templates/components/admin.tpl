@@ -19,7 +19,7 @@
 			<td><type>Design</type></td>
 			<td><date>2016-01-07</date></td>
 			<td class="bool"><public>Public</public></td>
-			<td><archived><a href="/archives/${slug}/${date}/">Archived</a></archived></td>
+			<td><archived><a href="${href}">Archived</a></archived></td>
 			<td><a href="./${type}/${date}/">Edit</a></td>
 			<td><a href="./${type}/${date}/images">Images</a></td>
 		</tr></component>
