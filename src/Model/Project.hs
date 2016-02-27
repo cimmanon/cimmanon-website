@@ -31,7 +31,7 @@ import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 
 import Model.Types.Project
-import Model.Types.Component as C hiding (description)
+import Model.Types.Component as C hiding (description, featured)
 import Model.Types.Image as I hiding (featured)
 import Model.Image as I (screenshotDirectory)
 

@@ -3,6 +3,7 @@ SELECT
 	description,
 	date_added,
 	public,
+	components.featured,
 	archived,
 	tags,
 	filename,
@@ -12,12 +13,7 @@ SELECT
 FROM
 	(
 		SELECT
-			project,
-			type,
-			description,
-			date_added,
-			public,
-			archived,
+			project_components.*,
 			array_agg(tag :: TEXT) AS tags
 		FROM
 			portfolio.project_components

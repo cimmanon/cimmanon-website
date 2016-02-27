@@ -3,6 +3,7 @@ SELECT
 	description,
 	date_added,
 	public,
+	featured,
 	archived,
 	COALESCE(array_agg(tag :: TEXT) FILTER (WHERE tag IS NOT NULL), array[] :: TEXT[]) AS tags
 FROM

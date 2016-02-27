@@ -37,7 +37,7 @@ import System.Directory (createDirectoryIfMissing, copyFile, removeFile)
 import Text.Digestive.Snap hiding (uploadPolicy, partPolicy)
 
 import Model.Types.Project as P hiding (featured)
-import Model.Types.Component as C
+import Model.Types.Component as C hiding (featured)
 import Model.Types.Image
 import Model.Component as C (primaryKey)
 

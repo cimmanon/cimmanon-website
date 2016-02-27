@@ -106,6 +106,7 @@ componentSplices c = do
 	"description" ## textSplice $ Component.description c
 	"date" ## dateSplice $ Component.date c
 	"public" ## showSplice $ Component.public c
+	"featured" ## showSplice $ Component.featured c
 	"archived" ## maybeSplice (\x -> ifSplice' $ "/" == T.take 1 x) $ Component.archived c
 	"href" ## maybeSplice textSplice $ Component.archived c
 	"tag" ## listSplice "name" $ Component.tags c

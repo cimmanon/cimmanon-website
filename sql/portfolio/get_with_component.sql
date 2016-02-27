@@ -9,6 +9,7 @@ SELECT
 	project_components.description,
 	date_added,
 	public,
+	project_components.featured,
 	archived,
 	array[] :: TEXT[]
 --	COALESCE(array_agg(tag :: TEXT) FILTER (WHERE tag IS NOT NULL), array[] :: TEXT[]) AS tags

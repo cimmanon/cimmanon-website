@@ -5,12 +5,7 @@ WITH
 	components AS (
 		SELECT
 			MAX(date_added) OVER (PARTITION BY project) AS last_update,
-			project,
-			type,
-			description,
-			date_added,
-			public,
-			archived,
+			project_components.*,
 			array_agg(tag :: TEXT) AS tags,
 			row_number() OVER (PARTITION BY project, type ORDER BY date_added DESC) AS position
 		FROM
@@ -44,6 +39,7 @@ SELECT
 	components.description,
 	date_added,
 	public,
+	components.featured,
 	archived,
 	tags,
 

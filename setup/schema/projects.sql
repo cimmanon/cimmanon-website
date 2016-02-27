@@ -47,6 +47,7 @@ CREATE TABLE project_components (
 	date_added DATE NOT NULL DEFAULT NOW(),
 	description TEXT NOT NULL,
 	public BOOL NOT NULL default true,
+	featured BOOL NOT NULL default false,
 	archived TEXT,
 
 	PRIMARY KEY (project, type, date_added),
@@ -125,13 +126,13 @@ CREATE UNIQUE INDEX project_images_featured_idx ON project_images (project, type
                                                                       | Helper Functions
 \*----------------------------------------------------------------------------------------------------*/
 
-CREATE OR REPLACE FUNCTION add_component(info PROJECT_COMPONENTs, tags TEXT[]) RETURNS VOID AS $$
+CREATE OR REPLACE FUNCTION add_component(info PROJECT_COMPONENTS, tags TEXT[]) RETURNS VOID AS $$
 BEGIN
 	-- main data
 	INSERT INTO portfolio.project_components
-		(project, type, date_added, description, public, archived)
+		(project, type, date_added, description, public, featured, archived)
 	VALUES
-		(info.project, info.type, info.date_added, info.description, info.public, info.archived);
+		(info.project, info.type, info.date_added, info.description, info.public, info.featured, info.archived);
 
 	-- tags
 	INSERT INTO portfolio.project_tags
@@ -146,13 +147,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION edit_component(info PROJECT_COMPONENTs, tags TEXT[]) RETURNS VOID AS $$
+CREATE OR REPLACE FUNCTION edit_component(info PROJECT_COMPONENTS, tags TEXT[]) RETURNS VOID AS $$
 BEGIN
 	-- main data
 	UPDATE portfolio.project_components
 	SET
 		description = info.description,
 		public = info.public,
+		featured = info.featured,
 		archived = info.archived
 	WHERE
 		project = info.project

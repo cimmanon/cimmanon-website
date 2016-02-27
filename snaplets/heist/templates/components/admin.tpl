@@ -8,6 +8,7 @@
 			<th>Component</th>
 			<th>Date</th>
 			<th>Public</th>
+			<th>Featured</th>
 			<th>Archived</th>
 			<th>Edit</th>
 			<th>Images</th>
@@ -19,6 +20,7 @@
 			<td><type>Design</type></td>
 			<td><date>2016-01-07</date></td>
 			<td class="bool"><public>Public</public></td>
+			<td class="bool"><featured>Featured</featured></td>
 			<td><archived><a href="${href}">Archived</a></archived></td>
 			<td><a href="./${type}/${date}/">Edit</a></td>
 			<td><a href="./${type}/${date}/images">Images</a></td>

@@ -13,9 +13,10 @@ data Component = Component
 	, description :: Text
 	, date :: Day
 	, public :: Bool
+	, featured :: Bool
 	, archived :: Maybe Text
 	, tags :: [Text]
 	} deriving (Show, Eq)
 
 instance FromRow Component where
-	fromRow = Component <$> field <*> field <*> field <*> field <*> field <*> (toList <$> field)
+	fromRow = Component <$> field <*> field <*> field <*> field <*> field <*> field <*> (toList <$> field)

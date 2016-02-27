@@ -30,6 +30,6 @@ Type: <dfPlainText ref="type" />
 
 	<ul>
 		<li><label><dfInputCheckbox ref="public" /> Public</label></li>
-		<li><label><dfInputCheckbox ref="public" disabled /> Featured</label></li>
+		<li><label><dfInputCheckbox ref="featured" /> Featured</label></li>
 	</ul>
 </fieldset>

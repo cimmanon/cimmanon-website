@@ -26,9 +26,9 @@ import Database.PostgreSQL.Simple.Tuple
 import Util.Database
 import Util.Form
 
-import Model.Types.Project as P hiding (description)
+import Model.Types.Project as P hiding (description, featured)
 import Model.Types.Component as C
-import Model.Types.Image as I
+import Model.Types.Image as I hiding (featured)
 import qualified Model.Tag as T
 
 {----------------------------------------------------------------------------------------------------{
@@ -53,6 +53,7 @@ componentForm c = monadic $ do
 		<*> "description" .: notEmpty (text (description <$> toMaybe c))
 		<*> "date" .: eitherDisable (dateFormlet "%F" (date <$> toMaybe c))
 		<*> "public" .: bool (either (const (Just True)) (Just . public) c)
+		<*> "featured" .: bool (either (const (Just True)) (Just . featured) c)
 		<*> "archived" .: optionalText (archived =<< toMaybe c)
 		<*> "tags" .: listOfText tags' (either (const []) tags c)
 	where
@@ -74,17 +75,17 @@ get p c d = listToMaybe <$> query [sqlFile|sql/portfolio/component.sql|] (P.name
 ----------------------------------------------------------------------
 
 adminList :: HasPostgres m => Project -> m [Component]
-adminList p = query "SELECT type, description, date_added, public, archived, array[] :: text[] AS tags FROM portfolio.project_components WHERE project = ? ORDER BY date_added" (Only $ P.name p)
+adminList p = query "SELECT type, description, date_added, public, featured, archived, array[] :: text[] AS tags FROM portfolio.project_components WHERE project = ? ORDER BY date_added" (Only $ P.name p)
 
 add :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text Component)
 add p c = toEither' $ const c <$> q
 	where
 		-- query split off here rather than write a one-liner to avoid ambiguity when the type is discarded above
 		q :: HasPostgres m => m [Only ()]
-		q = query "SELECT portfolio.add_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, typ c, date c, description c, public c, archived c, fromList $ tags c)
+		q = query "SELECT portfolio.add_component((?, ?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, typ c, date c, description c, public c, featured c, archived c, fromList $ tags c)
 
 edit :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text [Only ()])
-edit p c = toEither' $ query "SELECT portfolio.edit_component((?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, typ c, date c, description c, public c, archived c, fromList $ tags c)
+edit p c = toEither' $ query "SELECT portfolio.edit_component((?, ?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, typ c, date c, description c, public c, featured c, archived c, fromList $ tags c)
 
 ----------------------------------------------------------------------
 

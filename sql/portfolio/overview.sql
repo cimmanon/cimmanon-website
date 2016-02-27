@@ -9,6 +9,7 @@ SELECT
 	components.description,
 	date_added,
 	public,
+	components.featured,
 	archived,
 	tags,
 
@@ -19,17 +20,16 @@ SELECT
 FROM
 	portfolio.projects
 	JOIN (
-		SELECT DISTINCT ON (project, type)
+		SELECT
 			MAX(project_components.date_added) OVER (PARTITION BY project) AS last_update,
-
 			project_components.*,
-
 			array_agg(tag :: TEXT) AS tags
 		FROM
 			portfolio.project_components
 			JOIN portfolio.project_tags USING (project, type, date_added)
 		WHERE
-			project_components.public = true
+			public = true
+			AND featured = true
 		GROUP BY
 			project, type, date_added
 		ORDER BY
@@ -41,5 +41,5 @@ WHERE
 	projects.featured = true
 ORDER BY
 	last_update DESC,
-	type
+	date_added DESC
 ;
