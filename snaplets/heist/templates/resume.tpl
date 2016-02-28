@@ -13,7 +13,9 @@
 			<article>
 				<h1>Design</h1>
 
-				<p>I started getting into web design in late 1997/early 1998.  I was part of a clan for Diablo and the leader was looking for help to manage their website.  He told me, "It's easy, just get FrontPage!"  Within a few months, I was writing markup by hand and using CSS to style it.  My first table-less design was in 2002, and my last table-based design was converted to using CSS in 2004.  I started exploring responsive web design in 2012 when I was working at snapd Inc.</p>
+				<p>I got into web design in 1998 so that I could help out with my game clan's website.  Within a few months, I was writing markup by hand and using CSS to style it.  My first table-less design was in 2002, and my last active table-based design was converted to using CSS in 2004.  I started exploring responsive web design in 2012 for work.</p>
+
+				<p>My style has evolved quite a bit throughout the years.  A lot of my early designs feature digital paintings that frame the site's content, now I let the content drive the design.  The one thing that hasn't change is my commitment to progressive enhancement.  The user should never think they're looking at a broken design, but users with a modern browser will receive the best experience.</p>
 
 				<ul class="skills">
 					<li data-level="10">HTML</li>
@@ -30,7 +32,7 @@
 			<article>
 				<h1>Programming</h1>
 
-				<p>I tried to do a bit of programming at about the same time I started getting into web design, but I couldn't quite get the hang of it.  Things started clicking for me when I needed to write small programs and web applications for my own purposes in 2002.  I picked up a bit of Scala in 2012, but quickly moved on to Haskell.  Writing code involves a lot more trial and error and Google-fu than my other skills.</p>
+				<p>Programming became a part of my skill set in 2002 when I needed to write small programs and web applications.  I picked up a bit of Scala in 2012, but quickly moved on to Haskell.  Writing code involves a lot more trial and error and Google-fu than my other skills.  When it comes to solving complex programming problems, I find that it helps to draw them out on paper.</p>
 
 				<ul class="skills">
 					<li data-level="5">Haskell</li>
@@ -44,7 +46,7 @@
 			<article>
 				<h1>Databases</h1>
 
-				<p>Working with databases is a relatively new discipline for me.  I was introduced to the world of databases in 2002 with MySQL for managing my online diary, but I didn't take it seriously until 2005 when I started working on Gamependium.  I began exploring triggers and query optimization when I landed my first IT job in 2011.</p>
+				<p>Working with databases is a relatively new discipline for me.  I was introduced to the world of databases in 2002 with MySQL for managing my online diary, but I didn't take it seriously until 2005 when I started working on Gamependium.  I began exploring triggers and query optimization in 2012 when I started working with millions of rows of data.</p>
 
 				<ul class="skills">
 					<li data-level="7">Data Modeling</li>
@@ -76,7 +78,7 @@
 					<time>November 2011</time> to <time>March 2014</time>
 				</header>
 
-				<p>My first project was a web application to manage the planning of flyers for a grocery store.  We used as an experiment on how we were going to rewrite the application that runs snapd.  The first version was written in PHP using the Zend framework, but I found it to be difficult to maintain in the long run.  After exploring frameworks in both Scala and Haskell, I settled on Haskell's Snap framework.  Over the course of 2 months, the application was completely rewritten and included a number of improvements over the original.</p>
+				<p>My first project was a web application to manage the planning of flyers for a grocery store.  We used as an experiment on how we were going to rewrite a similar application that runs snapd.  The first version was written in PHP using the Zend framework, but I found it to be difficult to maintain in the long run.  After exploring frameworks in both Scala and Haskell, I settled on Haskell's Snap framework.  Over the course of 2 months, the application was completely rewritten and included a number of improvements over the original.</p>
 			</article>
 		</div>
 	</section>
