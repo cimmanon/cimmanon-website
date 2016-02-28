@@ -1,21 +1,28 @@
 ul.skills {
-	li {
-		@include inset($el: after) {
-			background-color: $green-light;
+	@media not print {
+		li {
+			@include inset($el: after) {
+				background-color: $green-light;
+			}
+
+			&:after {
+				text-align: right;
+				font-size: ms(-1);
+				content: '10/10';
+				padding-right: 2px;
+				@include box-sizing(border-box);
+			}
 		}
-	}
-	@for $i from 1 through 9 {
-		li[data-level="#{$i}"]:after {
-			max-width: $i * 10%;
+		@for $i from 1 through 9 {
+			li[data-level="#{$i}"]:after {
+				max-width: $i * 10%;
+				content: '#{$i}/10';
+			}
 		}
 	}
 
 	@media print {
 		@include columns(8em);
 		list-style: none;
-
-		li:after {
-			background: none;
-		}
 	}
 }

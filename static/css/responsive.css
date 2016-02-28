@@ -776,48 +776,68 @@ main > h1:not(:first-child):before, .major-section > h1:before, article.major > 
   }
 }
 
-ul.skills li {
-  position: relative;
-  padding: 2px;
-  z-index: 1;
-}
-ul.skills li:after {
-  position: absolute;
-  z-index: -1;
-  content: '';
-  display: block;
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
-  background-color: #ddede4;
-}
-ul.skills li[data-level="1"]:after {
-  max-width: 10%;
-}
-ul.skills li[data-level="2"]:after {
-  max-width: 20%;
-}
-ul.skills li[data-level="3"]:after {
-  max-width: 30%;
-}
-ul.skills li[data-level="4"]:after {
-  max-width: 40%;
-}
-ul.skills li[data-level="5"]:after {
-  max-width: 50%;
-}
-ul.skills li[data-level="6"]:after {
-  max-width: 60%;
-}
-ul.skills li[data-level="7"]:after {
-  max-width: 70%;
-}
-ul.skills li[data-level="8"]:after {
-  max-width: 80%;
-}
-ul.skills li[data-level="9"]:after {
-  max-width: 90%;
+@media not print {
+  ul.skills li {
+    position: relative;
+    padding: 2px;
+    z-index: 1;
+  }
+  ul.skills li:after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    background-color: #ddede4;
+  }
+  ul.skills li:after {
+    text-align: right;
+    font-size: 0.8em;
+    content: '10/10';
+    padding-right: 2px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  ul.skills li[data-level="1"]:after {
+    max-width: 10%;
+    content: "1/10";
+  }
+  ul.skills li[data-level="2"]:after {
+    max-width: 20%;
+    content: "2/10";
+  }
+  ul.skills li[data-level="3"]:after {
+    max-width: 30%;
+    content: "3/10";
+  }
+  ul.skills li[data-level="4"]:after {
+    max-width: 40%;
+    content: "4/10";
+  }
+  ul.skills li[data-level="5"]:after {
+    max-width: 50%;
+    content: "5/10";
+  }
+  ul.skills li[data-level="6"]:after {
+    max-width: 60%;
+    content: "6/10";
+  }
+  ul.skills li[data-level="7"]:after {
+    max-width: 70%;
+    content: "7/10";
+  }
+  ul.skills li[data-level="8"]:after {
+    max-width: 80%;
+    content: "8/10";
+  }
+  ul.skills li[data-level="9"]:after {
+    max-width: 90%;
+    content: "9/10";
+  }
 }
 @media print {
   ul.skills {
@@ -825,9 +845,6 @@ ul.skills li[data-level="9"]:after {
     -webkit-columns: 8em;
     columns: 8em;
     list-style: none;
-  }
-  ul.skills li:after {
-    background: none;
   }
 }
 
