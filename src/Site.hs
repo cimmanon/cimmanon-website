@@ -125,6 +125,7 @@ app = makeSnaplet "app" "An snaplet example application." Nothing $ do
 		defaultSplices = do
 			userSessionSplices sess
 			generalSplices
+			"bodyId" ## hideContents
 
 -- TODO: move this to a library
 maybeH :: (a -> AppHandler ()) -> Maybe a -> AppHandler ()
