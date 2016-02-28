@@ -26,3 +26,20 @@ ul.skills {
 		list-style: none;
 	}
 }
+
+#resume {
+	@media print {
+		#skills p {
+			display: none;
+		}
+
+		main > h1 {
+			text-align: left;
+
+			&:after {
+				content: attr(data-name);
+				text-align: center;
+			}
+		}
+	}
+}

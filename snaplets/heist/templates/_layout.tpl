@@ -1,4 +1,3 @@
-<bind tag="bodyId"></bind>
 <apply template="_layout_header_only">
 	<main>
 		<apply-content />

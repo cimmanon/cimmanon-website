@@ -1,6 +1,7 @@
 <bind tag="pageTitle">R&eacute;sum&eacute;</bind>
+<bind tag="bodyId">resume</bind>
 <apply template="_layout">
-	<h1><pageTitle /></h1>
+	<h1 data-name="Christina A. Siepker"><pageTitle /></h1>
 
 	<blockquote>
 		<p>I walk the line between designer and developer.  Some days I feel like a designer trying to muddle my way through code, other days I think I'm a developer struggling to make something look nice.</p>

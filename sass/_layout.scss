@@ -243,23 +243,25 @@ body > footer {
 %floral-header {
 	$floral-swirl-max-height: 2em;
 
-	margin-top: $floral-swirl-max-height * .8 + ($spacing-primary / 2);
-
-	&:before {
-		content: '';
-		height: $floral-swirl-max-height;
-		margin-top: -$floral-swirl-max-height;
-		@include background-swirls;
-		transform: translateY(-2px); // fixes an undesirable 2px gap
-		display: block;
-		font-size: .8em;
-	}
-
-	@media (min-width: $layout-2-col) {
-		margin-top: $floral-swirl-max-height + ($spacing-primary / 2);
+	@media not print {
+		margin-top: $floral-swirl-max-height * .8 + ($spacing-primary / 2);
 
 		&:before {
-			font-size: 1em;
+			content: '';
+			height: $floral-swirl-max-height;
+			margin-top: -$floral-swirl-max-height;
+			@include background-swirls;
+			transform: translateY(-2px); // fixes an undesirable 2px gap
+			display: block;
+			font-size: .8em;
+		}
+
+		@media not print and (min-width: $layout-2-col) {
+			margin-top: $floral-swirl-max-height + ($spacing-primary / 2);
+
+			&:before {
+				font-size: 1em;
+			}
 		}
 	}
 }

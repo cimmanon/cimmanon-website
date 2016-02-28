@@ -690,21 +690,23 @@ main > h1 + *, .major-section > h1 + *, article.major > h1 + *, section.major > 
   margin-top: 2em;
 }
 
-main > h1:not(:first-child), .major-section > h1, article.major > h1, section.major > h1 {
-  margin-top: 2.6em;
+@media not print {
+  main > h1:not(:first-child), .major-section > h1, article.major > h1, section.major > h1 {
+    margin-top: 2.6em;
+  }
+  main > h1:not(:first-child):before, .major-section > h1:before, article.major > h1:before, section.major > h1:before {
+    content: '';
+    height: 2em;
+    margin-top: -2em;
+    background: url("../images/floral-swirls.png") center bottom no-repeat;
+    -webkit-background-size: contain;
+    background: url("../images/floral-swirls.svg") center bottom/contain no-repeat;
+    transform: translateY(-2px);
+    display: block;
+    font-size: .8em;
+  }
 }
-main > h1:not(:first-child):before, .major-section > h1:before, article.major > h1:before, section.major > h1:before {
-  content: '';
-  height: 2em;
-  margin-top: -2em;
-  background: url("../images/floral-swirls.png") center bottom no-repeat;
-  -webkit-background-size: contain;
-  background: url("../images/floral-swirls.svg") center bottom/contain no-repeat;
-  transform: translateY(-2px);
-  display: block;
-  font-size: .8em;
-}
-@media (min-width: 60em) {
+@media not print and (min-width: 60em) {
   main > h1:not(:first-child), .major-section > h1, article.major > h1, section.major > h1 {
     margin-top: 3em;
   }
@@ -848,6 +850,19 @@ main > h1:not(:first-child):before, .major-section > h1:before, article.major > 
   }
 }
 
+@media print {
+  #resume #skills p {
+    display: none;
+  }
+  #resume main > h1 {
+    text-align: left;
+  }
+  #resume main > h1:after {
+    content: attr(data-name);
+    text-align: center;
+  }
+}
+
 #archive {
   max-width: none;
 }
@@ -901,4 +916,16 @@ main > h1:not(:first-child):before, .major-section > h1:before, article.major > 
   bottom: 2px;
   left: 2px;
   border-top: 1px dotted #007259;
+}
+
+@media print {
+  body {
+    font-size: 10pt;
+    margin: .5in;
+    max-width: auto;
+  }
+
+  body > header, nav, body > footer {
+    display: none !important;
+  }
 }

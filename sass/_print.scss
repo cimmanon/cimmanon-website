@@ -1,0 +1,11 @@
+@media print {
+	body {
+		font-size: 10pt;
+		margin: .5in;
+		max-width: auto;
+	}
+
+	body > header, nav, body > footer {
+		display: none !important;
+	}
+}
