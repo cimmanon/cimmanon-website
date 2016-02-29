@@ -101,7 +101,7 @@ projectRoutes p = do
 ------------------------------------------------------------------------------
 -- | The application initializer.
 app :: SnapletInit App App
-app = makeSnaplet "app" "An snaplet example application." Nothing $ do
+app = makeSnaplet "app" "A portfolio CMS for multi-talented professionals" Nothing $ do
 	addRoutes routes
 
 	h <- nestSnaplet "" heist $ heistInit "templates"

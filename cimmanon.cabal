@@ -1,6 +1,6 @@
 Name:                cimmanon
 Version:             0.1
-Synopsis:            Project Synopsis Here
+Synopsis:            A portfolio CMS for multi-talented individuals
 Description:         Project Description Here
 License:             AllRightsReserved
 Author:              C. Siepker
@@ -12,7 +12,7 @@ Cabal-version:       >=1.2
 
 Flag development
   Description: Whether to build the server in development (interpreted) mode
-  Default: False
+  Default: True
 
 Flag old-base
   default: False
@@ -66,7 +66,7 @@ Executable cimmanon
       base                      >= 4.4      && < 5,
       lens                      >= 3.7.6    && < 4.13
 
-  if !flag(development)
+  if flag(development)
     build-depends:
       snap-loader-dynamic == 0.10.*
     cpp-options: -DDEVELOPMENT
