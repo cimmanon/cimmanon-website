@@ -34,7 +34,7 @@ BEGIN
 
 		CREATE OR REPLACE FUNCTION update_local_archive_path() RETURNS TRIGGER AS $$
 		BEGIN
-			UPDATE portfolio.project_components
+			UPDATE project_components
 			SET
 				archived = replace(archived, OLD.slug, NEW.slug)
 			WHERE

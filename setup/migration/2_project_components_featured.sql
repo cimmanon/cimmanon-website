@@ -31,13 +31,13 @@ BEGIN
 		CREATE OR REPLACE FUNCTION add_component(info PROJECT_COMPONENTS, tags TEXT[]) RETURNS VOID AS $$
 		BEGIN
 			-- main data
-			INSERT INTO portfolio.project_components
+			INSERT INTO project_components
 				(project, type, date_added, description, public, featured, archived)
 			VALUES
 				(info.project, info.type, info.date_added, info.description, info.public, info.featured, info.archived);
 
 			-- tags
-			INSERT INTO portfolio.project_tags
+			INSERT INTO project_tags
 				(project, type, date_added, tag)
 			SELECT
 				info.project,
@@ -47,12 +47,12 @@ BEGIN
 			FROM
 				unnest(tags) AS x(tag);
 		END;
-		$$ LANGUAGE plpgsql VOLATILE;
+		$$ LANGUAGE plpgsql VOLATILE SET search_path FROM CURRENT;
 
 		CREATE OR REPLACE FUNCTION edit_component(info PROJECT_COMPONENTS, tags TEXT[]) RETURNS VOID AS $$
 		BEGIN
 			-- main data
-			UPDATE portfolio.project_components
+			UPDATE project_components
 			SET
 				description = info.description,
 				public = info.public,
@@ -64,14 +64,14 @@ BEGIN
 				AND date_added = info.date_added;
 
 			-- remove the old tags
-			DELETE FROM portfolio.project_tags
+			DELETE FROM project_tags
 			WHERE
 				project = info.project
 				AND type = info.type
 				AND date_added = info.date_added;
 
 			-- add the new tags
-			INSERT INTO portfolio.project_tags
+			INSERT INTO project_tags
 				(project, type, date_added, tag)
 			SELECT
 				info.project,
@@ -81,7 +81,7 @@ BEGIN
 			FROM
 				unnest(tags) AS x(tag);
 		END;
-		$$ LANGUAGE plpgsql VOLATILE;
+		$$ LANGUAGE plpgsql VOLATILE SET search_path FROM CURRENT;
 
 /*----------------------------------------------------------------------------------------------------*\
                                                                       | Defaults
@@ -99,8 +99,8 @@ BEGIN
 
 				array_agg(tag :: TEXT) AS tags
 			FROM
-				portfolio.project_components
-				JOIN portfolio.project_tags USING (project, type, date_added)
+				project_components
+				JOIN project_tags USING (project, type, date_added)
 			GROUP BY
 				project, type, date_added
 			ORDER BY

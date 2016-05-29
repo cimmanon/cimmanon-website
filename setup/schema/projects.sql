@@ -1,4 +1,3 @@
-
 /*----------------------------------------------------------------------------------------------------*\
                                                                       | Types
 \*----------------------------------------------------------------------------------------------------*/
@@ -63,7 +62,7 @@ CREATE TYPE component_identity AS (project LABEL, type LABEL, date_added DATE);
 
 CREATE OR REPLACE FUNCTION update_local_archive_path() RETURNS TRIGGER AS $$
 BEGIN
-	UPDATE portfolio.project_components
+	UPDATE project_components
 	SET
 		archived = replace(archived, OLD.slug, NEW.slug)
 	WHERE
@@ -71,7 +70,7 @@ BEGIN
 		AND substring(archived from 1 for 1) = '/';
 	RETURN NEW;
 END;
-$$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql' SET search_path FROM CURRENT;
 COMMENT ON FUNCTION update_local_archive_path() IS 'Updates the slug information in local paths';
 
 CREATE CONSTRAINT TRIGGER roster_revision_checks AFTER UPDATE ON projects
@@ -129,13 +128,13 @@ CREATE UNIQUE INDEX project_images_featured_idx ON project_images (project, type
 CREATE OR REPLACE FUNCTION add_component(info PROJECT_COMPONENTS, tags TEXT[]) RETURNS VOID AS $$
 BEGIN
 	-- main data
-	INSERT INTO portfolio.project_components
+	INSERT INTO project_components
 		(project, type, date_added, description, public, featured, archived)
 	VALUES
 		(info.project, info.type, info.date_added, info.description, info.public, info.featured, info.archived);
 
 	-- tags
-	INSERT INTO portfolio.project_tags
+	INSERT INTO project_tags
 		(project, type, date_added, tag)
 	SELECT
 		info.project,
@@ -145,12 +144,12 @@ BEGIN
 	FROM
 		unnest(tags) AS x(tag);
 END;
-$$ LANGUAGE plpgsql VOLATILE;
+$$ LANGUAGE plpgsql VOLATILE SET search_path FROM CURRENT;
 
 CREATE OR REPLACE FUNCTION edit_component(info PROJECT_COMPONENTS, tags TEXT[]) RETURNS VOID AS $$
 BEGIN
 	-- main data
-	UPDATE portfolio.project_components
+	UPDATE project_components
 	SET
 		description = info.description,
 		public = info.public,
@@ -162,14 +161,14 @@ BEGIN
 		AND date_added = info.date_added;
 
 	-- remove the old tags
-	DELETE FROM portfolio.project_tags
+	DELETE FROM project_tags
 	WHERE
 		project = info.project
 		AND type = info.type
 		AND date_added = info.date_added;
 
 	-- add the new tags
-	INSERT INTO portfolio.project_tags
+	INSERT INTO project_tags
 		(project, type, date_added, tag)
 	SELECT
 		info.project,
@@ -179,12 +178,12 @@ BEGIN
 	FROM
 		unnest(tags) AS x(tag);
 END;
-$$ LANGUAGE plpgsql VOLATILE;
+$$ LANGUAGE plpgsql VOLATILE SET search_path FROM CURRENT;
 
 CREATE OR REPLACE FUNCTION update_images(info COMPONENT_IDENTITY, _featured TEXT, _delete TEXT[]) RETURNS VOID AS $$
 BEGIN
 	-- unset the current featured image
-	UPDATE portfolio.project_images
+	UPDATE project_images
 	SET
 		featured = false
 	WHERE
@@ -193,7 +192,7 @@ BEGIN
 		AND date_added = info.date_added;
 
 	-- set the new featured image
-	UPDATE portfolio.project_images
+	UPDATE project_images
 	SET
 		featured = true
 	WHERE
@@ -203,9 +202,9 @@ BEGIN
 		AND filename = _featured;
 
 	-- delete files
-	DELETE FROM portfolio.project_images
+	DELETE FROM project_images
 	WHERE
 		project = info.project
 		AND filename = any(_delete);
 END;
-$$ LANGUAGE plpgsql VOLATILE;
+$$ LANGUAGE plpgsql VOLATILE SET search_path FROM CURRENT;
