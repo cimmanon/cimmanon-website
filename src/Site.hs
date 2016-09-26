@@ -125,14 +125,14 @@ app = makeSnaplet "app" "A portfolio CMS for multi-talented professionals" Nothi
 		defaultSplices = do
 			userSessionSplices sess
 			generalSplices
-			"bodyId" ## hideContents
+			"bodyId" ## textSplice "default"
 
 -- TODO: move this to a library
 maybeH :: (a -> AppHandler ()) -> Maybe a -> AppHandler ()
 maybeH = maybe pass
 
 {----------------------------------------------------------------------------------------------------{
-                                                                      | Handlers
+                                                                      | Portfolio
 }----------------------------------------------------------------------------------------------------}
 
 indexH :: AppHandler ()

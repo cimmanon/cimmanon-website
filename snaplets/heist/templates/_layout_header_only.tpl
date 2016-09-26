@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Cimmanon - <pageTitle>Portfolio</pageTitle></title>
 	<meta charset="UTF-8" />

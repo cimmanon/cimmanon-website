@@ -7,7 +7,7 @@ function localPath(prefix) {
 Type: <dfPlainText ref="type" />
 
 <dfLabel ref="date">Date</dfLabel>
-<td><dfInput type="date" ref="date" required />
+<dfInput type="date" ref="date" required />
 
 <dfLabel ref="date">Description</dfLabel>
 <dfInputTextArea ref="description" required class="maximum" />
