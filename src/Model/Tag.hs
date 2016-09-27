@@ -4,9 +4,11 @@ module Model.Tag
 	( Category(..)
 	, list
 	, listByType
+	, groupedByType
 	) where
 
 import Control.Applicative
+import Control.Arrow (second)
 --import Data.Monoid ((<>))
 import Snap.Snaplet.PostgresqlSimple
 
@@ -44,3 +46,6 @@ list = query_ [sqlFile|sql/portfolio/tag_list.sql|]
 
 listByType :: (HasPostgres m, Functor m) => Text -> m [Text]
 listByType c = map fromOnly <$> query "SELECT tag FROM portfolio.project_type_tags WHERE type = ?" (Only c)
+
+groupedByType :: (HasPostgres m, Functor m) => m [(Text, [Text])]
+groupedByType = map (second toList) <$> query_ "SELECT type, array_agg(tag :: text ORDER BY tag) FROM portfolio.project_type_tags GROUP BY type ORDER BY type"
