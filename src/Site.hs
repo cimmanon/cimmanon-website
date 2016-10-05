@@ -79,7 +79,7 @@ adminRoutes = withSplices aSplices $ route
 projectRoutes :: Project.Project -> AppHandler ()
 projectRoutes p =
 	withSplices pSplices $ route
-		[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
+		[ ("/", ifTop $ editProjectH p)
 		, ("/components/", ifTop $ adminComponentsH p)
 		, ("/components/:type/", ifTop $ addComponentH p)
 		, ("/components/:type/:date/", id =<< componentRoutes <$> textParam "type" <*> textParam "date")
