@@ -77,12 +77,11 @@ adminRoutes = withSplices aSplices $ route
 			"isComponent" ## hideContents
 
 projectRoutes :: Project.Project -> AppHandler ()
-projectRoutes p = do
-	types <- Component.types
-	withSplices (pSplices types) $ route
+projectRoutes p =
+	withSplices pSplices $ route
 		[ ("/", ifTop $ modelH textParam "slug" Project.get editProjectH)
 		, ("/components/", ifTop $ adminComponentsH p)
-		, ("/components/:type/", ifTop $ textParam "type" >>= addComponentH p)
+		, ("/components/:type/", ifTop $ addComponentH p)
 		, ("/components/:type/:date/", id =<< componentRoutes <$> textParam "type" <*> textParam "date")
 		]
 	where
@@ -93,10 +92,9 @@ projectRoutes p = do
 				, ("/upload", ifTop $ uploadImagesH p c')
 				])
 		componentRoutes _ _ = pass
-		pSplices types = do
+		pSplices = do
 			projectSplices p
 			"isProject" ## showContents
-			"type" ## listToSplice nameSplices types
 
 ------------------------------------------------------------------------------
 -- | The application initializer.
@@ -188,24 +186,27 @@ editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit
 	(renderWithSplices "/projects/edit" . digestiveSplices)
 	(\p' -> redirect $ "../" <> T.encodeUtf8 (Project.slug p') <> "/components/")
 
-----------------------------------------------------------------------
+--------------------------------------------------------------------- | Components
 
 adminComponentsH :: Project.Project -> AppHandler ()
-adminComponentsH p = do
-	components <- Component.adminList p
-	renderWithSplices "/components/admin" $ "component" ## listToSplice componentSplices components
+adminComponentsH p = render "/components/admin"
 
-addComponentH :: Project.Project -> Maybe T.Text -> AppHandler ()
-addComponentH p c = processForm "form" (Component.componentForm (Left defaultComp)) (Component.add p)
-	(renderWithSplices "/components/add" . digestiveSplices)
-	(\c' -> redirect $ "./" <> B.pack (show $ Component.date c') <> "/images")
-	where
-		-- TODO: pull this from the database?
-		defaultComp = fromMaybe "Design" c
+addComponentH :: Project.Project -> AppHandler ()
+addComponentH p = do
+	-- the field name plus a period is 10 characters long, so we want to drop it to get the actual value
+	-- TODO: make this nicer
+	defaultType <- maybe "" (T.drop 10) <$> textParam "form.type"
+	processForm "form" (Component.componentForm (Left defaultType)) (Component.add p)
+		(renderWithSplices "/components/add" . digestiveSplices' customDigestiveSplices)
+		(\c' -> redirect $ "./" <> B.pack (show $ Component.date c') <> "/images")
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
-editComponentH p c = processForm "form" (Component.componentForm (Right c)) (Component.edit p)
-	(renderWithSplices "/components/edit" . digestiveSplices) (const (redirect "../../"))
+editComponentH p c = do
+	-- the field name plus a period is 10 characters long, so we want to drop it to get the actual value
+	-- TODO: make this nicer
+	c' <- maybe c (\x -> c { Component.typ = T.drop 10 x }) <$> textParam "form.type"
+	processForm "form" (Component.componentForm (Right c)) (Component.edit p)
+		(renderWithSplices "/components/edit" . digestiveSplices' customDigestiveSplices) (const (redirect "../../"))
 
 componentImagesH :: Project.Project -> Component.Component -> AppHandler ()
 componentImagesH p c = do

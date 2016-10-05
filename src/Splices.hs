@@ -8,6 +8,8 @@ import qualified Data.Text as T
 import Heist (getParamNode)
 import Heist.Interpreted
 import Heist.SpliceAPI
+import Text.Digestive.View (View(..), fieldInputChoiceGroup, absoluteRef, listSubViews)
+import Text.Digestive.Heist (getRefAttributes, digestiveSplices')
 import qualified Text.XmlHtml as X
 
 -- for Session stuff
@@ -15,9 +17,11 @@ import Snap.Snaplet (SnapletLens)
 import Snap.Snaplet.Session (SessionManager)
 import Snap.Snaplet.Heist (SnapletISplice)
 
+import Control.Monad.IO.Class (MonadIO)
+import Control.Applicative
 --import Data.Functor
-import Data.Maybe (mapMaybe)
---import Data.Monoid ((<>), mempty)
+import Data.Maybe (mapMaybe, fromMaybe)
+import Data.Monoid ((<>))
 import Heist.Splices.Camellia
 import Heist.Splices.Camellia.Session
 
@@ -54,6 +58,36 @@ userSessionSplices sess = do
 	"user_name" ## sessionInfoSplice sess "user_name"
 	"user_email" ## sessionInfoSplice sess "user_email"
 	"isLoggedIn" ## sessionHasSplice sess "user_id"
+
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Digestive Splices
+}----------------------------------------------------------------------------------------------------}
+
+customDigestiveSplices :: MonadIO m => View T.Text -> Splices (Splice m)
+customDigestiveSplices v = do
+	"dfScriptValues" ## dfScriptValues v
+	"dfInputStaticList" ## dfInputStaticList customDigestiveSplices v
+
+-- this is a very crude splice that generates a script element containing a var that holds an object
+dfScriptValues :: Monad m => View T.Text -> Splice m
+dfScriptValues v = do
+	(ref, _) <- getRefAttributes Nothing
+	let
+		xs = fieldInputChoiceGroup ref v
+		var = T.concat ["var " <> ref <> " = {", vals, "};"]
+		vals = T.intercalate ", " $ map (\(x, ys) -> T.concat [x, ": [", tags ys, "]"]) xs
+		tags = T.intercalate ", " . map (\(i, name, _) -> "'" <> i <> "'")
+	return [X.Element "script" [("type", "text/javascript")] [X.TextNode var]]
+
+-- this is an extremely condensed version of dfInputList that only generates the list items,
+-- does not generate the indices input element or additional markup
+dfInputStaticList :: MonadIO m => (View T.Text -> Splices (Splice m)) -> View T.Text -> Splice m
+dfInputStaticList splices view = do
+	(ref, _) <- getRefAttributes Nothing
+	let
+		listRef = absoluteRef ref view
+		items = listSubViews ref view
+	runChildrenWith $ "dfListItem" ## listToSplice (digestiveSplices' splices) items
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Project Splices

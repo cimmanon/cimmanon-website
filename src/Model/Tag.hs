@@ -48,4 +48,4 @@ listByType :: (HasPostgres m, Functor m) => Text -> m [Text]
 listByType c = map fromOnly <$> query "SELECT tag FROM portfolio.project_type_tags WHERE type = ?" (Only c)
 
 groupedByType :: (HasPostgres m, Functor m) => m [(Text, [Text])]
-groupedByType = map (second toList) <$> query_ "SELECT type, array_agg(tag :: text ORDER BY tag) FROM portfolio.project_type_tags GROUP BY type ORDER BY type"
+groupedByType = map (second toList) <$> query_ "SELECT type, array_agg(tag :: text ORDER BY category, tag) FROM portfolio.project_type_tags GROUP BY type ORDER BY type"
