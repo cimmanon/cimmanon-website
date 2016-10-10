@@ -200,7 +200,7 @@ addComponentH p = do
 	defaultType <- maybe "" (T.drop 10) <$> textParam "form.type"
 	processForm "form" (Component.componentForm (Left defaultType)) (Component.add p)
 		(renderWithSplices "/components/add" . digestiveSplices' customDigestiveSplices)
-		(\c' -> redirect $ "./" <> B.pack (show $ Component.date c') <> "/images")
+		(\c' -> redirect $ "./" <> T.encodeUtf8 (Component.typ c') <> "/" <> B.pack (show $ Component.date c') <> "/images")
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = do
