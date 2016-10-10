@@ -189,7 +189,9 @@ editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit
 --------------------------------------------------------------------- | Components
 
 adminComponentsH :: Project.Project -> AppHandler ()
-adminComponentsH p = render "/components/admin"
+adminComponentsH p = do
+	components <- Component.adminList p
+	renderWithSplices "/components/admin" $ "component" ## listToSplice componentSplices components
 
 addComponentH :: Project.Project -> AppHandler ()
 addComponentH p = do
