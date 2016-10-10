@@ -8,6 +8,7 @@ BEGIN;
 
 \ir migration/01_archive_bool_to_text.sql
 \ir migration/02_project_components_featured.sql
+\ir migration/03_foreign_key_on_delete_cascade.sql
 
 \echo '-----------------------------------------------------------'
 \echo 'Migration completed successfully!'

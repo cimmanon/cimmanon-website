@@ -50,7 +50,7 @@ CREATE TABLE project_components (
 	archived TEXT,
 
 	PRIMARY KEY (project, type, date_added),
-	FOREIGN KEY (project) REFERENCES projects (project) ON UPDATE CASCADE,
+	FOREIGN KEY (project) REFERENCES projects (project) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY (type) REFERENCES project_types (type) ON UPDATE CASCADE
 );
 CREATE INDEX project_components_component_idx ON project_components (type);
@@ -99,7 +99,7 @@ CREATE TABLE project_tags (
 	tag LABEL NOT NULL,
 
 	PRIMARY KEY (project, type, date_added, tag),
-	FOREIGN KEY (project, type, date_added) REFERENCES project_components (project, type, date_added) ON UPDATE CASCADE,
+	FOREIGN KEY (project, type, date_added) REFERENCES project_components (project, type, date_added) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY (type, tag) REFERENCES project_type_tags (type, tag) ON UPDATE CASCADE
 );
 CREATE INDEX project_tags_component_idx ON project_tags (type);
@@ -117,7 +117,7 @@ CREATE TABLE project_images (
 	featured BOOL NOT NULL DEFAULT false,
 
 	PRIMARY KEY (project, filename),
-	FOREIGN KEY (project, type, date_added) REFERENCES project_components (project, type, date_added) ON UPDATE CASCADE
+	FOREIGN KEY (project, type, date_added) REFERENCES project_components (project, type, date_added) ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX project_images_featured_idx ON project_images (project, type, date_added, featured) WHERE featured = true;
 
