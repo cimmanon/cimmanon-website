@@ -8,7 +8,7 @@ import qualified Data.Text as T
 import Heist (getParamNode)
 import Heist.Interpreted
 import Heist.SpliceAPI
-import Text.Digestive.View (View(..), fieldInputChoiceGroup, absoluteRef, listSubViews)
+import Text.Digestive.View (View(..), fieldInputChoiceGroup, absoluteRef, listSubViews, fieldInputText)
 import Text.Digestive.Heist (getRefAttributes, digestiveSplices')
 import qualified Text.XmlHtml as X
 
@@ -65,8 +65,10 @@ userSessionSplices sess = do
 
 customDigestiveSplices :: MonadIO m => View T.Text -> Splices (Splice m)
 customDigestiveSplices v = do
+	"dfPath" ## return [X.TextNode $ T.intercalate "." $ viewContext v]
 	"dfScriptValues" ## dfScriptValues v
 	"dfInputStaticList" ## dfInputStaticList customDigestiveSplices v
+	"dfPlainText" ## dfPlainText v
 
 -- this is a very crude splice that generates a script element containing a var that holds an object
 dfScriptValues :: Monad m => View T.Text -> Splice m
@@ -88,6 +90,11 @@ dfInputStaticList splices view = do
 		listRef = absoluteRef ref view
 		items = listSubViews ref view
 	runChildrenWith $ "dfListItem" ## listToSplice (digestiveSplices' splices) items
+
+dfPlainText :: Monad m => View v -> Splice m
+dfPlainText view = do
+    (ref, _) <- getRefAttributes Nothing
+    return [X.TextNode $ fieldInputText ref view]
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Project Splices

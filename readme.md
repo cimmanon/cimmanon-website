@@ -13,7 +13,7 @@ If you actually want to try running it, you'll need GHC installed.  You'll also 
 * [postgresql-simple-tuple](https://github.com/cimmanon/postgresql-simple-tuple)
 * [snap-handlers](https://github.com/cimmanon/snap-handlers)
 * [camellia-splices](https://github.com/cimmanon/camellia-splices)
-* [digestive-functors](https://github.com/cimmanon/digestive-functors) (the multi-file branch)
+* [digestive-functors](https://github.com/cimmanon/digestive-functors) (the `custom-splices` branch)
 
 
 I *think* this should install everything correctly:
