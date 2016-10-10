@@ -91,7 +91,7 @@ projectRoutes p =
 				, ("/images", ifTop $ componentImagesH p c')
 				, ("/upload", ifTop $ uploadImagesH p c')
 				])
-		componentRoutes _ _ = pass
+		componentRoutes _ _ = notFound
 		pSplices = do
 			projectSplices p
 			"isProject" ## showContents
@@ -127,7 +127,7 @@ app = makeSnaplet "app" "A portfolio CMS for multi-talented professionals" Nothi
 
 -- TODO: move this to a library
 maybeH :: (a -> AppHandler ()) -> Maybe a -> AppHandler ()
-maybeH = maybe pass
+maybeH = maybe notFound
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Portfolio
@@ -240,7 +240,7 @@ archiveServe = do
 
 archiveH' :: Maybe T.Text -> Maybe T.Text -> Maybe T.Text -> AppHandler ()
 archiveH' (Just s) (Just t) (Just d) = maybeH archiveH =<< Project.getWithComponent s t d
-archiveH' _ _ _ = pass
+archiveH' _ _ _ = notFound
 
 archiveH :: (Project.Project, Component.Component) -> AppHandler ()
 archiveH (p, c) = do
