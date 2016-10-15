@@ -12,11 +12,11 @@
 
 	<dfScriptValues ref="allTags" />
 
-	<dfInputStaticList ref="tags"><ul class="tags" id="tags">
-		<dfListItem><li>
-			<label> <dfInputCheckbox ref="item" /> <dfPlainText ref="name" /></label>
-		</li></dfListItem>
-	</ul></dfInputStaticList>
+	<ul class="tags" id="tags">
+		<dfInputCheckboxMultiple ref="tags"><li>
+			<label><checkbox /> <name /></label>
+		</li></dfInputCheckboxMultiple>
+	</ul>
 </fieldset></dfSubView>
 
 <fieldset>
@@ -41,17 +41,18 @@ var tags = document.getElementById('tags');
 var currentTags = tags.getElementsByTagName('li');
 var tagTemplate = currentTags[0];
 
-function genTag(index, name) {
+function genTag(name) {
 	var thisTag = tagTemplate.cloneNode(true);
 
 	var thisLabel = thisTag.getElementsByTagName('label')[0];
 	thisLabel.lastChild.nodeValue = " " + name;
 
 	var thisInput = thisTag.getElementsByTagName('input')[0];
-	console.log(thisInput.name.match(/\d+/g));
-	var newName = thisInput.name.replace(/\d+/g, index);
-	thisInput.name = newName;
+	var lastIndex = thisInput.value.lastIndexOf('.') + 1;
+	var newName = thisInput.value.substr(0, lastIndex) + name;
+	thisInput.value = newName;
 	thisInput.id = newName;
+	thisInput.checked = false;
 
 	return thisTag;
 }
@@ -64,11 +65,11 @@ function swapTags(el) {
 	for (var i = 0; i < newTags.length; i++) {
 		// if the new tag length is less than the old length, replace the contents
 		if (i < currentTags.length) {
-			var thisTag = currentTags[i].getElementsByTagName('label')[0];
-			thisTag.lastChild.nodeValue = " " + newTags[i];
+			var thisTag = currentTags[i];
+			thisTag.parentNode.replaceChild(genTag(newTags[i]), thisTag);
 		// otherwise, create new elements
 		} else {
-			tags.appendChild(genTag(i, newTags[i]));
+			tags.appendChild(genTag(newTags[i]));
 		}
 	}
 
