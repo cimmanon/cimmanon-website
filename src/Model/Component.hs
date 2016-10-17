@@ -26,7 +26,6 @@ import Data.Vector (fromList)
 import Text.Digestive
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database
-import Util.Form
 
 import Model.Types.Project as P hiding (description, featured)
 import Model.Types.Component as C

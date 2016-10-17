@@ -219,7 +219,7 @@ componentImagesH p c = do
 		viewH images v =
 			renderWithSplices "/components/images" $ do
 				"image" ## listToSplice iSplices $ zip ([0..] :: [Int]) images
-				digestiveSplices v
+				digestiveSplices' customDigestiveSplices v
 		iSplices (i, img) =  do
 			imageSplices img
 			"indice" ## numericSplice i

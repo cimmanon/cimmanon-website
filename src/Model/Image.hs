@@ -25,7 +25,6 @@ import Data.Vector (fromList)
 import Text.Digestive
 --import Database.PostgreSQL.Simple.Tuple
 import Util.Database
-import Util.Form
 
 import qualified Codec.Picture as I
 import qualified Codec.Picture.Types as I
@@ -60,7 +59,7 @@ uploadForm = "file" .: fileMultiple
 updateForm :: Monad m => [Image] -> Form Text m (Text, [Text])
 updateForm xs = ( , )
 	<$> "featured" .: choiceWith choices current
-	<*> "delete" .: listOfText (map filename xs) []
+	<*> "delete" .: choiceMultiple (map (\x -> (filename x, filename x)) xs) Nothing
 	where
 		choices = (map (\x -> (filename x, (filename x, filename x))) xs)
 		current = filename <$> find featured xs

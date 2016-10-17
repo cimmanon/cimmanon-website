@@ -2,7 +2,7 @@
 <apply template="/_admin">
 <h1>Images</h1>
 
-<form method="post">
+<dfForm method="post">
 <table class="spreadsheet">
 	<caption>Current Images</caption>
 
@@ -27,12 +27,12 @@
 				<yes><input type="radio" name="update.featured" value="${filename}" checked /></yes>
 				<no><input type="radio" name="update.featured" value="${filename}" /></no>
 			</isDefault> Default</label></td>
-			<td class="fixed"><label><input type="checkbox" name="update.delete.${indice}.item" /> Delete</label></td>
+			<td class="fixed"><label><input type="checkbox" name="update.delete" value="update.delete.${indice}" /> Delete</label></td>
 		</tr></image>
 	</tbody>
 </table>
 <input type="submit" value="Update" />
-</form>
+</dfForm>
 
 <h2>Upload</h2>
 
