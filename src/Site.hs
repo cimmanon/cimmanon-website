@@ -195,18 +195,14 @@ adminComponentsH p = do
 
 addComponentH :: Project.Project -> AppHandler ()
 addComponentH p = do
-	-- the field name plus a period is 10 characters long, so we want to drop it to get the actual value
-	-- TODO: make this nicer
-	defaultType <- maybe "" (T.drop 10) <$> textParam "form.type"
+	defaultType <- maybe "" (T.replace "form.type." "") <$> textParam "form.type"
 	processForm "form" (Component.componentForm (Left defaultType)) (Component.add p)
 		(renderWithSplices "/components/add" . digestiveSplices' customDigestiveSplices)
 		(\c' -> redirect $ "./" <> T.encodeUtf8 (Component.typ c') <> "/" <> B.pack (show $ Component.date c') <> "/images")
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = do
-	-- the field name plus a period is 10 characters long, so we want to drop it to get the actual value
-	-- TODO: make this nicer
-	c' <- maybe c (\x -> c { Component.typ = T.drop 10 x }) <$> textParam "form.type"
+	c' <- maybe c (\x -> c { Component.typ = T.replace "form.type." "" x }) <$> textParam "form.type"
 	processForm "form" (Component.componentForm (Right c)) (Component.edit p)
 		(renderWithSplices "/components/edit" . digestiveSplices' customDigestiveSplices) (const (redirect "../../"))
 
