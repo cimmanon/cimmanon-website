@@ -69,7 +69,7 @@ updateForm xs = ( , )
 }----------------------------------------------------------------------------------------------------}
 
 list :: (HasPostgres m) => Project -> Component -> m [Image]
-list p c = query "SELECT filename, width, height, featured FROM portfolio.project_images WHERE project = ? AND type = ? AND date_added = ? ORDER BY featured DESC, filename" (C.primaryKey p c)
+list p c = query "SELECT filename, width, height, featured FROM portfolio.project_images WHERE (project, type, date_added) = (?, ?, ?) ORDER BY featured DESC, filename" (C.primaryKey p c)
 
 add :: (HasPostgres m, Functor m) => Project -> Component -> [FilePath] -> m (Either Text ())
 add p c xs = do
