@@ -23,10 +23,7 @@
 			<td><filename>example.jpg</filename></td>
 			<td class="numeric"><width>480</width>px</td>
 			<td class="numeric"><height>320</height>px</td>
-			<td class="fixed"><label><isDefault>
-				<yes><input type="radio" name="update.featured" value="${filename}" checked /></yes>
-				<no><input type="radio" name="update.featured" value="${filename}" /></no>
-			</isDefault> Default</label></td>
+			<td class="fixed"><label><input type="radio" name="update.featured" value="${filename}" isFeatured /> Featured</label></td>
 			<td class="fixed"><label><input type="checkbox" name="update.delete" value="update.delete.${indice}" /> Delete</label></td>
 		</tr></image>
 	</tbody>

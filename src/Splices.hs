@@ -5,7 +5,7 @@ module Splices where
 ------------------------------------------------------------------------------
 
 import qualified Data.Text as T
-import Heist (getParamNode)
+import Heist (getParamNode, localHS, AttrSplice)
 import Heist.Interpreted
 import Heist.SpliceAPI
 import Text.Digestive.View (View(..), fieldInputChoiceGroup, absoluteRef, listSubViews, fieldInputText, fieldInputChoice)
@@ -21,7 +21,7 @@ import Control.Monad.IO.Class (MonadIO)
 import Control.Applicative
 --import Data.Functor
 import Data.Maybe (mapMaybe, fromMaybe)
-import Data.Monoid ((<>))
+import Data.Monoid ((<>), mempty)
 import Heist.Splices.Camellia
 import Heist.Splices.Camellia.Session
 
@@ -47,6 +47,9 @@ nameSplices x = do
 generalSplices :: Monad m => Splices (Splice m)
 generalSplices = do
 	"archivePath" ## stringSplice Project.archivesDirectory
+
+bindSplices' :: Monad m => Splices (AttrSplice m) -> Splices (Splice m) -> Splice m
+bindSplices' attrSplices splices = localHS (bindAttributeSplices attrSplices) $ runChildrenWith splices
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Session Splices
@@ -190,6 +193,10 @@ imageSplices i = do
 	"height" ## numericSplice $ Image.height i
 	"featured" ## showSplice $ Image.featured i
 	"isDefault" ## ifSplice' $ Image.featured i
+
+checkedSplice :: Monad m => Bool -> AttrSplice m
+checkedSplice True = const $ return [("checked", "checked")]
+checkedSplice _    = mempty
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Archive Serve

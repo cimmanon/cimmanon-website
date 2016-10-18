@@ -218,11 +218,14 @@ componentImagesH p c = do
 	where
 		viewH images v =
 			renderWithSplices "/components/images" $ do
-				"image" ## listToSplice iSplices $ zip ([0..] :: [Int]) images
+				"image" ## mapSplices iSplice $ zip ([0..] :: [Int]) images
 				digestiveSplices' customDigestiveSplices v
-		iSplices (i, img) =  do
-			imageSplices img
-			"indice" ## numericSplice i
+		iSplice (i, img) =
+			let
+				attrSplices = "isFeatured" ## checkedSplice (Image.featured img)
+			in bindSplices' attrSplices $ do
+				imageSplices img
+				"indice" ## numericSplice i
 
 uploadImagesH :: Project.Project -> Component.Component -> AppHandler ()
 uploadImagesH p c = processForm "upload" Image.uploadForm (Image.add p c)
