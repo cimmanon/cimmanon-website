@@ -79,7 +79,7 @@
 					<time>November 2011</time> to <time>March 2014</time>
 				</header>
 
-				<p>My first project was a web application to manage the planning of flyers for a grocery store.  We used as an experiment on how we were going to rewrite a similar application that runs snapd.  The first version was written in PHP using the Zend framework, but I found it to be difficult to maintain in the long run.  After exploring frameworks in both Scala and Haskell, I settled on Haskell's Snap framework.  Over the course of 2 months, the application was completely rewritten and included a number of improvements over the original.</p>
+				<p>My first project was a web application to manage the planning of flyers for a grocery store.  We used it as an experiment on how we were going to rewrite a similar application that runs snapd.  The first version was written in PHP using the Zend framework, but I found it to be difficult to maintain in the long run.  After exploring frameworks in both Scala and Haskell, I settled on Haskell's Snap framework.  Over the course of 2 months, the application was completely rewritten and included a number of improvements over the original.</p>
 			</article>
 		</div>
 	</section>
@@ -94,7 +94,7 @@
 					<address><a href="https://github.com/jaspervdj/digestive-functors">GitHub</a></address>
 				</header>
 
-				<p>I added a new formlet that would accept multiple file uploads on a single input element when using the <code>multiple</code> attribute.  I also fixed a minor validation error in the Heist package.</p>
+				<p>I've submitted a few patches to improve support for the HTML standard.  Such changes include fixing a minor validation error in the digestive-functors-heist package and adding support for the <code>multiple</code> attribute on select and file input elements (the later is new for HTML5).</p>
 			</article>
 
 			<article>
