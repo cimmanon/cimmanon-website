@@ -50,7 +50,7 @@ function genTag(name) {
 	var thisInput = thisTag.getElementsByTagName('input')[0];
 	var lastIndex = thisInput.value.lastIndexOf('.') + 1;
 	var newName = thisInput.value.substr(0, lastIndex) + name;
-	thisInput.value = newName;
+	thisInput.value = name;
 	thisInput.id = newName;
 	thisInput.checked = false;
 

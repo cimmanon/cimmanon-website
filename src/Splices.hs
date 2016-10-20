@@ -101,11 +101,11 @@ dfInputCheckboxMultiple view =  do
 	let
 		ref' = absoluteRef ref view
 		choices = fieldInputChoice ref view
-		value i = ref' <> "." <> i
+		--value i = ref' <> "." <> i
 
 		checkboxSplice (i, c, sel) = do
 			let
-				defaultAttributes = [("type", "checkbox"), ("name", ref'), ("value", value i)]
+				defaultAttributes = [("type", "checkbox"), ("name", ref'), ("value", i)]
 				attrs = if sel then ("checked", "checked") : defaultAttributes else defaultAttributes
 			"checkbox" ## return [X.Element "input" attrs []]
 			"name" ## return [X.TextNode c]
