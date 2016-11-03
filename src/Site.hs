@@ -209,8 +209,11 @@ editComponentH p c = do
 componentImagesH :: Project.Project -> Component.Component -> AppHandler ()
 componentImagesH p c = do
 	images <- Image.list p c
-	processForm "update" (Image.updateForm images) (Image.update p c)
-		(viewH images) (const redirectToSelf)
+	-- if images is empty, the form will throw an exception because there are no choices
+	case images of
+		[] -> renderWithSplices "/components/images" $ "dfForm" ## hideContents
+		_ -> processForm "update" (Image.updateForm images) (Image.update p c)
+			(viewH images) (const redirectToSelf)
 	where
 		viewH images v =
 			renderWithSplices "/components/images" $ do
