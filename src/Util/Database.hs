@@ -55,14 +55,9 @@ unknownConstraintViolation (ExclusionViolation c) = "Unknown exclusion constrain
 
 constraintErrors :: [(ConstraintViolation, Text)]
 constraintErrors =
-	[ (UniqueViolation "users_name_key", "That name already exists")
-	, (UniqueViolation "users_email_key", "That email address already exists")
-	, (UniqueViolation "rosters_pkey", "That roster already exists")
-	, (UniqueViolation "rosters_slug_key", "A roster with that URL already exists")
-	, (ForeignKeyViolation "roster_cover_revisions" "roster_cover_revisions_name_fkey", "That character already exists")
-	, (ForeignKeyViolation "roster_cover_revisions" "roster_character_revisions_character_fkey", "Character data mismatch (cannot recover from this error normally, try returning to your roster and editing it again)")
-	, (CheckViolation "roster_cover_revisions" "roster_covers_check", "Cover quantity must be from 0-5")
-	, (CheckViolation "roster_revisions" "roster_cover_revisions_max_covers_check", "Total covers must be between 1 and 13")
-	, (CheckViolation "roster_revisions" "roster_level_cap_check", "Character's level cannot exceed the level cap")
-	, (CheckViolation "roster_revisions" "roster_revisions_history_duplicate_check", "That revision already exists")
+	[ (UniqueViolation "projects_pkey", "That project name already exists")
+	, (UniqueViolation "projects_slug_key", "That slug already exists")
+	, (UniqueViolation "project_components_pkey", "That type of component already exists for that date")
+--	, (ForeignKeyViolation "roster_cover_revisions" "roster_character_revisions_character_fkey", "Character data mismatch (cannot recover from this error normally, try returning to your roster and editing it again)")
+--	, (CheckViolation "roster_cover_revisions" "roster_covers_check", "Cover quantity must be from 0-5")
 	]

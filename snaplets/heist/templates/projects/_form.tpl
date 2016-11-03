@@ -1,3 +1,5 @@
+<dfChildErrorList class="dialog error" />
+
 <dfLabel ref="name">Name</dfLabel>
 <dfInputText ref="name" required />
 

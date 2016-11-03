@@ -3,6 +3,8 @@
 <h1>Images</h1>
 
 <dfForm method="post">
+<dfChildErrorList class="dialog error" />
+
 <table class="spreadsheet">
 	<caption>Current Images</caption>
 
