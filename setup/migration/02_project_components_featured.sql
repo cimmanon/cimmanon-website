@@ -25,65 +25,6 @@ BEGIN
 		ALTER TABLE project_components DROP COLUMN old_archived;
 
 /*----------------------------------------------------------------------------------------------------*\
-                                                                      | Functions
-\*----------------------------------------------------------------------------------------------------*/
-
-		CREATE OR REPLACE FUNCTION add_component(info PROJECT_COMPONENTS, tags TEXT[]) RETURNS VOID AS $$
-		BEGIN
-			-- main data
-			INSERT INTO project_components
-				(project, type, date_added, description, public, featured, archived)
-			VALUES
-				(info.project, info.type, info.date_added, info.description, info.public, info.featured, info.archived);
-
-			-- tags
-			INSERT INTO project_tags
-				(project, type, date_added, tag)
-			SELECT
-				info.project,
-				info.type,
-				info.date_added,
-				tag
-			FROM
-				unnest(tags) AS x(tag);
-		END;
-		$$ LANGUAGE plpgsql VOLATILE SET search_path FROM CURRENT;
-
-		CREATE OR REPLACE FUNCTION edit_component(info PROJECT_COMPONENTS, tags TEXT[]) RETURNS VOID AS $$
-		BEGIN
-			-- main data
-			UPDATE project_components
-			SET
-				description = info.description,
-				public = info.public,
-				featured = info.featured,
-				archived = info.archived
-			WHERE
-				project = info.project
-				AND type = info.type
-				AND date_added = info.date_added;
-
-			-- remove the old tags
-			DELETE FROM project_tags
-			WHERE
-				project = info.project
-				AND type = info.type
-				AND date_added = info.date_added;
-
-			-- add the new tags
-			INSERT INTO project_tags
-				(project, type, date_added, tag)
-			SELECT
-				info.project,
-				info.type,
-				info.date_added,
-				tag
-			FROM
-				unnest(tags) AS x(tag);
-		END;
-		$$ LANGUAGE plpgsql VOLATILE SET search_path FROM CURRENT;
-
-/*----------------------------------------------------------------------------------------------------*\
                                                                       | Defaults
 \*----------------------------------------------------------------------------------------------------*/
 

@@ -1,12 +1,21 @@
+BEGIN;
+
+/*----------------------------------------------------------------------------------------------------*\
+                                                                      | Project Types
+\*----------------------------------------------------------------------------------------------------*/
 
 INSERT INTO project_types
 	(type)
 VALUES
 	('Design'),
 	('Development')
+EXCEPT
+SELECT type FROM project_types
 ;
 
----------------------------------------------------------------------
+/*----------------------------------------------------------------------------------------------------*\
+                                                                      | Tags
+\*----------------------------------------------------------------------------------------------------*/
 
 INSERT INTO tag_categories
 	(category)
@@ -17,6 +26,8 @@ VALUES
 	('Language'),
 	('Application Type'),
 	('Database')
+EXCEPT
+SELECT category FROM tag_categories
 ;
 
 INSERT INTO project_type_tags
@@ -56,4 +67,6 @@ VALUES
 	('Development', 'Database', 'mysql'),
 	('Development', 'Database', 'postgresql'),
 	('Development', 'Database', 'mssql')
+EXCEPT
+SELECT type, category, tag FROM project_type_tags
 ;
