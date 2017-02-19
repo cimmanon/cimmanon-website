@@ -28,26 +28,6 @@ BEGIN
 
 		ALTER table project_components DROP old_archived;
 
-/*----------------------------------------------------------------------------------------------------*\
-                                                                      | Add trigger to fix local path
-\*----------------------------------------------------------------------------------------------------*/
-
-		CREATE OR REPLACE FUNCTION update_local_archive_path() RETURNS TRIGGER AS $$
-		BEGIN
-			UPDATE project_components
-			SET
-				archived = replace(archived, OLD.slug, NEW.slug)
-			WHERE
-				project = NEW.project
-				AND substring(archived from 1 for 1) = '/';
-			RETURN NEW;
-		END;
-		$$ LANGUAGE 'plpgsql';
-		COMMENT ON FUNCTION update_local_archive_path() IS 'Updates the slug information in local paths';
-
-		CREATE CONSTRAINT TRIGGER roster_revision_checks AFTER UPDATE ON projects
-			FOR EACH ROW EXECUTE PROCEDURE update_local_archive_path();
-
 	ELSE
 		RAISE NOTICE 'The project_components.archived is not a BOOL, skipping...';
 	END IF;

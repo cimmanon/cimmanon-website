@@ -11,7 +11,14 @@ BEGIN;
 \ir migration/03_foreign_key_on_delete_cascade.sql
 
 \echo '-----------------------------------------------------------'
+\echo 'Rebuilding replaceable objects...'
+\echo '-----------------------------------------------------------'
+
+\ir schema/triggers.sql
+\ir schema/functions.sql
+
+\echo '-----------------------------------------------------------'
 \echo 'Migration completed successfully!'
 \echo '-----------------------------------------------------------'
 
-COMMIT;
+--COMMIT;

@@ -4,6 +4,7 @@ CREATE SCHEMA IF NOT EXISTS portfolio;
 
 set search_path to portfolio,public;
 
-\i schema/projects.sql
-\i data/projects.sql
-
+\ir schema/tables.sql
+\ir schema/triggers.sql
+\ir schema/functions.sql
+\ir data/projects.sql
