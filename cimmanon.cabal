@@ -41,7 +41,7 @@ Executable cimmanon
     digestive-functors-heist,
     digestive-functors,
     vector,
---    snap-extras,
+    snap-extras == 0.11.0.*,
     snap-handlers,
     camellia-splices,
     postgresql-simple-tuple,
