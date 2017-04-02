@@ -10,6 +10,7 @@ import Heist.Interpreted
 import Heist.SpliceAPI
 import Text.Digestive.View (View(..), fieldInputChoiceGroup, absoluteRef, listSubViews, fieldInputText, fieldInputChoice)
 import Text.Digestive.Heist (getRefAttributes, digestiveSplices', dfInputSelect)
+import Text.Digestive.Heist.Extras
 import qualified Text.XmlHtml as X
 
 -- for Session stuff
@@ -70,7 +71,6 @@ customDigestiveSplices :: MonadIO m => View T.Text -> Splices (Splice m)
 customDigestiveSplices v = do
 	"dfPath" ## return [X.TextNode $ T.intercalate "." $ viewContext v]
 	"dfScriptValues" ## dfScriptValues v
-	"dfInputStaticList" ## dfInputStaticList customDigestiveSplices v
 	"dfPlainText" ## dfPlainText v
 	"dfInputCheckboxMultiple" ## dfInputCheckboxMultiple v
 
@@ -84,38 +84,6 @@ dfScriptValues v = do
 		vals = T.intercalate ", " $ map (\(x, ys) -> T.concat [x, ": [", tags ys, "]"]) xs
 		tags = T.intercalate ", " . map (\(i, name, _) -> "'" <> i <> "'")
 	return [X.Element "script" [("type", "text/javascript")] [X.TextNode var]]
-
--- this is an extremely condensed version of dfInputList that only generates the list items,
--- does not generate the indices input element or additional markup
-dfInputStaticList :: MonadIO m => (View T.Text -> Splices (Splice m)) -> View T.Text -> Splice m
-dfInputStaticList splices view = do
-	(ref, _) <- getRefAttributes Nothing
-	let
-		listRef = absoluteRef ref view
-		items = listSubViews ref view
-	runChildrenWith $ "dfListItem" ## listToSplice (digestiveSplices' splices) items
-
-dfInputCheckboxMultiple :: Monad m => View T.Text -> Splice m
-dfInputCheckboxMultiple view =  do
-	(ref, _) <- getRefAttributes Nothing
-	let
-		ref' = absoluteRef ref view
-		choices = fieldInputChoice ref view
-		--value i = ref' <> "." <> i
-
-		checkboxSplice (i, c, sel) = do
-			let
-				defaultAttributes = [("type", "checkbox"), ("name", ref'), ("value", i)]
-				attrs = if sel then ("checked", "checked") : defaultAttributes else defaultAttributes
-			"checkbox" ## return [X.Element "input" attrs []]
-			"name" ## return [X.TextNode c]
-
-	listToSplice checkboxSplice choices
-
-dfPlainText :: Monad m => View v -> Splice m
-dfPlainText view = do
-	(ref, _) <- getRefAttributes Nothing
-	return [X.TextNode $ fieldInputText ref view]
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Project Splices

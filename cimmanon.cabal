@@ -39,6 +39,7 @@ Executable cimmanon
     postgresql-simple,
     digestive-functors-snap,
     digestive-functors-heist,
+    digestive-functors-heist-extras,
     digestive-functors,
     vector,
     snap-extras == 0.11.0.*,
