@@ -92,7 +92,7 @@ dfScriptValues v = do
 projectSplices :: Monad m => Project.Project -> Splices (Splice m)
 projectSplices p = do
 	"name" ## textSplice $ Project.name p
-	"description" ## textSplice $ Project.description p
+	"description" ## markdownSplice $ Project.description p
 	"slug" ## textSplice $ Project.slug p
 	"url" ## maybeSplice (\x -> runChildrenWith $ "href" ## textSplice x) $ Project.url p
 	"featured" ##  showSplice $ Project.featured p
@@ -133,7 +133,7 @@ projectComponentSplices' (p, cx) = do
 componentSplices :: Monad m => Component.Component -> Splices (Splice m)
 componentSplices c = do
 	"type" ## textSplice $ Component.typ c
-	"description" ## textSplice $ Component.description c
+	"description" ## markdownSplice $ Component.description c
 	"date" ## dateSplice $ Component.date c
 	"public" ## showSplice $ Component.public c
 	"featured" ## showSplice $ Component.featured c

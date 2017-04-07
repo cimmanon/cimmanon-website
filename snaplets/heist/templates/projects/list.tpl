@@ -6,7 +6,7 @@
 	<project><section>
 		<h1><name>Project Name</name></h1>
 
-		<p><description></description></p>
+		<description></description>
 
 		<apply template="_links" />
 	</section></project>

@@ -1,5 +1,5 @@
 <div class="details">
-	<p><description></description></p>
+	<description></description>
 
 	<url><address><a href="${href}"><href /></a></address></url>
 </div>

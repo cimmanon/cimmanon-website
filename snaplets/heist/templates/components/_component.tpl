@@ -11,4 +11,4 @@
 	</ul>
 </header>
 
-<p><description /></p>
+<description />
