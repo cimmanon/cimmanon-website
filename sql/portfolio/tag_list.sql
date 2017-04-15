@@ -1,4 +1,5 @@
 SELECT
+	-- Category
 	category,
 	array_agg(tag :: TEXT ORDER BY tag) AS tags
 FROM

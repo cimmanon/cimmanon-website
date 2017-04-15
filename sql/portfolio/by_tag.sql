@@ -29,12 +29,14 @@ WITH
 			type,
 			date_added)
 SELECT
+	-- Project
 	project,
 	projects.description,
 	slug,
 	url,
 	projects.featured,
 
+	-- Component
 	type,
 	components.description,
 	date_added,
@@ -43,6 +45,7 @@ SELECT
 	archived,
 	tags,
 
+	-- Image
 	filename,
 	width,
 	height,

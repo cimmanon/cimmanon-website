@@ -1,4 +1,5 @@
 SELECT
+	-- Component
 	type,
 	description,
 	date_added,

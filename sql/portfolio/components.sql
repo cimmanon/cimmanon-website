@@ -1,4 +1,5 @@
 SELECT
+	-- Component
 	type,
 	description,
 	date_added,
@@ -6,6 +7,8 @@ SELECT
 	components.featured,
 	archived,
 	tags,
+
+	-- Image
 	filename,
 	width,
 	height,

@@ -1,10 +1,12 @@
 SELECT
+	-- Project
 	project,
 	projects.description,
 	slug,
 	url,
 	projects.featured,
 
+	-- Component
 	type,
 	project_components.description,
 	date_added,
