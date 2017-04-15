@@ -10,18 +10,11 @@ import Heist.Interpreted
 import Heist.SpliceAPI
 --import qualified Text.XmlHtml as X
 
--- for Session stuff
-import Snap.Snaplet (SnapletLens)
-import Snap.Snaplet.Session (SessionManager)
-import Snap.Snaplet.Heist (SnapletISplice)
-
 import Control.Monad.IO.Class (MonadIO)
-import Control.Applicative
 --import Data.Functor
-import Data.Maybe (mapMaybe, fromMaybe)
-import Data.Monoid ((<>), mempty)
+import Data.Maybe (mapMaybe)
+import Data.Monoid (mempty)
 import Heist.Splices.Camellia
-import Heist.Splices.Camellia.Session
 
 import qualified Model.Component as Component
 import qualified Model.Image as Image
@@ -43,22 +36,11 @@ nameSplices x = do
 
 
 generalSplices :: Monad m => Splices (Splice m)
-generalSplices = do
+generalSplices =
 	"archivePath" ## stringSplice Project.archivesDirectory
 
 bindSplices' :: Monad m => Splices (AttrSplice m) -> Splices (Splice m) -> Splice m
 bindSplices' attrSplices splices = localHS (bindAttributeSplices attrSplices) $ runChildrenWith splices
-
-{----------------------------------------------------------------------------------------------------{
-                                                                      | Session Splices
-}----------------------------------------------------------------------------------------------------}
-
-userSessionSplices :: SnapletLens b SessionManager -> Splices (SnapletISplice b)
-userSessionSplices sess = do
-	"user_id" ## sessionInfoSplice sess "user_id"
-	"user_name" ## sessionInfoSplice sess "user_name"
-	"user_email" ## sessionInfoSplice sess "user_email"
-	"isLoggedIn" ## sessionHasSplice sess "user_id"
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Project Splices
@@ -146,7 +128,7 @@ checkedSplice _    = mempty
 }----------------------------------------------------------------------------------------------------}
 
 dateSplice :: (Monad m, FormatTime t) => t -> Splice m
-dateSplice t = dateFormatSplice defaultTimeLocale "%Y-%m-%d" t
+dateSplice = dateFormatSplice defaultTimeLocale "%Y-%m-%d"
 
 archiveServeSplices :: (Monad m) => Splices (Splice m)
 archiveServeSplices = do

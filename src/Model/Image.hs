@@ -60,7 +60,7 @@ uploadForm = "file" .: fileMultiple
 updateForm :: Monad m => [Image] -> Form Text m (Text, [Text])
 updateForm xs = ( , )
 	<$> "featured" .: choiceWith choices current
-	<*> "delete" .: choiceMultiple (map (\x -> (filename x, filename x)) xs) Nothing
+	<*> "delete" .: choiceWithMultiple choices Nothing
 	where
 		choices = map (toChoice filename filename filename) xs
 		current = filename <$> find featured xs
@@ -126,9 +126,9 @@ filePath :: Project -> FilePath
 filePath p = screenshotDirectory <> unpack (P.slug p) <> "/"
 
 saveFile :: FilePath -> FilePath -> IO ()
-saveFile dir filename = do
+saveFile dir fileName' = do
 	createDirectoryIfMissing True dir
-	copyFile filename $ dir <> getFileName filename -- TODO: strip EXIF data
+	copyFile fileName' $ dir <> getFileName fileName' -- TODO: strip EXIF data
 
 -- filenames uploaded via Snap are prefixed like so:  _snap-c8XbTISLfW2rs
 getFileName :: FilePath -> FilePath

@@ -12,7 +12,6 @@ module Site
 import Control.Applicative
 import Control.Lens ((&), (.~))
 import Data.ByteString (ByteString)
-import qualified Data.ByteString as B hiding (pack)
 import qualified Data.ByteString.Char8 as B
 import Data.Monoid
 import qualified Data.Text as T
@@ -37,7 +36,6 @@ import Util.Digestive
 
 import Control.Monad
 import Control.Monad.IO.Class (liftIO) -- just for debugging
-import Data.Maybe (fromMaybe)
 
 import qualified Model.Component as Component
 import qualified Model.Image as Image
@@ -122,7 +120,6 @@ app = makeSnaplet "app" "A portfolio CMS for multi-talented professionals" Nothi
 	return $ App h s d
 	where
 		defaultSplices = do
-			userSessionSplices sess
 			generalSplices
 			"bodyId" ## textSplice "default"
 
@@ -142,7 +139,7 @@ indexH = do
 projectsH :: AppHandler ()
 projectsH = do
 	projects <- Project.adminList
-	renderWithSplices "projects/list" $ do "project" ## listToSplice projectSplices projects
+	renderWithSplices "projects/list" $ "project" ## listToSplice projectSplices projects
 
 listByH :: AppHandler () -> [(Project.Project, [(Component.Component, Maybe Image.Image)])] -> AppHandler ()
 listByH handler xs =
@@ -204,7 +201,7 @@ addComponentH p = do
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = do
 	c' <- maybe c (\x -> c { Component.typ = T.replace "form.type." "" x }) <$> textParam "form.type"
-	processForm "form" (Component.componentForm (Right c)) (Component.edit p)
+	processForm "form" (Component.componentForm (Right c')) (Component.edit p)
 		(renderWithSplices "/components/edit" . digestiveSplicesCustom) (const (redirect "../../"))
 
 componentImagesH :: Project.Project -> Component.Component -> AppHandler ()
@@ -248,7 +245,7 @@ archiveH' (Just s) (Just t) (Just d) = maybeH archiveH =<< Project.getWithCompon
 archiveH' _ _ _ = notFound
 
 archiveH :: (Project.Project, Component.Component) -> AppHandler ()
-archiveH (p, c) = do
+archiveH (p, c) =
 	renderWithSplices "components/archive" $ do
 		projectSplices p
 		componentSplices c
