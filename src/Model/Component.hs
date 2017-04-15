@@ -26,6 +26,7 @@ import Data.Vector (fromList)
 import Text.Digestive
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database
+import Util.Digestive
 
 import Model.Types.Project as P hiding (description, featured)
 import Model.Types.Component as C
@@ -50,7 +51,7 @@ componentForm :: (HasPostgres m, Monad m, Functor m) => Either Text Component ->
 componentForm c = monadic $ do
 	tags' <- T.groupedByType
 	let
-		typeChoices = map (\(x, _) -> (x, (x, x))) tags'
+		typeChoices = map (toChoice id id id . fst) tags'
 	return $ Component
 		<$> "type" .: choiceWith typeChoices (either (const Nothing) (Just . typ) c)
 		<*> "description" .: notEmpty (text (description <$> toMaybe c))
@@ -62,21 +63,20 @@ componentForm c = monadic $ do
 	where
 		notEmpty = check "Cannot be empty" (/= "")
 		toMaybe = either (const Nothing) Just
-		toChoice = map (second (map (\x -> (x, (x, x)))))
 		-- editing a component should not allow you to edit the date
 		eitherDisable = either (const id) (const disable) c
 
 tagsForm :: (Monad m, Functor m) => [(Text, [Text])] -> [Text] -> Maybe Text -> Form Text m [Text]
 tagsForm haystack needle group = fmap snd $ ( , )
 	<$> "allTags" .: groupedChoiceWith (map toGroupedChoice haystack) Nothing
-	<*> "tags" .: choiceWithMultiple (map toChoice $ fromMaybe defaultTags currentTags) (Just needle)
+	<*> "tags" .: choiceWithMultiple (map toChoice' $ fromMaybe defaultTags currentTags) (Just needle)
 	where
 		-- TODO: make this safe
 		defaultTags = snd $ head haystack
 		currentTags = snd <$> find ((==) group' . fst) haystack
 		group' = fromMaybe (fst $ head haystack) group
-		toChoice x = (x, (x, x))
-		toGroupedChoice (x, xs) = (x, map toChoice xs)
+		toChoice' = toChoice id id id
+		toGroupedChoice (x, xs) = (x, map toChoice' xs)
 
 ----------------------------------------------------------------------
 

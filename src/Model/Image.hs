@@ -34,6 +34,7 @@ import Snap.Util.FileUploads
 import System.FilePath (takeFileName)
 import System.Directory (createDirectoryIfMissing, copyFile, removeFile)
 import Text.Digestive.Snap hiding (uploadPolicy, partPolicy)
+import Util.Digestive
 
 import Model.Types.Project as P hiding (featured)
 import Model.Types.Component as C hiding (featured)
@@ -61,7 +62,7 @@ updateForm xs = ( , )
 	<$> "featured" .: choiceWith choices current
 	<*> "delete" .: choiceMultiple (map (\x -> (filename x, filename x)) xs) Nothing
 	where
-		choices = (map (\x -> (filename x, (filename x, filename x))) xs)
+		choices = map (toChoice filename filename filename) xs
 		current = filename <$> find featured xs
 
 {----------------------------------------------------------------------------------------------------{

@@ -33,6 +33,7 @@ import Splices
 import Text.Digestive.Heist
 import Snap.Handlers
 import Heist.Splices.Camellia
+import Util.Digestive
 
 import Control.Monad
 import Control.Monad.IO.Class (liftIO) -- just for debugging
@@ -178,12 +179,12 @@ adminProjectsH = do
 
 addProjectH :: AppHandler ()
 addProjectH = processForm "form" (Project.projectForm Nothing) Project.add
-	(renderWithSplices "/projects/add" . digestiveSplices)
+	(renderWithSplices "/projects/add" . digestiveSplicesCustom)
 	(\p -> redirect $ "./" <> T.encodeUtf8 (Project.slug p) <> "/components/add")
 
 editProjectH :: Project.Project -> AppHandler ()
 editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit p)
-	(renderWithSplices "/projects/edit" . digestiveSplices)
+	(renderWithSplices "/projects/edit" . digestiveSplicesCustom)
 	(\p' -> redirect $ "../" <> T.encodeUtf8 (Project.slug p') <> "/components/")
 
 --------------------------------------------------------------------- | Components
@@ -197,14 +198,14 @@ addComponentH :: Project.Project -> AppHandler ()
 addComponentH p = do
 	defaultType <- maybe "" (T.replace "form.type." "") <$> textParam "form.type"
 	processForm "form" (Component.componentForm (Left defaultType)) (Component.add p)
-		(renderWithSplices "/components/add" . digestiveSplices' customDigestiveSplices)
+		(renderWithSplices "/components/add" . digestiveSplicesCustom)
 		(\c' -> redirect $ "./" <> T.encodeUtf8 (Component.typ c') <> "/" <> B.pack (show $ Component.date c') <> "/images")
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = do
 	c' <- maybe c (\x -> c { Component.typ = T.replace "form.type." "" x }) <$> textParam "form.type"
 	processForm "form" (Component.componentForm (Right c)) (Component.edit p)
-		(renderWithSplices "/components/edit" . digestiveSplices' customDigestiveSplices) (const (redirect "../../"))
+		(renderWithSplices "/components/edit" . digestiveSplicesCustom) (const (redirect "../../"))
 
 componentImagesH :: Project.Project -> Component.Component -> AppHandler ()
 componentImagesH p c = do
@@ -218,7 +219,7 @@ componentImagesH p c = do
 		viewH images v =
 			renderWithSplices "/components/images" $ do
 				"image" ## mapSplices iSplice $ zip ([0..] :: [Int]) images
-				digestiveSplices' customDigestiveSplices v
+				digestiveSplicesCustom v
 		iSplice (i, img) =
 			let
 				attrSplices = "isFeatured" ## checkedSplice (Image.featured img)

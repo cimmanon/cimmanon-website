@@ -8,10 +8,7 @@ import qualified Data.Text as T
 import Heist (getParamNode, localHS, AttrSplice)
 import Heist.Interpreted
 import Heist.SpliceAPI
-import Text.Digestive.View (View(..), fieldInputChoiceGroup, absoluteRef, listSubViews, fieldInputText, fieldInputChoice)
-import Text.Digestive.Heist (getRefAttributes, digestiveSplices', dfInputSelect)
-import Text.Digestive.Heist.Extras
-import qualified Text.XmlHtml as X
+--import qualified Text.XmlHtml as X
 
 -- for Session stuff
 import Snap.Snaplet (SnapletLens)
@@ -62,28 +59,6 @@ userSessionSplices sess = do
 	"user_name" ## sessionInfoSplice sess "user_name"
 	"user_email" ## sessionInfoSplice sess "user_email"
 	"isLoggedIn" ## sessionHasSplice sess "user_id"
-
-{----------------------------------------------------------------------------------------------------{
-                                                                      | Digestive Splices
-}----------------------------------------------------------------------------------------------------}
-
-customDigestiveSplices :: MonadIO m => View T.Text -> Splices (Splice m)
-customDigestiveSplices v = do
-	"dfPath" ## return [X.TextNode $ T.intercalate "." $ viewContext v]
-	"dfScriptValues" ## dfScriptValues v
-	"dfPlainText" ## dfPlainText v
-	"dfInputCheckboxMultiple" ## dfInputCheckboxMultiple v
-
--- this is a very crude splice that generates a script element containing a var that holds an object
-dfScriptValues :: Monad m => View T.Text -> Splice m
-dfScriptValues v = do
-	(ref, _) <- getRefAttributes Nothing
-	let
-		xs = fieldInputChoiceGroup ref v
-		var = T.concat ["var " <> ref <> " = {", vals, "};"]
-		vals = T.intercalate ", " $ map (\(x, ys) -> T.concat [x, ": [", tags ys, "]"]) xs
-		tags = T.intercalate ", " . map (\(i, name, _) -> "'" <> i <> "'")
-	return [X.Element "script" [("type", "text/javascript")] [X.TextNode var]]
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Project Splices
