@@ -104,24 +104,36 @@
 				<header>
 					<h1>Digestive Functors (Haskell)</h1>
 					<address><a href="https://github.com/jaspervdj/digestive-functors">GitHub</a></address>
+					<time>May 2016</time> to Present
 				</header>
 
 				<p>I've submitted a few patches to improve support for the HTML standard.  Such changes include fixing a minor validation error in the digestive-functors-heist package and adding support for the <code>multiple</code> attribute on select and file input elements (the later is new for HTML5).</p>
+
+				<ul>
+					<li><a href="https://github.com/jaspervdj/digestive-functors/pull/135">Updated Choice type to allow for multiple choices</a></li>
+					<li><a href="https://github.com/jaspervdj/digestive-functors/pull/125">Add support for a list of files via &lt;input type="file" multiple /&gt;</a>
+				</ul>
 			</article>
 
 			<article>
 				<header>
 					<h1>Digestive Functors Scotty (Haskell)</h1>
 					<address><a href="https://github.com/mmartin/digestive-functors-scotty">GitHub</a></address>
+					<time>November 2015</time>
 				</header>
 
-				<p>I made a minor adjustment to make the library compatible with Scotty 0.7 and Digestive Functors 0.7.  I needed to use the newer versions of those libraries for a project I was working on at Zalora.</p>
+				<p>I made a minor adjustment to make the library compatible with Scotty 0.7 and Digestive Functors 0.7.  I needed to use the newer versions of those libraries for a project I was working on at Zalora.  Note that the pull request was made while the repo was hosted on Bitbucket, so it isn't linked to my GitHub account.</p>
+
+				<ul>
+					<li><a href="https://github.com/mmartin/digestive-functors-scotty/commit/48593773c0a571b06bb6831c1a1941ef6e858914">Now compatible with Scotty 0.7 and Digestive Functors 0.7</a></li>
+				</ul>
 			</article>
 
 			<article>
 				<header>
 					<h1>Sass (Ruby)</h1>
 					<address><a href="https://github.com/sass/sass">GitHub</a></address>
+					<time>June 2015</time> to <time>May 2016</time>
 				</header>
 
 				<p>My primary contributions here are in the form of support on the issue tracker.  I assist in helping triage new issues, from pointing out duplicates to resolving user errors.</p>
@@ -131,9 +143,14 @@
 				<header>
 					<h1>Compass (Ruby, Sass)</h1>
 					<address><a href="https://github.com/Compass/compass/">GitHub</a></address>
+					<time>April 2013</time>
 				</header>
 
 				<p>I rewrote their collection of Flexbox mixins for the 0.12 version.  The original mixins were for the 2009 Flexbox specification, but a few browsers had been supporting the standard specification from 2012 for quite a while when I made the pull request.</p>
+
+				<ul>
+					<li><a href="https://github.com/Compass/compass/pull/1218">New Flexbox Mixins</a></li>
+				</ul>
 			</article>
 		</div>
 	</section>
