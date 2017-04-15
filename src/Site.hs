@@ -134,7 +134,7 @@ maybeH = maybe notFound
 indexH :: AppHandler ()
 indexH = do
 	projects <- Project.list
-	renderWithSplices "index" $ "project" ## listToSplice projectComponentSplices projects
+	renderWithSplices "index" $ "project" ## listToSplice projectComponentMaybeImageSplices projects
 
 projectsH :: AppHandler ()
 projectsH = do
@@ -143,7 +143,7 @@ projectsH = do
 
 listByH :: AppHandler () -> [(Project.Project, [(Component.Component, Maybe Image.Image)])] -> AppHandler ()
 listByH handler xs =
-	withSplices ("project" ## listToSplice projectComponentSplices xs) handler
+	withSplices ("project" ## listToSplice projectComponentMaybeImageSplices xs) handler
 
 byTagH :: AppHandler ()
 byTagH = do
@@ -163,7 +163,7 @@ byTypeH = do
 projectH :: Project.Project -> AppHandler ()
 projectH p = do
 	components <- Component.list p
-	renderWithSplices "projects/project" $ projectComponentSplices' (p, components)
+	renderWithSplices "projects/project" $ projectComponentImageListSplices (p, components)
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Administration

@@ -54,34 +54,30 @@ projectSplices p = do
 	"url" ## maybeSplice (\x -> runChildrenWith $ "href" ## textSplice x) $ Project.url p
 	"featured" ##  showSplice $ Project.featured p
 
--- TODO: reduce code duplication here
-projectComponentSplices :: Monad m => (Project.Project, [(Component.Component, Maybe Image.Image)]) -> Splices (Splice m)
-projectComponentSplices (p, cx) = do
-	projectSplices p
-	"component" ## listToSplice cSplices cx
-	"image" ## listToSplice imageSplices $ if hasImages then images else []
-	where
-		images = mapMaybe snd cx
-		hasImages = length images == 1
-		cSplices (c, xs) = do
-			componentSplices c
-			"image" ## if hasImages
-				then hideContents
-				else maybeSplice (runChildrenWith . imageSplices) xs
+projectComponentMaybeImageSplices :: Monad m => (Project.Project, [(Component.Component, Maybe Image.Image)]) -> Splices (Splice m)
+projectComponentMaybeImageSplices = projectComponentSplices mapMaybe (maybeSplice (runChildrenWith . imageSplices))
 
-projectComponentSplices' :: Monad m => (Project.Project, [(Component.Component, [Image.Image])]) -> Splices (Splice m)
-projectComponentSplices' (p, cx) = do
+projectComponentImageListSplices :: Monad m => (Project.Project, [(Component.Component, [Image.Image])]) -> Splices (Splice m)
+projectComponentImageListSplices = projectComponentSplices concatMap (listToSplice imageSplices)
+
+-- this is the generalized version of the above functions to eliminate code duplication
+projectComponentSplices :: (Monad m, Functor f)
+	=> (((Component.Component, f Image.Image) -> f Image.Image) -> [(Component.Component, f Image.Image)] -> [Image.Image])
+	-> (f Image.Image -> Splice m)
+	-> (Project.Project, [(Component.Component, f Image.Image)])
+	-> Splices (Splice m)
+projectComponentSplices toImageList imageSplice (p, cx) = do
 	projectSplices p
 	"component" ## listToSplice cSplices cx
 	"image" ## listToSplice imageSplices $ if hasImages then images else []
 	where
-		images = concatMap snd cx
+		images = toImageList snd cx
 		hasImages = length images == 1
 		cSplices (c, xs) = do
 			componentSplices c
 			"image" ## if hasImages
 				then hideContents
-				else listToSplice imageSplices xs
+				else imageSplice xs
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Component Splices
