@@ -66,7 +66,18 @@
 		<div class="listing">
 			<article>
 				<header>
-				<h1>Data Modeler/Haskell Developer, Zalora</h1>
+					<h1>Data Modeler, DocDoc</h1>
+					<address>Singapore</address>
+					<time>November 2016</time> to <time>April 2017</time>
+				</header>
+
+				<p>I inherited a database refactoring project where the original data was coming from three different sources.  The biggest challenge was pulling data from their primary data source:  Netsuite.  Due to a lack of a client accessible data dumping tools, I was forced to fetch the data via the JDBC Foreign Data Wrapper.  Some of the source tables contained over 500 columns.  Additionally, there were a number of text fields that needed to be parsed and converted to normalized fields, such as phone numbers or hours of operation.  The project was cut short due to lack of funding.</p>
+			</article>
+
+			<article>
+				<header>
+					<h1>Data Modeler/Haskell Developer, Zalora</h1>
+					<address>Singapore</address>
 					<time>March 2014</time> to <time>February 2015</time>
 				</header>
 
@@ -76,6 +87,7 @@
 			<article>
 				<header>
 					<h1>Data Modeler/Web Developer, snapd Inc.</h1>
+					<address>Newmarket, Ontario</address>
 					<time>November 2011</time> to <time>March 2014</time>
 				</header>
 
