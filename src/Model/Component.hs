@@ -58,7 +58,7 @@ componentForm c = monadic $ do
 		<*> "public" .: bool (either (const (Just True)) (Just . public) c)
 		<*> "featured" .: bool (either (const (Just True)) (Just . featured) c)
 		<*> "archived" .: optionalText (archived =<< toMaybe c)
-		<*> "tags" .: tagsForm tags' (either (const []) tags c) (either (Just . id) (Just . typ) c)
+		<*> "tags" .: tagsForm tags' (either (const []) tags c) (either (Just) (Just . typ) c)
 	where
 		notEmpty = check "Cannot be empty" (/= "")
 		toMaybe = either (const Nothing) Just
