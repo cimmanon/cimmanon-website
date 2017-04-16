@@ -91,26 +91,26 @@ componentTypeForm = ( , )
 ---------------------------------------------------------------------- | Project Components
 
 list :: (HasPostgres m, Functor m) => Project -> m [(Component, [I.Image])]
-list p = ojoin1of2 <$> query [sqlFile|sql/portfolio/components.sql|] (Only $ P.name p)
+list p = ojoin1of2 <$> query [sqlFile|sql/portfolio/components/list.sql|] (Only $ P.name p)
 
 get :: (HasPostgres m, Functor m) => Project -> Text -> Text -> m (Maybe Component)
-get p c d = listToMaybe <$> query [sqlFile|sql/portfolio/component.sql|] (P.name p, c, d)
+get p c d = listToMaybe <$> query [sqlFile|sql/portfolio/components/get.sql|] (P.name p, c, d)
 
 ----------------------------------------------------------------------
 
 adminList :: HasPostgres m => Project -> m [Component]
-adminList p = query "SELECT type, description, date_added, public, featured, archived, array[] :: text[] AS tags FROM portfolio.project_components WHERE project = ? ORDER BY date_added" (Only $ P.name p)
+adminList p = query [sqlFile|sql/portfolio/components/list_admin.sql|] (Only $ P.name p)
 
 add :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text Component)
 add p c = toEither' $ const c <$> q
 	where
 		-- query split off here rather than write a one-liner to avoid ambiguity when the type is discarded above
 		q :: HasPostgres m => m [Only ()]
-		q = query "SELECT portfolio.add_component((?, ?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, typ c, date c, description c, public c, featured c, archived c, fromList $ tags c)
+		q = query [sqlFile|sql/portfolio/components/add.sql|] (P.name p, typ c, date c, description c, public c, featured c, archived c, fromList $ tags c)
 
 -- TODO: either allow editing of type and date of the project, or disable the form controls for it
 edit :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text [Only ()])
-edit p c = toEither' $ query "SELECT portfolio.edit_component((?, ?, ?, ?, ?, ?, ?) :: portfolio.PROJECT_COMPONENTS, ?)" (P.name p, typ c, date c, description c, public c, featured c, archived c, fromList $ tags c)
+edit p c = toEither' $ query [sqlFile|sql/portfolio/components/update.sql|] (P.name p, typ c, date c, description c, public c, featured c, archived c, fromList $ tags c)
 
 --------------------------------------------------------------------- | Component Types
 

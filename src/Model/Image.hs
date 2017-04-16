@@ -70,7 +70,7 @@ updateForm xs = ( , )
 }----------------------------------------------------------------------------------------------------}
 
 list :: (HasPostgres m) => Project -> Component -> m [Image]
-list p c = query "SELECT filename, width, height, featured FROM portfolio.project_images WHERE (project, type, date_added) = (?, ?, ?) ORDER BY featured DESC, filename" (C.primaryKey p c)
+list p c = query [sqlFile|sql/portfolio/images/list.sql|] (C.primaryKey p c)
 
 add :: (HasPostgres m, Functor m) => Project -> Component -> [FilePath] -> m (Either Text ())
 add p c xs = do
@@ -89,7 +89,7 @@ add p c xs = do
 				Left _ -> return $ Left f
 				Right i -> storeData f i
 		storeData f i = do
-			r <- toEither' $ execute [sqlFile|sql/portfolio/insert_image.sql|] (P.name p, C.typ c, C.date c, getFileName f, getWidth i, getHeight i)
+			r <- toEither' $ execute [sqlFile|sql/portfolio/images/add.sql|] (P.name p, C.typ c, C.date c, getFileName f, getWidth i, getHeight i)
 			case r of
 				Left _ -> return $ Left f
 				Right _ -> do
@@ -99,7 +99,7 @@ add p c xs = do
 update :: (HasPostgres m, Functor m) => Project -> Component -> (Text, [Text]) -> m (Either Text [Only ()])
 update p c (f, d) = do
 	liftIO $ mapM (removeFile . mappend (filePath p) . unpack) d
-	toEither' $ query "SELECT * FROM portfolio.update_images((?, ?, ?) :: portfolio.COMPONENT_IDENTITY, ?, ?)" (P.name p, C.typ c, C.date c, f, fromList d)
+	toEither' $ query [sqlFile|sql/portfolio/images/update.sql|] (P.name p, C.typ c, C.date c, f, fromList d)
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Upload Policy

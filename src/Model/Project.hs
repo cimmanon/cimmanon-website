@@ -63,35 +63,35 @@ projectForm p = Project
 }----------------------------------------------------------------------------------------------------}
 
 list :: (HasPostgres m, Functor m) => m [(Project, [(Component, Maybe Image)])]
-list = join1of3 <$> query_ [sqlFile|sql/portfolio/overview.sql|]
+list = join1of3 <$> query_ [sqlFile|sql/portfolio/projects/list_featured.sql|]
 
 listByTag :: (HasPostgres m, Functor m) => Text -> m [(Project, [(Component, Maybe Image)])]
-listByTag x = join1of3 <$> query [sqlFile|sql/portfolio/by_tag.sql|] (Only x)
+listByTag x = join1of3 <$> query [sqlFile|sql/portfolio/projects/by_tag.sql|] (Only x)
 
 listByYear :: (HasPostgres m, Functor m) => Int -> m [(Project, [(Component, Maybe Image)])]
-listByYear x = join1of3 <$> query [sqlFile|sql/portfolio/by_year.sql|] (Only x)
+listByYear x = join1of3 <$> query [sqlFile|sql/portfolio/projects/by_year.sql|] (Only x)
 
 listByType :: (HasPostgres m, Functor m) => Text -> m [(Project, [(Component, Maybe Image)])]
-listByType x = join1of3 <$> query [sqlFile|sql/portfolio/by_type.sql|] (Only x)
+listByType x = join1of3 <$> query [sqlFile|sql/portfolio/projects/by_type.sql|] (Only x)
 
 get :: (HasPostgres m, Functor m) => Text -> m (Maybe Project)
-get s = listToMaybe <$> query "SELECT project, description, slug, url, featured FROM portfolio.projects WHERE slug = ?" (Only s)
+get s = listToMaybe <$> query [sqlFile|sql/portfolio/projects/get.sql|] (Only s)
 
 getWithComponent :: (HasPostgres m, Functor m) => Text -> Text -> Text -> m (Maybe (Project, Component))
-getWithComponent s t d = listToMaybe . map tuple2 <$> query [sqlFile|sql/portfolio/get_with_component.sql|]  (s, t, d)
+getWithComponent s t d = listToMaybe . map tuple2 <$> query [sqlFile|sql/portfolio/projects/get_with_component.sql|]  (s, t, d)
 
 ----------------------------------------------------------------------
 
 adminList :: (HasPostgres m) => m [Project]
-adminList = query_ "SELECT project, description, slug, url, featured FROM portfolio.projects ORDER BY project"
+adminList = query_ [sqlFile|sql/portfolio/projects/list_admin.sql|]
 
 add :: (HasPostgres m, Functor m) => Project -> m (Either Text Project)
-add p = toEither' $ const p <$> execute "INSERT INTO portfolio.projects (project, description, slug, url, featured) VALUES (?, ?, ?, ?, ?)" (name p, description p, slug p, url p, featured p)
+add p = toEither' $ const p <$> execute [sqlFile|sql/portfolio/projects/add.sql|] (name p, description p, slug p, url p, featured p)
 
 edit :: (HasPostgres m, Functor m) => Project -> Project -> m (Either Text Project)
 edit original new = do
 	liftIO $ when (oldName /= newName) moveDirectories
-	toEither' $ const new <$> execute "UPDATE portfolio.projects SET project = ?, description = ?, slug = ?, url = ?, featured = ? WHERE project = ?" (name new, description new, slug new, url new, featured new, name original)
+	toEither' $ const new <$> execute [sqlFile|sql/portfolio/projects/update.sql|] (name new, description new, slug new, url new, featured new, name original)
 	where
 		oldName = unpack $ slug original
 		newName = unpack $ slug new
@@ -105,4 +105,4 @@ edit original new = do
 ----------------------------------------------------------------------
 
 years :: (HasPostgres m, Functor m) => m [Int]
-years = map fromOnly <$> query_ "SELECT DISTINCT extract(year FROM date_added) :: Int FROM portfolio.project_components ORDER BY extract(year FROM date_added) :: Int DESC"
+years = map fromOnly <$> query_ [sqlFile|sql/portfolio/year_list.sql|]

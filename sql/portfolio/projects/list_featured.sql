@@ -45,4 +45,3 @@ WHERE
 ORDER BY
 	last_update DESC,
 	date_added DESC
-;
