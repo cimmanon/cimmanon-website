@@ -189,7 +189,11 @@ editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit
 adminComponentsH :: Project.Project -> AppHandler ()
 adminComponentsH p = do
 	components <- Component.adminList p
-	renderWithSplices "/components/admin" $ "component" ## listToSplice componentSplices components
+	renderWithSplices "/components/admin" $ "component" ## listToSplice splices components
+	where
+		splices (c, i) = do
+			componentSplices c
+			"image" ## maybeSplice' (runChildrenWith . imageSplices) i
 
 addComponentH :: Project.Project -> AppHandler ()
 addComponentH p = do

@@ -98,8 +98,8 @@ get p c d = listToMaybe <$> query [sqlFile|sql/portfolio/components/get.sql|] (P
 
 ----------------------------------------------------------------------
 
-adminList :: HasPostgres m => Project -> m [Component]
-adminList p = query [sqlFile|sql/portfolio/components/list_admin.sql|] (Only $ P.name p)
+adminList :: (HasPostgres m, Functor m) => Project -> m [(Component, Maybe I.Image)]
+adminList p = map tuple2 <$> query [sqlFile|sql/portfolio/components/list_admin.sql|] (Only $ P.name p)
 
 add :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text Component)
 add p c = toEither' $ const c <$> q

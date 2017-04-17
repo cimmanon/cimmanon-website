@@ -42,6 +42,15 @@ generalSplices =
 bindSplices' :: Monad m => Splices (AttrSplice m) -> Splices (Splice m) -> Splice m
 bindSplices' attrSplices splices = localHS (bindAttributeSplices attrSplices) $ runChildrenWith splices
 
+maybeSplice' :: Monad m => (a -> Splice m) -> Maybe a -> Splice m
+maybeSplice' splice x = runChildrenWith $ case x of
+	Just x -> do
+		"yes" ## splice x
+		"no" ## hideContents
+	Nothing -> do
+		"yes" ## hideContents
+		"no" ## showContents
+
 {----------------------------------------------------------------------------------------------------{
                                                                       | Project Splices
 }----------------------------------------------------------------------------------------------------}

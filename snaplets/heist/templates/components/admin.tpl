@@ -11,7 +11,7 @@
 			<th>Featured</th>
 			<th>Archived</th>
 			<th>Edit</th>
-			<th>Images</th>
+			<th>Image</th>
 		</tr>
 	</thead>
 
@@ -23,7 +23,10 @@
 			<td class="bool"><featured>Featured</featured></td>
 			<td><archived><a href="${href}">Archived</a></archived></td>
 			<td><a href="./${type}/${date}/">Edit</a></td>
-			<td><a href="./${type}/${date}/images">Images</a></td>
+			<td><a href="./${type}/${date}/images" title="Image Administration"><image>
+				<yes><img src="/screenshots/${slug}/${filename}" width="200" alt="Featured Image" /></yes>
+				<no>Add Images</no>
+			</image></a></td>
 		</tr></component>
 	</tbody>
 </table>
