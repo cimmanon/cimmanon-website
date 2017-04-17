@@ -110,6 +110,7 @@
 				<p>I've submitted a few patches to improve support for the HTML standard.  Such changes include fixing a minor validation error in the digestive-functors-heist package and adding support for the <code>multiple</code> attribute on select and file input elements (the later is new for HTML5).</p>
 
 				<ul>
+					<li><a href="https://github.com/jaspervdj/digestive-functors/pull/143">Remove path information from Choice input element values</a></li>
 					<li><a href="https://github.com/jaspervdj/digestive-functors/pull/135">Updated Choice type to allow for multiple choices</a></li>
 					<li><a href="https://github.com/jaspervdj/digestive-functors/pull/125">Add support for a list of files via &lt;input type="file" multiple /&gt;</a>
 				</ul>
