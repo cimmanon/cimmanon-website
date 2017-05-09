@@ -21,7 +21,6 @@ import Data.Maybe (listToMaybe, fromMaybe)
 import Data.List (find)
 import Data.Text (Text, pack)
 import Data.Time.Calendar
-import Data.Vector (fromList)
 import Text.Digestive
 import Database.PostgreSQL.Simple.Tuple
 import Util.Database
@@ -106,11 +105,11 @@ add p c = toEither' $ const c <$> q
 	where
 		-- query split off here rather than write a one-liner to avoid ambiguity when the type is discarded above
 		q :: HasPostgres m => m [Only ()]
-		q = query [sqlFile|sql/portfolio/components/add.sql|] (P.name p, typ c, date c, description c, public c, featured c, archived c, fromList $ tags c)
+		q = query [sqlFile|sql/portfolio/components/add.sql|] (Only (P.name p) :. c)
 
 -- TODO: either allow editing of type and date of the project, or disable the form controls for it
 edit :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text [Only ()])
-edit p c = toEither' $ query [sqlFile|sql/portfolio/components/update.sql|] (P.name p, typ c, date c, description c, public c, featured c, archived c, fromList $ tags c)
+edit p c = toEither' $ query [sqlFile|sql/portfolio/components/update.sql|] (Only (P.name p) :. c)
 
 --------------------------------------------------------------------- | Component Types
 

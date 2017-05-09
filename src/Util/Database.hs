@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeSynonymInstances, FlexibleInstances, TypeOperators, OverloadedStrings #-}
+{-# LANGUAGE TypeSynonymInstances, FlexibleInstances, TypeOperators, OverloadedStrings, OverlappingInstances #-}
 
 module Util.Database
 	( str
@@ -8,6 +8,7 @@ module Util.Database
 	, ConstraintViolation
 	) where
 
+import Control.Applicative
 --import Control.Exception as E
 --import Control.Monad.IO.Class (MonadIO)
 import Control.Monad.CatchIO
@@ -16,7 +17,11 @@ import Data.Maybe (fromMaybe)
 import Data.Monoid ((<>))
 import Data.Text (Text)
 import Data.Text.Encoding (decodeUtf8)
+import Data.Typeable (Typeable)
 import Database.PostgreSQL.Simple.Errors
+import Database.PostgreSQL.Simple.ToField (ToField(..))
+import Database.PostgreSQL.Simple.FromField (FromField(..))
+import Database.PostgreSQL.Simple.Types (PGArray(..))
 import Language.Haskell.TH
 import Language.Haskell.TH.Quote
 import Snap.Snaplet.PostgresqlSimple
@@ -26,6 +31,14 @@ str = QuasiQuoter { quoteExp = stringE }
 
 sqlFile :: QuasiQuoter
 sqlFile = quoteFile str
+
+----------------------------------------------------------------------
+
+instance (ToField a) => ToField [a] where
+	toField = toField . PGArray
+
+instance (FromField a, Typeable a) => FromField [a] where
+	fromField f v = fromPGArray <$> fromField f v
 
 ---------------------------------------------------------------------- | Stuff that will go in a library
 

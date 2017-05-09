@@ -86,12 +86,12 @@ adminList :: (HasPostgres m) => m [Project]
 adminList = query_ [sqlFile|sql/portfolio/projects/list_admin.sql|]
 
 add :: (HasPostgres m, Functor m) => Project -> m (Either Text Project)
-add p = toEither' $ const p <$> execute [sqlFile|sql/portfolio/projects/add.sql|] (name p, description p, slug p, url p, featured p)
+add p = toEither' $ const p <$> execute [sqlFile|sql/portfolio/projects/add.sql|] p
 
 edit :: (HasPostgres m, Functor m) => Project -> Project -> m (Either Text Project)
 edit original new = do
 	liftIO $ when (oldName /= newName) moveDirectories
-	toEither' $ const new <$> execute [sqlFile|sql/portfolio/projects/update.sql|] (name new, description new, slug new, url new, featured new, name original)
+	toEither' $ const new <$> execute [sqlFile|sql/portfolio/projects/update.sql|] (new :. Only (name original))
 	where
 		oldName = unpack $ slug original
 		newName = unpack $ slug new
