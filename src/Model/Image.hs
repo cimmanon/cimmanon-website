@@ -59,12 +59,12 @@ uploadForm = "file" .: fileMultiple
 
 updateForm :: Monad m => [Image] -> Form Text m (Text, [Text])
 updateForm xs = ( , )
-	<$> "featured" .: choice choices current
-	<*> "delete" .: choiceMultiple choices Nothing
+	<$> "featured" .: choiceWith choices current
+	<*> "delete" .: choiceWithMultiple choices Nothing
 	where
 		-- note that we're using `choice` instead of `choiceWith`
 		-- Digestive Functors doesn't play nicely with periods appearing in the value
-		choices = map (\x -> (filename x, filename x)) xs
+		choices = map (toChoice filename filename filename) xs
 		current = filename <$> find featured xs
 
 {----------------------------------------------------------------------------------------------------{
