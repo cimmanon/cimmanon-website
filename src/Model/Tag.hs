@@ -14,7 +14,6 @@ import Snap.Snaplet.PostgresqlSimple
 
 --import Data.Maybe (listToMaybe)
 import Data.Text (Text)
-import Data.Vector (toList)
 --import Text.Digestive
 --import Database.PostgreSQL.Simple.Tuple
 import Util.Database
@@ -29,7 +28,7 @@ data Category = Category
 	} deriving (Show, Eq)
 
 instance FromRow Category where
-	fromRow = Category <$> field <*> (toList <$> field)
+	fromRow = Category <$> field <*> field
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Forms
@@ -47,5 +46,5 @@ list = query_ [sqlFile|sql/portfolio/tag_list.sql|]
 listByType :: (HasPostgres m, Functor m) => Text -> m [Text]
 listByType c = map fromOnly <$> query "SELECT tag FROM portfolio.project_type_tags WHERE type = ?" (Only c)
 
-groupedByType :: (HasPostgres m, Functor m) => m [(Text, [Text])]
-groupedByType = map (second toList) <$> query_ "SELECT type, array_agg(tag :: text ORDER BY category, tag) FROM portfolio.project_type_tags GROUP BY type ORDER BY type"
+groupedByType :: HasPostgres m => m [(Text, [Text])]
+groupedByType = query_ "SELECT type, array_agg(tag :: text ORDER BY category, tag) FROM portfolio.project_type_tags GROUP BY type ORDER BY type"

@@ -41,7 +41,6 @@ Executable cimmanon
     digestive-functors-heist,
     digestive-functors-heist-extras,
     digestive-functors,
-    vector,
     snap-extras == 0.11.0.*,
     snap-handlers,
     camellia-splices,

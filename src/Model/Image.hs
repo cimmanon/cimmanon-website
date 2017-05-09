@@ -21,7 +21,6 @@ import Snap.Snaplet.PostgresqlSimple
 import Data.Either (lefts)
 --import Data.Maybe (listToMaybe)
 import Data.Text (Text, pack, unpack)
-import Data.Vector (fromList)
 import Text.Digestive
 --import Database.PostgreSQL.Simple.Tuple
 import Util.Database
@@ -91,7 +90,7 @@ add p c xs = do
 				Left _ -> return $ Left f
 				Right i -> storeData f i
 		storeData f i = do
-			r <- toEither' $ execute [sqlFile|sql/portfolio/images/add.sql|] (P.name p, C.typ c, C.date c, getFileName f, getWidth i, getHeight i)
+			r <- toEither' $ execute [sqlFile|sql/portfolio/images/add.sql|] (primaryKey p c :. (getFileName f, getWidth i, getHeight i))
 			case r of
 				Left _ -> return $ Left f
 				Right _ -> do
@@ -101,7 +100,7 @@ add p c xs = do
 update :: (HasPostgres m, Functor m) => Project -> Component -> (Text, [Text]) -> m (Either Text [Only ()])
 update p c (f, d) = do
 	liftIO $ mapM (removeFile . mappend (filePath p) . unpack) d
-	toEither' $ query [sqlFile|sql/portfolio/images/update.sql|] (P.name p, C.typ c, C.date c, f, fromList d)
+	toEither' $ query [sqlFile|sql/portfolio/images/update.sql|] (primaryKey p c :. (f, d))
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Upload Policy
