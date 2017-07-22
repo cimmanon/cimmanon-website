@@ -13,9 +13,9 @@
 	<dfScriptValues ref="allTags" />
 
 	<ul class="tags" id="tags">
-		<dfInputCheckboxMultiple ref="tags"><li>
-			<label><checkbox /> <name /></label>
-		</li></dfInputCheckboxMultiple>
+		<dfCustomChoice ref="tags"><choice><li>
+			<label><input type="checkbox" name="${path}" value="${value}" isChecked /> <name>blue</name></label>
+		</li></choice></dfCustomChoice>
 	</ul>
 </fieldset></dfSubView>
 

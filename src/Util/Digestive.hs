@@ -32,10 +32,11 @@ digestiveSplicesCustom :: MonadIO m => View T.Text -> Splices (Splice m)
 digestiveSplicesCustom =  digestiveSplices' splices
 	where
 		splices v = do
-			"dfPath" ## return [X.TextNode $ T.intercalate "." $ viewContext v]
+			"dfPath" ## dfPath v
 			"dfScriptValues" ## dfScriptValues v
 			"dfPlainText" ## dfPlainText v
-			"dfInputCheckboxMultiple" ## dfInputCheckboxMultiple v
+			"dfCustomText" ## dfCustomText v
+			"dfCustomChoice" ## dfCustomChoice v
 
 -- this is a very crude splice that generates a script element containing a var that holds an object
 dfScriptValues :: Monad m => View T.Text -> Splice m
