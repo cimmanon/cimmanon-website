@@ -29,7 +29,7 @@ notEmptyText _ = False
 }----------------------------------------------------------------------------------------------------}
 
 digestiveSplicesCustom :: MonadIO m => View T.Text -> Splices (Splice m)
-digestiveSplicesCustom =  digestiveSplices' splices
+digestiveSplicesCustom = digestiveSplices' splices
 	where
 		splices v = do
 			"dfPath" ## dfPath v
@@ -37,6 +37,16 @@ digestiveSplicesCustom =  digestiveSplices' splices
 			"dfPlainText" ## dfPlainText v
 			"dfCustomText" ## dfCustomText v
 			"dfCustomChoice" ## dfCustomChoice v
+			"dfInputListCustom" ## dfInputListCustom' digestiveSplicesCustom v
+
+dfInputListCustom' :: MonadIO m => (View T.Text -> Splices (Splice m)) -> View T.Text -> Splice m
+dfInputListCustom' splices view =
+	let
+		splices' v = do
+			splices v
+			"dfGroupRadioChoice" ## dfGroupRadioChoice view v
+	in
+		dfInputListCustom splices' view
 
 -- this is a very crude splice that generates a script element containing a var that holds an object
 dfScriptValues :: Monad m => View T.Text -> Splice m

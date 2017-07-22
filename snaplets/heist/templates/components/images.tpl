@@ -5,6 +5,7 @@
 <dfForm method="post">
 <dfChildErrorList class="dialog error" />
 
+<dfInputListCustom ref="images">
 <table class="spreadsheet">
 	<caption>Current Images</caption>
 
@@ -20,16 +21,17 @@
 	</thead>
 
 	<tbody>
-		<image><tr>
-			<td><img src="/screenshots/${slug}/${filename}" width="200" alt="" /></td>
-			<td><filename>example.jpg</filename></td>
-			<td class="numeric"><width>480</width>px</td>
-			<td class="numeric"><height>320</height>px</td>
-			<td class="fixed"><label><input type="radio" name="update.featured" value="${filename}" isFeatured /> Featured</label></td>
-			<td class="fixed"><label><input type="checkbox" name="update.delete" value="${filename}" /> Delete</label></td>
-		</tr></image>
+		<dfListItem><tr wrapperAttrs>
+			<td><dfCustomText ref="filename"><img src="/screenshots/${slug}/${value}" width="200" alt="" /></dfCustomText></td>
+			<td><dfPlainText ref="filename">example.jpg</dfPlainText></td>
+			<td class="numeric"><dfPlainText ref="width">480</dfPlainText>px</td>
+			<td class="numeric"><dfPlainText ref="height">320</dfPlainText>px</td>
+			<td class="fixed"><label><dfGroupRadioChoice ref="filename" checked="featured" /> Featured</label></td>
+			<td class="fixed"><label><dfInputCheckbox ref="delete" /> Delete</label></td>
+		</tr></dfListItem>
 	</tbody>
 </table>
+</dfInputListCustom>
 <input type="submit" value="Update" />
 </dfForm>
 

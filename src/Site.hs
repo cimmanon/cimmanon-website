@@ -215,18 +215,7 @@ componentImagesH p c = do
 	case images of
 		[] -> renderWithSplices "/components/images" $ "dfForm" ## hideContents
 		_ -> processForm "update" (Image.updateForm images) (Image.update p c)
-			(viewH images) (const redirectToSelf)
-	where
-		viewH images v =
-			renderWithSplices "/components/images" $ do
-				"image" ## mapSplices iSplice $ zip ([0..] :: [Int]) images
-				digestiveSplicesCustom v
-		iSplice (i, img) =
-			let
-				attrSplices = "isFeatured" ## checkedSplice (Image.featured img)
-			in bindSplices' attrSplices $ do
-				imageSplices img
-				"indice" ## numericSplice i
+			(renderWithSplices "/components/images" . digestiveSplicesCustom) (const redirectToSelf)
 
 uploadImagesH :: Project.Project -> Component.Component -> AppHandler ()
 uploadImagesH p c = processForm "upload" Image.uploadForm (Image.add p c)
