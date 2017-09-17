@@ -261,6 +261,10 @@ fieldset ul, fieldset .inputList {
   margin-top: 0;
 }
 
+textarea {
+  min-height: 15em;
+}
+
 .False {
   color: #aea098;
 }
