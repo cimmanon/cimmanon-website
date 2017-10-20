@@ -38,8 +38,8 @@ SELECT
 
 	-- Component
 	type,
-	components.description,
 	date_added,
+	components.description,
 	public,
 	components.featured,
 	archived,

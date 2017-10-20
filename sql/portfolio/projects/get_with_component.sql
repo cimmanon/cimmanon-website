@@ -8,8 +8,8 @@ SELECT
 
 	-- Component
 	type,
-	project_components.description,
 	date_added,
+	project_components.description,
 	public,
 	project_components.featured,
 	archived,

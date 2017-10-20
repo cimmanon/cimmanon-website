@@ -1,8 +1,8 @@
 SELECT
 	-- Component
 	type,
-	description,
 	date_added,
+	description,
 	public,
 	featured,
 	archived,

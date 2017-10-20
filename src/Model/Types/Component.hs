@@ -12,8 +12,8 @@ import Util.Database
 
 data Component = Component
 	{ typ :: Text
-	, description :: Text
 	, date :: Day
+	, description :: Text
 	, public :: Bool
 	, featured :: Bool
 	, archived :: Maybe Text

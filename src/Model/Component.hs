@@ -53,8 +53,8 @@ componentForm c = monadic $ do
 		typeChoices = map (toChoice id id id . fst) tags'
 	return $ Component
 		<$> eitherDisable ("type" .: choiceWith typeChoices (either (const Nothing) (Just . typ) c))
-		<*> "description" .: notEmpty (text (description <$> toMaybe c))
 		<*> eitherDisable ("date" .: dateFormlet "%F" (date <$> toMaybe c))
+		<*> "description" .: notEmpty (text (description <$> toMaybe c))
 		<*> "public" .: bool (either (const (Just True)) (Just . public) c)
 		<*> "featured" .: bool (either (const (Just True)) (Just . featured) c)
 		<*> "archived" .: optionalText (archived =<< toMaybe c)

@@ -1,8 +1,8 @@
 SELECT DISTINCT ON (date_added, type)
 	-- Component
 	type,
-	description,
 	date_added,
+	description,
 	public,
 	project_components.featured,
 	archived,
