@@ -17,6 +17,7 @@ import Control.Applicative
 import Data.Monoid ((<>))
 import Snap.Snaplet.PostgresqlSimple
 
+import Data.Int (Int64)
 import Data.Maybe (listToMaybe, fromMaybe)
 import Data.List (find)
 import Data.Text (Text, pack)
@@ -101,15 +102,11 @@ adminList :: (HasPostgres m, Functor m) => Project -> m [(Component, Maybe I.Ima
 adminList p = map tuple2 <$> query [sqlFile|sql/portfolio/components/list_admin.sql|] (Only $ P.name p)
 
 add :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text Component)
-add p c = toEither' $ const c <$> q
-	where
-		-- query split off here rather than write a one-liner to avoid ambiguity when the type is discarded above
-		q :: HasPostgres m => m [Only ()]
-		q = query [sqlFile|sql/portfolio/components/add.sql|] (Only (P.name p) :. c)
+add p c = toEither' $ const c <$> execute [sqlFile|sql/portfolio/components/add.sql|] (Only (P.name p) :. c)
 
 -- TODO: either allow editing of type and date of the project, or disable the form controls for it
-edit :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text [Only ()])
-edit p c = toEither' $ query [sqlFile|sql/portfolio/components/update.sql|] (Only (P.name p) :. c)
+edit :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text Int64)
+edit p c = toEither' $ execute [sqlFile|sql/portfolio/components/update.sql|] (Only (P.name p) :. c :. primaryKey p c)
 
 --------------------------------------------------------------------- | Component Types
 
