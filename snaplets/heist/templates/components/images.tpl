@@ -21,7 +21,7 @@
 	</thead>
 
 	<tbody>
-		<dfListItem><tr wrapperAttrs>
+		<dfListItem only="items"><tr wrapperAttrs>
 			<td><dfCustomText ref="filename"><img src="/screenshots/${slug}/${value}" width="200" alt="" /></dfCustomText></td>
 			<td><dfPlainText ref="filename">example.jpg</dfPlainText></td>
 			<td class="numeric"><dfPlainText ref="width">480</dfPlainText>px</td>
