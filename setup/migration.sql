@@ -1,5 +1,7 @@
 \set ON_ERROR_STOP true
 
+SET search_path TO portfolio,public;
+
 BEGIN;
 
 \echo '-----------------------------------------------------------'

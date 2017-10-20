@@ -1,4 +1,4 @@
-SET search_path TO portfolio,public;
+BEGIN;
 
 \echo 'Checking to see if project_components.featured exists...'
 

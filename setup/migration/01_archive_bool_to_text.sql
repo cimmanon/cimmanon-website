@@ -1,4 +1,4 @@
-SET search_path TO portfolio,public;
+BEGIN;
 
 \echo 'Checking the type of project_components.archived...'
 

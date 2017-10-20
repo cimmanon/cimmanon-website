@@ -1,4 +1,4 @@
-SET search_path TO portfolio,public;
+BEGIN;
 
 \echo 'Adjusting foreign key cascade settings...'
 
