@@ -1,5 +1,5 @@
-<bind tag="pageTitle"><name>Project Name</name> Images</bind>
-<apply template="/_admin">
+<bind tag="pageSubTitle">Images</bind>
+<apply template="_admin">
 <h1>Images</h1>
 
 <dfForm method="post">

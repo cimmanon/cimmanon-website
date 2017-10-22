@@ -1,37 +1,86 @@
 .admin {
-	> nav {
-		@include flex(1 1 8em);
-		@include columns(10em);
+	max-width: 50em;
+	margin-left: auto;
+	margin-right: auto;
+	//@include max-width;
 
-		ul ul {
-			margin-top: 0;
-		}
-	}
+	nav {
+		> ol {
+			padding-left: 0;
+			list-style: none;
+			color: $demphasized-text-color;
+			margin-right: -1.5em;
 
-	> article {
-		margin-top: 0;
-		@include flex(3 1 34em);
-	}
+			> li {
+				display: inline-block;
+				position: relative;
+				padding-right: 1.5em;
 
-	@media (max-width: $layout-max-width) {
-		> nav {
-			padding-bottom: $spacing-primary;
-			border-bottom: $border-secondary;
-		}
+				// arrows indicators for sub-menus
+				// "closed"
+				span:before {
+					content: "\25b8"; // black right-pointing small triangle
+					//content: "\25c2"; // black left-pointing small triangle
+					display: inline;
+				}
 
-		> article {
-			margin-top: $spacing-primary;
-		}
-	}
+				// "open"
+				&:hover span:before {
+					content: "\25BE"; // black down-pointing small triangle
+				}
 
-	@media (min-width: $layout-max-width) {
-		@include display-flex;
+				// non last-child elements get a drop menu and are de-emphasized
+				&:not(:last-child) {
+					z-index: 1;
 
-		> nav {
-			@media (min-width: $layout-max-width) {
-				border-right: $border-secondary;
-				padding-right: $spacing-primary;
-				margin-right: $spacing-primary;
+					ul {
+						display: none;
+						position: absolute;
+						margin: 0;
+						padding: .5em 1em .5em 1.5em;
+						border-radius: .5em;
+						background: $neutral-light;
+						border: 1px solid;
+						white-space: nowrap;
+						// TODO: fix this when the parent elements are stacked vertically due to wrapping,
+						// the drop menu for the first element is inaccessible
+						z-index: 2;
+					}
+
+					&:hover {
+						color: $neutral-dark;
+
+						ul {
+							display: block;
+						}
+					}
+				}
+
+				// the last-child has a permanently open bar across the bottom and is emphasized
+				&:last-child {
+					display: block;
+					color: $neutral-dark;
+
+					span {
+						font: 700 ms(2) $optima;
+					}
+
+					&:before, span:before {
+						display: none;
+					}
+
+					ul {
+						padding-left: 0;
+						margin: 0 -.75em;
+						padding: .25em 0;
+						display: block;
+
+						li {
+							display: inline-block;
+							padding: 0 .75em;
+						}
+					}
+				}
 			}
 		}
 	}

@@ -72,7 +72,7 @@ fieldset ul, fieldset .inputList {
 //***************************************************************************************************/
 
 .False {
-	color: lighten($neutral-dark, 45%);
+	color: $demphasized-text-color;
 }
 
 td.bool {

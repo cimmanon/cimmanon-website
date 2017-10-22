@@ -85,7 +85,7 @@ projectRoutes p =
 		]
 	where
 		componentRoutes (Just c) (Just d) =
-			Component.get p c d >>= maybeH (\c' -> withSplices ("isComponent" ## runChildrenWith $ componentSplices c') $ route
+			Component.get p c d >>= maybeH (\c' -> withSplices (do "isComponent" ## showContents; componentSplices c') $ route
 				[ ("/", ifTop $ editComponentH p c')
 				, ("/images", ifTop $ componentImagesH p c')
 				, ("/upload", ifTop $ uploadImagesH p c')

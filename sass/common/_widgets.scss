@@ -32,7 +32,7 @@
 
 // should this be restricted to only within headers?
 // or maybe to unordered lists?
-header .tags {
+%minor-navigation, header .tags {
 	$spacing: .75em;
 	margin-top: 0;
 

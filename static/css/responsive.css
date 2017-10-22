@@ -262,7 +262,7 @@ fieldset ul, fieldset .inputList {
 }
 
 .False {
-  color: #c5bab5;
+  color: #aea098;
 }
 
 td.bool {
@@ -734,45 +734,68 @@ main > h1 + *, .major-section > h1 + *, article.major > h1 + *, section.major > 
   text-align: center;
 }
 
-.admin > nav {
-  -ms-flex: 1 1 8em;
-  -webkit-flex: 1 1 8em;
-  flex: 1 1 8em;
-  -moz-columns: 10em;
-  -webkit-columns: 10em;
-  columns: 10em;
+.admin {
+  max-width: 50em;
+  margin-left: auto;
+  margin-right: auto;
 }
-.admin > nav ul ul {
-  margin-top: 0;
+.admin nav > ol {
+  padding-left: 0;
+  list-style: none;
+  color: #aea098;
+  margin-right: -1.5em;
 }
-.admin > article {
-  margin-top: 0;
-  -ms-flex: 3 1 34em;
-  -webkit-flex: 3 1 34em;
-  flex: 3 1 34em;
+.admin nav > ol > li {
+  display: inline-block;
+  position: relative;
+  padding-right: 1.5em;
 }
-@media (max-width: 55em) {
-  .admin > nav {
-    padding-bottom: 2em;
-    border-bottom: 2px dotted #EBE5DA;
-  }
-  .admin > article {
-    margin-top: 2em;
-  }
+.admin nav > ol > li span:before {
+  content: "\25b8";
+  display: inline;
 }
-@media (min-width: 55em) {
-  .admin {
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-  }
+.admin nav > ol > li:hover span:before {
+  content: "\25BE";
 }
-@media (min-width: 55em) and (min-width: 55em) {
-  .admin > nav {
-    border-right: 2px dotted #EBE5DA;
-    padding-right: 2em;
-    margin-right: 2em;
-  }
+.admin nav > ol > li:not(:last-child) {
+  z-index: 1;
+}
+.admin nav > ol > li:not(:last-child) ul {
+  display: none;
+  position: absolute;
+  margin: 0;
+  padding: .5em 1em .5em 1.5em;
+  border-radius: .5em;
+  background: #fffffc;
+  border: 1px solid;
+  white-space: nowrap;
+  z-index: 2;
+}
+.admin nav > ol > li:not(:last-child):hover {
+  color: #534741;
+}
+.admin nav > ol > li:not(:last-child):hover ul {
+  display: block;
+}
+.admin nav > ol > li:last-child {
+  display: block;
+  color: #534741;
+}
+.admin nav > ol > li:last-child span {
+  font: 700 1.5625em Optima, Candara, Segoe, "Segoe UI", Arial, sans-serif;
+}
+.admin nav > ol > li:last-child:before, .admin nav > ol > li:last-child span:before {
+  display: none;
+}
+.admin nav > ol > li:last-child ul {
+  padding-left: 0;
+  margin: 0 -.75em;
+  padding: .25em 0;
+  display: block;
+}
+.admin nav > ol > li:last-child ul li {
+  display: inline-block;
+  padding: 0 .75em;
 }
 
 @media not print {
