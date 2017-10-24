@@ -5,7 +5,7 @@ module Util.Digestive where
 import Control.Arrow (second, first)
 import Control.Monad.Trans
 import qualified Data.Text as T
-import Text.Digestive.Heist
+import Text.Digestive.Heist hiding (dfSubView)
 import Text.Digestive.Heist.Extras
 import Heist
 import Heist.Interpreted
@@ -15,6 +15,7 @@ import Data.Monoid ((<>))
 --import Text.Digestive.Form (disable)
 --import Text.Digestive.Form.List
 import Text.Digestive.View
+import Text.Digestive.Heist.Extras.Internal.Attribute (getRefAttributes)
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Validation
@@ -29,10 +30,13 @@ notEmptyText _ = False
 }----------------------------------------------------------------------------------------------------}
 
 digestiveSplicesCustom :: MonadIO m => View T.Text -> Splices (Splice m)
-digestiveSplicesCustom = digestiveSplices' splices
+digestiveSplicesCustom = splices
 	where
 		splices v = do
+			digestiveSplices v
 			"dfPath" ## dfPath v
+			"dfSubView" ## dfSubView splices v
+			"dfInputList" ## dfInputListCustom digestiveSplicesCustom v
 			"dfScriptValues" ## dfScriptValues v
 			"dfPlainText" ## dfPlainText v
 			"dfCustomText" ## dfCustomText v

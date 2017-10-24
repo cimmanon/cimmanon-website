@@ -13,8 +13,8 @@ If you actually want to try running it, you'll need GHC installed.  You'll also 
 * [postgresql-simple-tuple](https://github.com/cimmanon/postgresql-simple-tuple)
 * [snap-handlers](https://github.com/cimmanon/snap-handlers)
 * [camellia-splices](https://github.com/cimmanon/camellia-splices)
-* [digestive-functors](https://github.com/cimmanon/digestive-functors) (requires midifications from the `custom-splices` and `choice-multiple` branchs)
-
+* [digestive-functors](https://github.com/cimmanon/digestive-functors) (requires modifications from the `choice-default` and `clean-choice-values` branchs)
+* [digestive-functors-heist-extras](https://github.com/cimmanon/digestive-functors-heist-extras)
 
 I *think* this should install everything correctly:
 
