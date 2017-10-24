@@ -46,7 +46,10 @@ BEGIN
 		END IF;
 
 		IF NEW.tags IS DISTINCT FROM OLD.tags THEN
-			DELETE FROM project_tags WHERE (project, type, date_added) = (NEW.project, NEW.type, NEW.date_added);
+			DELETE FROM project_tags
+			WHERE
+				(project, type, date_added) = (NEW.project, NEW.type, NEW.date_added)
+				AND tag != ANY(NEW.tags);
 		END IF;
 	END IF;
 
@@ -59,7 +62,9 @@ BEGIN
 			, NEW.date_added
 			, tag
 		FROM
-			unnest(NEW.tags) AS x(tag);
+			unnest(NEW.tags) AS x(tag)
+		EXCEPT
+		SELECT project, type, date_added, tag FROM project_tags WHERE (project, type, date_added) = (NEW.project, NEW.type, NEW.date_added);
 	END IF;
 
 	RETURN NEW;
