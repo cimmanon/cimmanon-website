@@ -38,9 +38,9 @@
 						position: absolute;
 						margin: 0;
 						padding: .5em 1em .5em 1.5em;
-						border-radius: .5em;
-						background: $neutral-light;
-						border: 1px solid;
+						//border-radius: .5em;
+						background: $pink-light;
+						border: 1px solid $neutral-medium;
 						white-space: nowrap;
 						// TODO: fix this when the parent elements are stacked vertically due to wrapping,
 						// the drop menu for the first element is inaccessible
@@ -49,6 +49,7 @@
 
 					&:hover {
 						color: $neutral-dark;
+						//background: $neutral-medium;
 
 						ul {
 							display: block;

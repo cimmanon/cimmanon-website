@@ -769,9 +769,8 @@ main > h1 + *, .major-section > h1 + *, article.major > h1 + *, section.major > 
   position: absolute;
   margin: 0;
   padding: .5em 1em .5em 1.5em;
-  border-radius: .5em;
-  background: #fffffc;
-  border: 1px solid;
+  background: #fff5fb;
+  border: 1px solid #EBE5DA;
   white-space: nowrap;
   z-index: 2;
 }
