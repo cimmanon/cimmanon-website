@@ -30,18 +30,16 @@ notEmptyText _ = False
 }----------------------------------------------------------------------------------------------------}
 
 digestiveSplicesCustom :: MonadIO m => View T.Text -> Splices (Splice m)
-digestiveSplicesCustom = splices
-	where
-		splices v = do
-			digestiveSplices v
-			"dfPath" ## dfPath v
-			"dfSubView" ## dfSubView splices v
-			"dfInputList" ## dfInputListCustom digestiveSplicesCustom v
-			"dfScriptValues" ## dfScriptValues v
-			"dfPlainText" ## dfPlainText v
-			"dfCustomText" ## dfCustomText v
-			"dfCustomChoice" ## dfCustomChoice v
-			"dfInputListCustom" ## dfInputListCustom' digestiveSplicesCustom v
+digestiveSplicesCustom v = do
+	digestiveSplices v
+	"dfPath" ## dfPath v
+	"dfSubView" ## dfSubView digestiveSplicesCustom v
+	"dfInputList" ## dfInputListCustom digestiveSplicesCustom v
+	"dfScriptValues" ## dfScriptValues v
+	"dfPlainText" ## dfPlainText v
+	"dfCustomText" ## dfCustomText v
+	"dfCustomChoice" ## dfCustomChoice v
+	"dfInputListCustom" ## dfInputListCustom' digestiveSplicesCustom v
 
 dfInputListCustom' :: MonadIO m => (View T.Text -> Splices (Splice m)) -> View T.Text -> Splice m
 dfInputListCustom' splices view =
