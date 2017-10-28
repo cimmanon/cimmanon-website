@@ -5,12 +5,11 @@ module Splices where
 ------------------------------------------------------------------------------
 
 import qualified Data.Text as T
-import Heist (getParamNode, localHS, AttrSplice)
+import Heist (localHS, AttrSplice)
 import Heist.Interpreted
 import Heist.SpliceAPI
 --import qualified Text.XmlHtml as X
 
-import Control.Monad.IO.Class (MonadIO)
 --import Data.Functor
 import Data.Maybe (mapMaybe)
 import Data.Monoid (mempty)
@@ -42,14 +41,9 @@ generalSplices =
 bindSplices' :: Monad m => Splices (AttrSplice m) -> Splices (Splice m) -> Splice m
 bindSplices' attrSplices splices = localHS (bindAttributeSplices attrSplices) $ runChildrenWith splices
 
-maybeSplice' :: Monad m => (a -> Splice m) -> Maybe a -> Splice m
-maybeSplice' splice x = runChildrenWith $ case x of
-	Just x -> do
-		"yes" ## splice x
-		"no" ## hideContents
-	Nothing -> do
-		"yes" ## hideContents
-		"no" ## showContents
+ifMaybeSpliceWith :: Monad m => (a -> Splice m) -> Maybe a -> Splice m
+ifMaybeSpliceWith splice (Just x) = ifSpliceWith True (splice x) hideContents
+ifMaybeSpliceWith _ Nothing = ifSplice False
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Project Splices

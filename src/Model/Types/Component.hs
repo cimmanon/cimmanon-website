@@ -6,7 +6,7 @@ import Data.Time.Calendar (Day)
 import Snap.Snaplet.PostgresqlSimple
 import Database.PostgreSQL.Simple.ToField
 
-import Util.Database
+import Util.Database ()
 
 ----------------------------------------------------------------------
 

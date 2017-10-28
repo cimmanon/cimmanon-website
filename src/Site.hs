@@ -29,7 +29,7 @@ import Snap.Snaplet.PostgresqlSimple
 import Application
 import Splices
 
-import Text.Digestive.Heist
+--import Text.Digestive.Heist
 import Snap.Handlers
 import Heist.Splices.Camellia
 import Util.Digestive
@@ -193,7 +193,7 @@ adminComponentsH p = do
 	where
 		splices (c, i) = do
 			componentSplices c
-			"image" ## maybeSplice' (runChildrenWith . imageSplices) i
+			"image" ## ifMaybeSpliceWith (runChildrenWith . imageSplices) i
 
 addComponentH :: Project.Project -> AppHandler ()
 addComponentH p = do

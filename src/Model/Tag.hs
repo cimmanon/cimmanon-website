@@ -8,7 +8,6 @@ module Model.Tag
 	) where
 
 import Control.Applicative
-import Control.Arrow (second)
 --import Data.Monoid ((<>))
 import Snap.Snaplet.PostgresqlSimple
 

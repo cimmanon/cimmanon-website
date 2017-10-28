@@ -65,7 +65,7 @@ updateForm xs = ( , )
 		-- Digestive Functors doesn't play nicely with periods appearing in the value
 		choices = map (toChoice filename filename filename) xs
 		current = filename <$> find featured xs
-		removeKeeps xs = Success $ map fst $ filter snd xs
+		removeKeeps = Success . map fst . filter snd
 		imageForm x = (\n _ _ d -> (n, d))
 			<$> "filename" .: text (filename <$> x)
 			<*> "width" .: string (show . width <$> x)

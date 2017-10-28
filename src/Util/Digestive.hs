@@ -2,7 +2,6 @@
 
 module Util.Digestive where
 
-import Control.Arrow (second, first)
 import Control.Monad.Trans
 import qualified Data.Text as T
 import Text.Digestive.Heist hiding (dfSubView)

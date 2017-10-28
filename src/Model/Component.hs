@@ -24,6 +24,7 @@ import Data.Text (Text, pack)
 import Data.Time.Calendar
 import Text.Digestive
 import Database.PostgreSQL.Simple.Tuple
+
 import Util.Database
 import Util.Digestive
 
