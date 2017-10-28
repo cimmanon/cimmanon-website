@@ -70,12 +70,3 @@ textToChoice = toChoice id id id
 
 toChoice :: (a -> T.Text) -> (a -> b) -> (a -> T.Text) -> a -> (T.Text, (b, T.Text))
 toChoice toIdentity toValue toLabel x = (toIdentity x, (toValue x, toLabel x))
-
-toOptionalChoices :: [(T.Text, (a, T.Text))] -> [(T.Text, (Maybe a, T.Text))]
-toOptionalChoices xs = ("all", (Nothing, "- All -")) : map (second (first Just)) xs
-
-boolChoices :: [(T.Text, (Maybe Bool, T.Text))]
-boolChoices = toOptionalChoices [("yes", (True, "Yes")), ("no", (False, "No"))]
-
-scoreChoices :: [(T.Text, (Int, T.Text))]
-scoreChoices = map (toChoice (T.pack . show) id (T.pack . show)) [1..10]
