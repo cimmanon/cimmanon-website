@@ -2,8 +2,14 @@
 
 module Util.Digestive where
 
+import Control.Arrow (second)
+import Control.Applicative
 import Control.Monad.Trans
+import Data.List ((\\))
+import Data.Maybe (isJust, isNothing, mapMaybe, fromJust)
+import Data.Monoid (Monoid)
 import qualified Data.Text as T
+import Text.Digestive
 import Text.Digestive.Heist hiding (dfSubView)
 import Text.Digestive.Heist.Extras
 import Heist
@@ -69,3 +75,35 @@ textToChoice = toChoice id id id
 
 toChoice :: (a -> T.Text) -> (a -> b) -> (a -> T.Text) -> a -> (T.Text, (b, T.Text))
 toChoice toIdentity toValue toLabel x = (toIdentity x, (toValue x, toLabel x))
+
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Forms
+}----------------------------------------------------------------------------------------------------}
+
+maybeList :: [a] -> Maybe [a]
+maybeList [] = Nothing
+maybeList xs = Just xs
+
+nameForm :: (Monad m, Monoid v) => Maybe T.Text -> Form v m T.Text
+nameForm x = "name" .: text x
+
+-- simple list form where the primary key for editing the record is part of the element's original contents
+itemsForm :: (Monad m, Monoid v, Eq b) => (a -> b) -> (Maybe a -> Form v m a) -> Maybe [a] -> Form v m ([(a, Maybe b)], [b])
+itemsForm extractKey form xs = validate validateItems $ listOf itemForm xs
+	where
+		itemForm x = ( , )
+			<$> form x
+			<*> "primary_key" .: pure (extractKey <$> x)
+		validateItems ys = Success (ys, maybe [] (map extractKey) xs \\ mapMaybe snd ys)
+
+extractInserts :: [(a, Maybe b)] -> [a]
+extractInserts = map fst . filter (isNothing . snd)
+
+extractUpdates :: [(a, Maybe b)] -> [(a, b)]
+extractUpdates = map (second fromJust) . filter (isJust . snd)
+
+extractRenames :: Eq a => [(a, Maybe a)] -> [(a, a)]
+extractRenames = map (second fromJust) . filter isEdit
+	where
+		isEdit (a, Just b) = a /= b
+		isEdit _ = False
