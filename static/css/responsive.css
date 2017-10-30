@@ -738,6 +738,34 @@ main > h1 + *, .major-section > h1 + *, article.major > h1 + *, section.major > 
   text-align: center;
 }
 
+.admin nav > ol > li > span:before, .admin nav > ol > li:last-child > ul > li > span:before {
+  content: "\25b8";
+  display: inline;
+}
+.admin nav > ol > li:hover > span:before, .admin nav > ol > li:last-child > ul > li:hover > span:before {
+  content: "\25BE";
+}
+
+.admin nav > ol > li:not(:last-child), .admin nav > ol > li:last-child > ul > li {
+  position: relative;
+}
+.admin nav > ol > li:not(:last-child) ul, .admin nav > ol > li:last-child > ul > li ul {
+  display: none;
+  position: absolute;
+  margin: 0;
+  padding: .5em 1em .5em 1.5em;
+  background: #fff5fb;
+  border: 1px solid #EBE5DA;
+  white-space: nowrap;
+  z-index: 2;
+}
+.admin nav > ol > li:hover:not(:last-child), .admin nav > ol > li:last-child > ul > li:hover {
+  color: #534741;
+}
+.admin nav > ol > li:hover:not(:last-child) > ul, .admin nav > ol > li:last-child > ul > li:hover > ul {
+  display: block;
+}
+
 .admin {
   max-width: 50em;
   margin-left: auto;
@@ -754,49 +782,26 @@ main > h1 + *, .major-section > h1 + *, article.major > h1 + *, section.major > 
   position: relative;
   padding-right: 1.5em;
 }
-.admin nav > ol > li span:before {
-  content: "\25b8";
-  display: inline;
-}
-.admin nav > ol > li:hover span:before {
-  content: "\25BE";
-}
 .admin nav > ol > li:not(:last-child) {
   z-index: 1;
-}
-.admin nav > ol > li:not(:last-child) ul {
-  display: none;
-  position: absolute;
-  margin: 0;
-  padding: .5em 1em .5em 1.5em;
-  background: #fff5fb;
-  border: 1px solid #EBE5DA;
-  white-space: nowrap;
-  z-index: 2;
-}
-.admin nav > ol > li:not(:last-child):hover {
-  color: #534741;
-}
-.admin nav > ol > li:not(:last-child):hover ul {
-  display: block;
 }
 .admin nav > ol > li:last-child {
   display: block;
   color: #534741;
 }
-.admin nav > ol > li:last-child span {
+.admin nav > ol > li:last-child > span {
   font: 700 1.5625em Optima, Candara, Segoe, "Segoe UI", Arial, sans-serif;
 }
 .admin nav > ol > li:last-child:before, .admin nav > ol > li:last-child span:before {
   display: none;
 }
-.admin nav > ol > li:last-child ul {
+.admin nav > ol > li:last-child > ul {
   padding-left: 0;
   margin: 0 -.75em;
   padding: .25em 0;
   display: block;
 }
-.admin nav > ol > li:last-child ul li {
+.admin nav > ol > li:last-child > ul > li {
   display: inline-block;
   padding: 0 .75em;
 }

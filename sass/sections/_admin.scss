@@ -1,3 +1,45 @@
+%drop-menu-markers {
+	// arrows indicators for sub-menus
+	// "closed"
+	> span:before {
+		content: "\25b8"; // black right-pointing small triangle
+		//content: "\25c2"; // black left-pointing small triangle
+		display: inline;
+	}
+
+	// "open"
+	&:hover > span:before {
+		content: "\25BE"; // black down-pointing small triangle
+	}
+}
+
+%drop-menu {
+	position: relative;
+
+	ul {
+		display: none;
+		position: absolute;
+		margin: 0;
+		padding: .5em 1em .5em 1.5em;
+		//border-radius: .5em;
+		background: $pink-light;
+		border: 1px solid $neutral-medium;
+		white-space: nowrap;
+		// TODO: fix this when the parent elements are stacked vertically due to wrapping,
+		// the drop menu for the first element is inaccessible
+		z-index: 2;
+	}
+
+	&:hover {
+		color: $neutral-dark;
+		//background: $neutral-medium;
+
+		> ul {
+			display: block;
+		}
+	}
+}
+
 .admin {
 	max-width: 50em;
 	margin-left: auto;
@@ -16,45 +58,13 @@
 				position: relative;
 				padding-right: 1.5em;
 
-				// arrows indicators for sub-menus
-				// "closed"
-				span:before {
-					content: "\25b8"; // black right-pointing small triangle
-					//content: "\25c2"; // black left-pointing small triangle
-					display: inline;
-				}
-
-				// "open"
-				&:hover span:before {
-					content: "\25BE"; // black down-pointing small triangle
-				}
+				@extend %drop-menu-markers;
 
 				// non last-child elements get a drop menu and are de-emphasized
 				&:not(:last-child) {
 					z-index: 1;
 
-					ul {
-						display: none;
-						position: absolute;
-						margin: 0;
-						padding: .5em 1em .5em 1.5em;
-						//border-radius: .5em;
-						background: $pink-light;
-						border: 1px solid $neutral-medium;
-						white-space: nowrap;
-						// TODO: fix this when the parent elements are stacked vertically due to wrapping,
-						// the drop menu for the first element is inaccessible
-						z-index: 2;
-					}
-
-					&:hover {
-						color: $neutral-dark;
-						//background: $neutral-medium;
-
-						ul {
-							display: block;
-						}
-					}
+					@extend %drop-menu;
 				}
 
 				// the last-child has a permanently open bar across the bottom and is emphasized
@@ -62,7 +72,7 @@
 					display: block;
 					color: $neutral-dark;
 
-					span {
+					> span {
 						font: 700 ms(2) $optima;
 					}
 
@@ -70,15 +80,20 @@
 						display: none;
 					}
 
-					ul {
+					> ul {
 						padding-left: 0;
 						margin: 0 -.75em;
 						padding: .25em 0;
 						display: block;
 
-						li {
+						> li {
 							display: inline-block;
 							padding: 0 .75em;
+
+							@extend %drop-menu-markers;
+							@extend %drop-menu;
+
+							// TODO: fix nested drop-menus
 						}
 					}
 				}
