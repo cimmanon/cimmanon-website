@@ -5,6 +5,7 @@ module Util.Database
 	, sqlFile
 	, toEither
 	, toEither'
+	, manyEithers
 	, ConstraintViolation
 	) where
 
@@ -41,6 +42,15 @@ instance (FromField a, Typeable a) => FromField [a] where
 	fromField f v = fromPGArray <$> fromField f v
 
 ---------------------------------------------------------------------- | Stuff that will go in a library
+
+-- the purpose of this function is to chain a series of Eithers together.
+-- When a Left is encountered, we stop and return the Left.  Otherwise, we
+-- return the Right.  This way, we get a useful error message rather than a
+-- useless error about the transaction being aborted
+manyEithers :: Monad m => [m (Either a b)] -> m (Either a b)
+manyEithers [] = undefined
+manyEithers (x:[]) = x
+manyEithers (x:xs) = x >>= either (return . Left) (const (manyEithers xs))
 
 catchViolation' :: (MonadCatchIO m) => (SqlError -> ConstraintViolation -> m a) -> m a -> m a
 catchViolation' f m = catch m (\e -> maybe (throw e) (f e) $ constraintViolation e)
