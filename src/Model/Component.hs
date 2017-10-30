@@ -78,13 +78,6 @@ tagsForm haystack needle group = fmap snd $ ( , )
 		toChoice' = toChoice id id id
 		toGroupedChoice (x, xs) = (x, map toChoice' xs)
 
-----------------------------------------------------------------------
-
-componentTypeForm :: (Monad m, Functor m) => Form Text m (Maybe Text, [Text])
-componentTypeForm = ( , )
-	<$> "add" .: optionalText Nothing
-	<*> pure []
-
 {----------------------------------------------------------------------------------------------------{
                                                                        | Queries
 }----------------------------------------------------------------------------------------------------}
