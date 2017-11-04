@@ -110,10 +110,11 @@ componentSplices c = do
                                                                       | Tag Splices
 }----------------------------------------------------------------------------------------------------}
 
-tagCategorySplices :: Monad m => Tag.Category -> Splices (Splice m)
-tagCategorySplices c = do
-	"name" ## textSplice $ Tag.category c
-	"tag" ## listSplice "name" $ Tag.tags c
+tagSplices :: Monad m => Tag.Tag -> Splices (Splice m)
+tagSplices c = do
+	"component_type" ## textSplice $ Tag.componentType c
+	"tag" ## textSplice $ Tag.tag c
+	"category" ## textSplice $ Tag.category c
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Image Splices

@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings, QuasiQuotes, FlexibleInstances #-}
 
 module Model.Tag
-	( Category(..)
+	( Tag(..)
 	, list
 	, groupedByCategory
 	, groupedByType
@@ -21,13 +21,14 @@ import Util.Database
                                                                        | Records
 }----------------------------------------------------------------------------------------------------}
 
-data Category = Category
-	{ category :: Text
-	, tags :: [Text]
+data Tag = Tag
+	{ componentType :: Text
+	, tag :: Text
+	, category :: Text
 	} deriving (Show, Eq)
 
-instance FromRow Category where
-	fromRow = Category <$> field <*> field
+instance FromRow Tag where
+	fromRow = Tag <$> field <*> field <*> field
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Forms
@@ -39,8 +40,8 @@ instance FromRow Category where
                                                                        | Queries
 }----------------------------------------------------------------------------------------------------}
 
-list :: (HasPostgres m, Functor m) => m [Category]
-list = query_ [sqlFile|sql/portfolio/tag_list.sql|]
+list :: (HasPostgres m, Functor m) => m [Tag]
+list = query_ [sqlFile|sql/portfolio/settings/tags/list.sql|]
 
 groupedByCategory :: HasPostgres m => m [(Text, [Text])]
 groupedByCategory = query_ [sqlFile|sql/portfolio/tag_list.sql|]
