@@ -40,6 +40,7 @@ digestiveSplicesCustom v = do
 	"dfPath" ## dfPath v
 	"dfSubView" ## dfSubView digestiveSplicesCustom v
 	"dfInputList" ## dfInputListCustom digestiveSplicesCustom v
+	"dfInputListStatic" ## dfInputListStatic digestiveSplicesCustom v
 	"dfScriptValues" ## dfScriptValues v
 	"dfPlainText" ## dfPlainText v
 	"dfCustomText" ## dfCustomText v
