@@ -46,6 +46,15 @@ ifMaybeSpliceWith splice (Just x) = ifSpliceWith True (splice x) hideContents
 ifMaybeSpliceWith _ Nothing = ifSplice False
 
 {----------------------------------------------------------------------------------------------------{
+                                                                      | Generic Splices
+}----------------------------------------------------------------------------------------------------}
+
+groupedListSplice :: Monad m => T.Text -> (T.Text, [T.Text]) -> Splice m
+groupedListSplice tag (x, ys) = runChildrenWith $ do
+	"name" ## textSplice x
+	tag ## listSplice "name" ys
+
+{----------------------------------------------------------------------------------------------------{
                                                                       | Project Splices
 }----------------------------------------------------------------------------------------------------}
 

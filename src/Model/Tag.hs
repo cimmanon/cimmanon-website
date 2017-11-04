@@ -42,7 +42,7 @@ instance FromRow Category where
 list :: (HasPostgres m, Functor m) => m [Category]
 list = query_ [sqlFile|sql/portfolio/tag_list.sql|]
 
-groupedByCategory :: HasPostgres m => m [Category]
+groupedByCategory :: HasPostgres m => m [(Text, [Text])]
 groupedByCategory = query_ [sqlFile|sql/portfolio/tag_list.sql|]
 
 groupedByType :: HasPostgres m => m [(Text, [Text])]
