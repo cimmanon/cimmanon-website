@@ -3,7 +3,7 @@
 module Model.Tag
 	( Category(..)
 	, list
-	, listByType
+	, groupedByCategory
 	, groupedByType
 	) where
 
@@ -42,8 +42,8 @@ instance FromRow Category where
 list :: (HasPostgres m, Functor m) => m [Category]
 list = query_ [sqlFile|sql/portfolio/tag_list.sql|]
 
-listByType :: (HasPostgres m, Functor m) => Text -> m [Text]
-listByType c = map fromOnly <$> query "SELECT tag FROM portfolio.project_type_tags WHERE type = ?" (Only c)
+groupedByCategory :: HasPostgres m => m [Category]
+groupedByCategory = query_ [sqlFile|sql/portfolio/tag_list.sql|]
 
 groupedByType :: HasPostgres m => m [(Text, [Text])]
 groupedByType = query_ "SELECT type, array_agg(tag :: text ORDER BY category, tag) FROM portfolio.project_type_tags GROUP BY type ORDER BY type"

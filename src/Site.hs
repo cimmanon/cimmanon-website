@@ -147,7 +147,7 @@ listByH handler xs =
 
 byTagH :: AppHandler ()
 byTagH = do
-	tags <- Tag.list
+	tags <- Tag.groupedByCategory
 	renderWithSplices "projects/by_tag" $ "category" ## listToSplice tagCategorySplices tags
 
 byYearH :: AppHandler ()
