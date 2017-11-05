@@ -23,14 +23,16 @@ CREATE TRIGGER update_local_archive_path
 
 CREATE OR REPLACE FUNCTION project_images_unset_featured() RETURNS TRIGGER AS $$
 BEGIN
-	UPDATE project_images
-	SET
-		featured = false
-	WHERE
-		project = NEW.project
-		AND type = NEW.type
-		AND date_added = NEW.date_added
-		AND featured = true;
+	IF NEW.featured AND (TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND NEW.featured IS DISTINCT FROM OLD.featured)) THEN
+		UPDATE project_images
+		SET
+			featured = false
+		WHERE
+			project = NEW.project
+			AND type = NEW.type
+			AND date_added = NEW.date_added
+			AND featured = true;
+	END IF;
 
 	RETURN NEW;
 END;
@@ -41,5 +43,4 @@ DROP TRIGGER IF EXISTS project_images_unset_featured ON project_images;
 CREATE TRIGGER project_images_unset_featured
 	BEFORE INSERT OR UPDATE ON project_images
 	FOR EACH ROW
-	WHEN (NEW.featured = true)
 	EXECUTE PROCEDURE project_images_unset_featured();
