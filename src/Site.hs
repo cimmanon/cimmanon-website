@@ -193,8 +193,9 @@ adminTagsH = do
 	tags <- Tag.adminList
 	case tags of
 		[] -> redirect "/admin/settings/component-types"
-		_ -> processForm "form" (Tag.tagsForm tags) (Tag.admin)
-			(renderWithSplices "/settings/tags" . digestiveSplicesCustom) (const redirectToSelf)
+		_ -> catchEmptyChoice (redirect "/admin/settings/tag-categories") $
+			processForm "form" (Tag.tagsForm tags) (Tag.admin)
+				(renderWithSplices "/settings/tags" . digestiveSplicesCustom) (const redirectToSelf)
 
 --------------------------------------------------------------------- | Projects
 
@@ -227,9 +228,10 @@ adminComponentsH p = do
 addComponentH :: Project.Project -> AppHandler ()
 addComponentH p = do
 	defaultType <- maybe "" (T.replace "form.type." "") <$> textParam "form.type"
-	processForm "form" (Component.componentForm (Left defaultType)) (Component.add p)
-		(renderWithSplices "/components/add" . digestiveSplicesCustom)
-		(\c' -> redirect $ "./" <> T.encodeUtf8 (Component.typ c') <> "/" <> B.pack (show $ Component.date c') <> "/images")
+	catchEmptyChoice (redirect "/admin/settings/component-types") $
+		processForm "form" (Component.componentForm (Left defaultType)) (Component.add p)
+			(renderWithSplices "/components/add" . digestiveSplicesCustom)
+			(\c' -> redirect $ "./" <> T.encodeUtf8 (Component.typ c') <> "/" <> B.pack (show $ Component.date c') <> "/images")
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = do

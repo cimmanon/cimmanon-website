@@ -52,7 +52,8 @@ Executable cimmanon
     old-locale,
     directory,
     filepath,
-    JuicyPixels
+    JuicyPixels,
+    MonadCatchIO-transformers
 --    smtp-mail,
 --    digestive-functors-aeson,
 --    aeson

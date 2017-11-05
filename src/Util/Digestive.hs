@@ -1,9 +1,11 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, ScopedTypeVariables #-}
 
 module Util.Digestive where
 
 import Control.Arrow (second)
 import Control.Applicative
+import Control.Exception.Base (SomeException)
+import Control.Monad.CatchIO (MonadCatchIO, try, throw)
 import Control.Monad.Trans
 import Data.List ((\\))
 import Data.Maybe (isJust, isNothing, mapMaybe, fromJust)
@@ -108,3 +110,15 @@ extractRenames = map (second fromJust) . filter isEdit
 	where
 		isEdit (a, Just b) = a /= b
 		isEdit _ = False
+
+{----------------------------------------------------------------------------------------------------{
+                                                                      | Error Handling
+}----------------------------------------------------------------------------------------------------}
+
+catchEmptyChoice :: (MonadCatchIO m, Functor m) => m () -> m () -> m ()
+catchEmptyChoice handler action = do
+	res' :: Either SomeException () <- try action
+	case res' of
+		Left e | show e == "choice expects a list with at least one item in it" -> handler
+		Left e -> throw e
+		Right r -> return r

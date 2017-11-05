@@ -67,7 +67,7 @@ componentForm c = monadic $ do
 
 tagsForm :: (Monad m, Functor m) => [(Text, [Text])] -> [Text] -> Maybe Text -> Form Text m [Text]
 tagsForm haystack needle group = fmap snd $ ( , )
-	<$> "allTags" .: groupedChoiceWith (map toGroupedChoice haystack) Nothing
+	<$> "allTags" .: groupedChoiceWithMultiple (map toGroupedChoice haystack) Nothing
 	<*> "tags" .: choiceWithMultiple (map toChoice' $ fromMaybe defaultTags currentTags) (Just needle)
 	where
 		-- TODO: make this safe
