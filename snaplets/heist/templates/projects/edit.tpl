@@ -1,4 +1,4 @@
-<bind tag="pageTitle">Edit Project: <name>Project Name</name></bind>
+<bind tag="pageTitle">Edit <name>Project Name</name></bind>
 <apply template="/_admin">
 <h1>Edit Project</h1>
 
