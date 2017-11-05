@@ -28,7 +28,7 @@
 			<td><dfPlainText ref="filename">example.jpg</dfPlainText></td>
 			<td class="numeric"><dfPlainText ref="width">480</dfPlainText>px</td>
 			<td class="numeric"><dfPlainText ref="height">320</dfPlainText>px</td>
-			<td class="fixed"><label><dfGroupRadioChoice ref="filename" checked="featured" /> Featured</label></td>
+			<td class="fixed"><label><dfGroupRadioText ref="filename" checked="featured" /> Featured</label></td>
 			<td class="fixed"><label><dfInputCheckbox ref="delete" /> Delete</label></td>
 		</tr></dfListItem>
 	</tbody>

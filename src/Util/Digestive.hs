@@ -54,7 +54,7 @@ dfInputListCustom' splices view =
 	let
 		splices' v = do
 			splices v
-			"dfGroupRadioChoice" ## dfGroupRadioChoice view v
+			"dfGroupRadioText" ## dfGroupRadioText view v
 	in
 		dfInputListCustom splices' view
 

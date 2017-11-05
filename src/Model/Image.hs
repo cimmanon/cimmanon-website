@@ -58,12 +58,9 @@ uploadForm = "file" .: fileMultiple
 
 updateForm :: Monad m => [Image] -> Form Text m (Text, [Text])
 updateForm xs = ( , )
-	<$> "featured" .: choiceWith choices current
+	<$> "featured" .: text current
 	<*> "images" .: validate removeKeeps (listOf imageForm (Just xs))
 	where
-		-- note that we're using `choice` instead of `choiceWith`
-		-- Digestive Functors doesn't play nicely with periods appearing in the value
-		choices = map (toChoice filename filename filename) xs
 		current = filename <$> find featured xs
 		removeKeeps = Success . map fst . filter snd
 		imageForm x = (\n _ _ d -> (n, d))
