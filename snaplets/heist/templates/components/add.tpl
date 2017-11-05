@@ -1,6 +1,6 @@
 <bind tag="pageTitle">Add <name>Project Name</name> Component</bind>
 <apply template="/_admin">
-	<h1><pageTitle /></h1>
+	<h1>Add Component</h1>
 
 	<dfForm class="simplified">
 		<dfChildErrorList class="dialog error" />
