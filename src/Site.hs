@@ -70,6 +70,7 @@ adminRoutes = withSplices aSplices $ route
 	[ ("/", ifTop $ redirect "./projects/")
 	, ("/settings/component-types/", ifTop adminComponentTypesH)
 	, ("/settings/tag-categories/", ifTop adminTagCategoriesH)
+	, ("/settings/tags/", ifTop adminTagsH)
 	, ("/projects/", ifTop adminProjectsH)
 	, ("/projects/add", ifTop addProjectH)
 	, ("/projects/:slug/", modelH textParam "slug" Project.get projectRoutes)
@@ -186,6 +187,12 @@ adminTagCategoriesH = do
 	categories <- TagCategory.list
 	processForm "form" (TagCategory.tagCategoryForm categories) (TagCategory.admin)
 		(renderWithSplices "/settings/tag_categories" . digestiveSplicesCustom) (const redirectToSelf)
+
+adminTagsH :: AppHandler ()
+adminTagsH = do
+	tags <- Tag.adminList
+	processForm "form" (Tag.tagsForm tags) (Tag.admin)
+		(renderWithSplices "/settings/tags" . digestiveSplicesCustom) (const redirectToSelf)
 
 --------------------------------------------------------------------- | Projects
 

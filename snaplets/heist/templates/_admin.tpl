@@ -12,7 +12,7 @@
 							<ul>
 								<li><a href="/admin/settings/component-types">Component Types</a></li>
 								<li><a href="/admin/settings/tag-categories">Tag Categories</a></li>
-								<li>Tags</li>
+								<li><a href="/admin/settings/tags">Tags</a></li>
 							</ul>
 						</li>
 						<li><a href="/admin/reload">Reload Templates</a></li>
