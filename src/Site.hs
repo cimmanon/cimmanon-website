@@ -181,13 +181,15 @@ adminComponentTypesH :: AppHandler ()
 adminComponentTypesH = do
 	components <- ComponentType.list
 	processForm "form" (ComponentType.componentTypeForm components) (ComponentType.admin)
-		(renderWithSplices "/settings/component_types" . digestiveSplicesCustom) (const redirectToSelf)
+		(renderWithSplices "/settings/component_types" . digestiveSplicesCustom)
+		(\_ -> do flashSuccess sess "Component types successfully updated"; redirectToSelf)
 
 adminTagCategoriesH :: AppHandler ()
 adminTagCategoriesH = do
 	categories <- TagCategory.list
 	processForm "form" (TagCategory.tagCategoryForm categories) (TagCategory.admin)
-		(renderWithSplices "/settings/tag_categories" . digestiveSplicesCustom) (const redirectToSelf)
+		(renderWithSplices "/settings/tag_categories" . digestiveSplicesCustom)
+		(\_ -> do flashSuccess sess "Tag categories successfully updated"; redirectToSelf)
 
 adminTagsH :: AppHandler ()
 adminTagsH = do
@@ -202,7 +204,8 @@ adminTagsH = do
 				redirect "/admin/settings/tag-categories"
 				) $
 			processForm "form" (Tag.tagsForm tags) (Tag.admin)
-				(renderWithSplices "/settings/tags" . digestiveSplicesCustom) (const redirectToSelf)
+				(renderWithSplices "/settings/tags" . digestiveSplicesCustom)
+				(\_ -> do flashSuccess sess "Tags successfully updated"; redirectToSelf)
 
 --------------------------------------------------------------------- | Projects
 
@@ -214,12 +217,18 @@ adminProjectsH = do
 addProjectH :: AppHandler ()
 addProjectH = processForm "form" (Project.projectForm Nothing) Project.add
 	(renderWithSplices "/projects/add" . digestiveSplicesCustom)
-	(\p -> redirect $ "./" <> T.encodeUtf8 (Project.slug p) <> "/components/add")
+	(\p -> do
+		flashSuccess sess "Project successfully added"
+		redirect $ "./" <> T.encodeUtf8 (Project.slug p) <> "/components/add"
+		)
 
 editProjectH :: Project.Project -> AppHandler ()
 editProjectH p = processForm "form" (Project.projectForm (Just p)) (Project.edit p)
 	(renderWithSplices "/projects/edit" . digestiveSplicesCustom)
-	(\p' -> redirect $ "../" <> T.encodeUtf8 (Project.slug p') <> "/components/")
+	(\p' -> do
+		flashSuccess sess "Project successfully updated"
+		redirect $ "../" <> T.encodeUtf8 (Project.slug p') <> "/components/"
+		)
 
 --------------------------------------------------------------------- | Components
 
@@ -242,13 +251,20 @@ addComponentH p = do
 			) $
 		processForm "form" (Component.componentForm (Left defaultType)) (Component.add p)
 			(renderWithSplices "/components/add" . digestiveSplicesCustom)
-			(\c' -> redirect $ "./" <> T.encodeUtf8 (Component.typ c') <> "/" <> B.pack (show $ Component.date c') <> "/images")
+			(\c' -> do
+				flashSuccess sess "Component successfully added"
+				redirect $ "./" <> T.encodeUtf8 (Component.typ c') <> "/" <> B.pack (show $ Component.date c') <> "/images"
+				)
 
 editComponentH :: Project.Project -> Component.Component -> AppHandler ()
 editComponentH p c = do
 	c' <- maybe c (\x -> c { Component.typ = T.replace "form.type." "" x }) <$> textParam "form.type"
 	processForm "form" (Component.componentForm (Right c')) (Component.edit p)
-		(renderWithSplices "/components/edit" . digestiveSplicesCustom) (const (redirect "../../"))
+		(renderWithSplices "/components/edit" . digestiveSplicesCustom)
+		(\_ -> do
+			flashSuccess sess "Component successfully updated"
+			redirect "../../"
+			)
 
 componentImagesH :: Project.Project -> Component.Component -> AppHandler ()
 componentImagesH p c = do
@@ -257,11 +273,17 @@ componentImagesH p c = do
 	case images of
 		[] -> renderWithSplices "/components/images" $ "dfForm" ## hideContents
 		_ -> processForm "update" (Image.updateForm images) (Image.update p c)
-			(renderWithSplices "/components/images" . digestiveSplicesCustom) (const redirectToSelf)
+			(renderWithSplices "/components/images" . digestiveSplicesCustom)
+			(\_ -> do
+				flashSuccess sess "Images successfully updated"
+				redirectToSelf
+				)
 
 uploadImagesH :: Project.Project -> Component.Component -> AppHandler ()
-uploadImagesH p c = processForm "upload" Image.uploadForm (Image.add p c)
-	(const (redirect "./images")) (const (redirect "./images"))
+uploadImagesH p c =
+	processForm "upload" Image.uploadForm (Image.add p c)
+		(const (redirect "./images"))
+		(const (do flashSuccess sess "Images successfully uploaded"; redirect "./images"))
 
 {----------------------------------------------------------------------------------------------------{
                                                                       | Web Archives

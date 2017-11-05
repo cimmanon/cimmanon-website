@@ -2,6 +2,8 @@
 <apply template="_admin">
 <h1>Images</h1>
 
+<flash type="success" />
+
 <dfForm method="post">
 <dfChildErrorList class="dialog error" />
 
