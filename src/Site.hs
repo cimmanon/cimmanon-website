@@ -17,6 +17,7 @@ import Data.Monoid
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import Snap.Core
+import Snap.Extras.FlashNotice
 import Snap.Snaplet
 import Snap.Snaplet.Heist
 import Snap.Snaplet.Session.Backends.CookieSession
@@ -120,7 +121,7 @@ app = makeSnaplet "app" "A portfolio CMS for multi-talented professionals" Nothi
 	-- only display a pretty error if we are not in development mode
 	initPrettyProductionErrors
 
---	initFlashNotice h sess
+	initFlashNotice h sess
 	addConfig h $ mempty & scInterpretedSplices .~ defaultSplices
 	return $ App h s d
 	where
@@ -192,8 +193,14 @@ adminTagsH :: AppHandler ()
 adminTagsH = do
 	tags <- Tag.adminList
 	case tags of
-		[] -> redirect "/admin/settings/component-types"
-		_ -> catchEmptyChoice (redirect "/admin/settings/tag-categories") $
+		[] -> do
+			flashError sess "Component types must be initialized before adding tags"
+			redirect "/admin/settings/component-types"
+		_ -> catchEmptyChoice
+			(do
+				flashError sess "Tag categories must be initialized before adding tags"
+				redirect "/admin/settings/tag-categories"
+				) $
 			processForm "form" (Tag.tagsForm tags) (Tag.admin)
 				(renderWithSplices "/settings/tags" . digestiveSplicesCustom) (const redirectToSelf)
 
@@ -228,7 +235,11 @@ adminComponentsH p = do
 addComponentH :: Project.Project -> AppHandler ()
 addComponentH p = do
 	defaultType <- maybe "" (T.replace "form.type." "") <$> textParam "form.type"
-	catchEmptyChoice (redirect "/admin/settings/component-types") $
+	catchEmptyChoice
+		(do
+			flashError sess "Component types must be initialized before adding adding components"
+			redirect "/admin/settings/component-types"
+			) $
 		processForm "form" (Component.componentForm (Left defaultType)) (Component.add p)
 			(renderWithSplices "/components/add" . digestiveSplicesCustom)
 			(\c' -> redirect $ "./" <> T.encodeUtf8 (Component.typ c') <> "/" <> B.pack (show $ Component.date c') <> "/images")
