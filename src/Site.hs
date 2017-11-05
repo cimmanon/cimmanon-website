@@ -191,8 +191,10 @@ adminTagCategoriesH = do
 adminTagsH :: AppHandler ()
 adminTagsH = do
 	tags <- Tag.adminList
-	processForm "form" (Tag.tagsForm tags) (Tag.admin)
-		(renderWithSplices "/settings/tags" . digestiveSplicesCustom) (const redirectToSelf)
+	case tags of
+		[] -> redirect "/admin/settings/component-types"
+		_ -> processForm "form" (Tag.tagsForm tags) (Tag.admin)
+			(renderWithSplices "/settings/tags" . digestiveSplicesCustom) (const redirectToSelf)
 
 --------------------------------------------------------------------- | Projects
 
