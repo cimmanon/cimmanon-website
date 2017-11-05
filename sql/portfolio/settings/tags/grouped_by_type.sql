@@ -1,8 +1,9 @@
 SELECT
 	type
-	, array_agg(tag :: text ORDER BY category, tag)
+	, coalesce(array_agg(tag :: TEXT ORDER BY category, tag) FILTER (WHERE tag IS NOT NULL), array[] :: TEXT[])
 FROM
-	portfolio.project_type_tags
+	portfolio.project_types
+	LEFT JOIN portfolio.project_type_tags USING (type)
 GROUP BY
 	type
 ORDER BY
