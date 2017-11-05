@@ -8,8 +8,13 @@
 					<ul>
 						<li><a href="/admin/projects/">Projects</a></li>
 						<li><a href="/admin/projects/add">Add Project</a></li>
-						<li>Component Types</li>
-						<li>Tags</li>
+						<li><span>Settings</span>
+							<ul>
+								<li><a href="/admin/settings/component-types">Component Types</a></li>
+								<li>Tag Categories</li>
+								<li>Tags</li>
+							</ul>
+						</li>
 						<li><a href="/admin/reload">Reload Templates</a></li>
 					</ul></li>
 				<isProject><li><span><name>Project Name</name></span>

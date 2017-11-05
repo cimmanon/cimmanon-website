@@ -10,7 +10,6 @@ module Model.Component
 	, adminList
 	, add
 	, edit
-	, types
 	) where
 
 import Control.Applicative
@@ -101,8 +100,3 @@ add p c = toEither' $ const c <$> execute [sqlFile|sql/portfolio/components/add.
 -- TODO: either allow editing of type and date of the project, or disable the form controls for it
 edit :: (HasPostgres m, Functor m) => Project -> Component -> m (Either Text Int64)
 edit p c = toEither' $ execute [sqlFile|sql/portfolio/components/update.sql|] (Only (P.name p) :. c :. primaryKey p c)
-
---------------------------------------------------------------------- | Component Types
-
-types :: (HasPostgres m, Functor m) => m [Text]
-types = map fromOnly <$> query_ "SELECT type :: TEXT FROM portfolio.project_types ORDER BY type"

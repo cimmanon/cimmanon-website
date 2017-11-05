@@ -38,6 +38,7 @@ import Control.Monad
 import Control.Monad.IO.Class (liftIO) -- just for debugging
 
 import qualified Model.Component as Component
+import qualified Model.ComponentType as ComponentType
 import qualified Model.Image as Image
 import qualified Model.Project as Project
 import qualified Model.Tag as Tag
@@ -66,6 +67,7 @@ routes =
 adminRoutes :: AppHandler ()
 adminRoutes = withSplices aSplices $ route
 	[ ("/", ifTop $ redirect "./projects/")
+	, ("/settings/component-types/", ifTop adminComponentTypesH)
 	, ("/projects/", ifTop adminProjectsH)
 	, ("/projects/add", ifTop addProjectH)
 	, ("/projects/:slug/", modelH textParam "slug" Project.get projectRoutes)
@@ -157,7 +159,7 @@ byYearH = do
 
 byTypeH :: AppHandler ()
 byTypeH = do
-	types <- Component.types
+	types <- ComponentType.list
 	renderWithSplices "/projects/by_type" $ "type" ## listToSplice nameSplices types
 
 projectH :: Project.Project -> AppHandler ()
@@ -168,6 +170,16 @@ projectH p = do
 {----------------------------------------------------------------------------------------------------{
                                                                       | Administration
 }----------------------------------------------------------------------------------------------------}
+
+--------------------------------------------------------------------- | Settings
+
+adminComponentTypesH :: AppHandler ()
+adminComponentTypesH = do
+	components <- ComponentType.list
+	processForm "form" (ComponentType.componentTypeForm components) (ComponentType.admin)
+		(renderWithSplices "/settings/component_types" . digestiveSplicesCustom) (const redirectToSelf)
+
+--------------------------------------------------------------------- | Projects
 
 adminProjectsH :: AppHandler ()
 adminProjectsH = do
