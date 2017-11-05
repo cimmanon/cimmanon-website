@@ -11,7 +11,7 @@
 						<li><span>Settings</span>
 							<ul>
 								<li><a href="/admin/settings/component-types">Component Types</a></li>
-								<li>Tag Categories</li>
+								<li><a href="/admin/settings/tag-categories">Tag Categories</a></li>
 								<li>Tags</li>
 							</ul>
 						</li>

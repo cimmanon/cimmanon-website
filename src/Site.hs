@@ -42,6 +42,7 @@ import qualified Model.ComponentType as ComponentType
 import qualified Model.Image as Image
 import qualified Model.Project as Project
 import qualified Model.Tag as Tag
+import qualified Model.TagCategory as TagCategory
 
 ------------------------------------------------------------------------------
 -- | The application's routes.
@@ -68,6 +69,7 @@ adminRoutes :: AppHandler ()
 adminRoutes = withSplices aSplices $ route
 	[ ("/", ifTop $ redirect "./projects/")
 	, ("/settings/component-types/", ifTop adminComponentTypesH)
+	, ("/settings/tag-categories/", ifTop adminTagCategoriesH)
 	, ("/projects/", ifTop adminProjectsH)
 	, ("/projects/add", ifTop addProjectH)
 	, ("/projects/:slug/", modelH textParam "slug" Project.get projectRoutes)
@@ -178,6 +180,12 @@ adminComponentTypesH = do
 	components <- ComponentType.list
 	processForm "form" (ComponentType.componentTypeForm components) (ComponentType.admin)
 		(renderWithSplices "/settings/component_types" . digestiveSplicesCustom) (const redirectToSelf)
+
+adminTagCategoriesH :: AppHandler ()
+adminTagCategoriesH = do
+	categories <- TagCategory.list
+	processForm "form" (TagCategory.tagCategoryForm categories) (TagCategory.admin)
+		(renderWithSplices "/settings/tag_categories" . digestiveSplicesCustom) (const redirectToSelf)
 
 --------------------------------------------------------------------- | Projects
 
