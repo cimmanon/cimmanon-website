@@ -10,6 +10,7 @@ module Model.Tag
 	, groupedByType
 	) where
 
+import Control.Arrow (first)
 import Control.Applicative
 import Data.Int (Int64)
 import Data.Text (Text)
@@ -81,9 +82,7 @@ list :: (HasPostgres m, Functor m) => m [Tag]
 list = query_ [sqlFile|sql/portfolio/settings/tags/list.sql|]
 
 adminList :: (HasPostgres m, Functor m) => m [(Text, [(Text, Text)])]
-adminList = groupJoin . map tuple <$> query_ [sqlFile|sql/portfolio/settings/tags/list_admin.sql|]
-	where
-		tuple (Only a :. Only b :. Only c) = (a, (b, c))
+adminList = map (first fromOnly) . ojoin1of2 <$> query_ [sqlFile|sql/portfolio/settings/tags/list_admin.sql|]
 
 admin :: (HasPostgres m, Functor m) => ([(Tag, Maybe (Text, Text))], [(Text, Text)]) -> m (Either Text Int64)
 admin (keepList, delList) = withTransaction $ manyEithers
