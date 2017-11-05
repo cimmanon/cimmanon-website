@@ -14,6 +14,7 @@ function dfList(el) {
 		if (ev.target.name == 'add') { // TODO: tune this to work with nested form lists
 			var clone = listTemplate.cloneNode(true);
 			clone.className = clone.className.replace(matchListTemplate, 'inputListItem');
+			clone.className = clone.className.replace(matchMinusOne, nextIndex);
 			clone.id = clone.id.replace(matchMinusOne, nextIndex);
 			clone.style.display = '';
 			clone.disabled = false;
@@ -21,6 +22,7 @@ function dfList(el) {
 			var f = clone.querySelectorAll('input, select, textarea, button, label, fieldset, output');
 			for (var i = 0, len = f.length; i < len; i++) {
 				f[i].id = f[i].id.replace(matchMinusOne, nextIndex);
+				f[i].className = f[i].className.replace(matchMinusOne, nextIndex);
 				//f[i].className = f[i].className.replace(matchListTemplate, 'inputListItem');
 				f[i].style.display = '';
 
