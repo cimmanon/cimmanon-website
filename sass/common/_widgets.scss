@@ -3,6 +3,7 @@
 @import "compass/css3/text-shadow";
 @import "compass/css3/images";
 @import "cimma/widgets/buttons";
+@import "cimma/widgets/dialog-boxes";
 
 //***************************************************************************************************\
 //                                                                    | Extend-only selectors
@@ -153,4 +154,34 @@ a.more {
 
 a.featured {
 	@extend %button-pink;
+}
+
+//***************************************************************************************************\
+//                                                                    | Diaglog Boxes
+//***************************************************************************************************/
+
+.flash, .dialog {
+	border: 1px solid;
+	padding: .25em .5em;
+
+	strong {
+		text-transform: capitalize;
+	}
+
+	@at-root #{selector-append('ul', &)} {
+		padding-left: 2em;
+
+		li:only-child {
+			margin-left: -2em;
+			padding-left: .5em;
+			list-style: none;
+		}
+	}
+
+	@each $class, $color, $bg in $dialog-attributes {
+		&.#{$class} {
+			color: $color;
+			background: $bg;
+		}
+	}
 }

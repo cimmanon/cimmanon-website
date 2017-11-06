@@ -471,6 +471,42 @@ a.featured:active {
   box-shadow: inset 0 1px 2px #ff99d6;
 }
 
+.flash, .dialog {
+  border: 1px solid;
+  padding: .25em .5em;
+}
+.flash strong, .dialog strong {
+  text-transform: capitalize;
+}
+ul.flash, ul.dialog {
+  padding-left: 2em;
+}
+ul.flash li:only-child, ul.dialog li:only-child {
+  margin-left: -2em;
+  padding-left: .5em;
+  list-style: none;
+}
+.flash.help, .dialog.help {
+  color: #2E3192;
+  background: #B9C2E1;
+}
+.flash.info, .dialog.info {
+  color: #005FB4;
+  background: #BDE5F8;
+}
+.flash.success, .dialog.success {
+  color: #6F7D03;
+  background: #DFE5B0;
+}
+.flash.warning, .dialog.warning {
+  color: #A0410D;
+  background: #EFBBA0;
+}
+.flash.error, .dialog.error {
+  color: #C41616;
+  background: #F8AAAA;
+}
+
 html {
   height: 100%;
 }
