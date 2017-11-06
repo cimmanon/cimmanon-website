@@ -7,11 +7,9 @@ module Model.ComponentType
 	) where
 
 import Control.Applicative
-import Data.Monoid ((<>))
-import Snap.Snaplet.PostgresqlSimple
-
 import Data.Int (Int64)
 import Data.Text (Text)
+import Snap.Snaplet.PostgresqlSimple
 import Text.Digestive
 
 import Util.Database

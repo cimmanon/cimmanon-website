@@ -44,9 +44,6 @@ instance ToRow Tag where
 		, toField $ category t
 		]
 
-primaryKey :: Tag -> (Text, Text)
-primaryKey t = (componentType t, tag t)
-
 {----------------------------------------------------------------------------------------------------{
                                                                        | Forms
 }----------------------------------------------------------------------------------------------------}
@@ -70,9 +67,7 @@ tagForm :: (Monad m, Functor m) => [Text] -> Maybe Text -> Maybe Tag -> Form Tex
 tagForm categories typ t = Tag
 	<$> "component_type" .: text typ
 	<*> "tag" .: text (tag <$> t)
-	<*> "category" .: choiceWith (map toChoice categories) (category <$> t)
-	where
-		toChoice x = (x, (x, x))
+	<*> "category" .: choiceWith (map (toChoice id id id) categories) (category <$> t)
 
 {----------------------------------------------------------------------------------------------------{
                                                                        | Queries

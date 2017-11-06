@@ -33,7 +33,7 @@ import Snap.Util.FileUploads
 import System.FilePath (takeFileName)
 import System.Directory (createDirectoryIfMissing, copyFile, removeFile)
 import Text.Digestive.Snap hiding (uploadPolicy, partPolicy)
-import Util.Digestive
+--import Util.Digestive
 
 import Model.Types.Project as P hiding (featured)
 import Model.Types.Component as C hiding (featured)

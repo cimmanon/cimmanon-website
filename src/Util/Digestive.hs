@@ -21,7 +21,7 @@ import Data.Monoid ((<>))
 
 --import Text.Digestive.Form (disable)
 --import Text.Digestive.Form.List
-import Text.Digestive.View
+--import Text.Digestive.View
 import Text.Digestive.Heist.Extras.Internal.Attribute (getRefAttributes)
 
 {----------------------------------------------------------------------------------------------------{
