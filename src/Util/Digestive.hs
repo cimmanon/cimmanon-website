@@ -9,7 +9,7 @@ import Control.Monad.CatchIO (MonadCatchIO, try, throw)
 import Control.Monad.Trans
 import Data.List ((\\))
 import Data.Maybe (isJust, isNothing, mapMaybe, fromJust)
-import Data.Monoid (Monoid)
+import Data.Monoid (Monoid, (<>))
 import qualified Data.Text as T
 import Text.Digestive
 import Text.Digestive.Heist hiding (dfSubView)
@@ -17,7 +17,6 @@ import Text.Digestive.Heist.Extras
 import Heist
 import Heist.Interpreted
 import qualified Text.XmlHtml as X
-import Data.Monoid ((<>))
 
 --import Text.Digestive.Form (disable)
 --import Text.Digestive.Form.List

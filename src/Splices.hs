@@ -102,7 +102,7 @@ componentSplices c = do
 	"date" ## dateSplice $ Component.date c
 	"public" ## showSplice $ Component.public c
 	"featured" ## showSplice $ Component.featured c
-	"archived" ## maybeSplice (\x -> ifSplice' $ "/" == T.take 1 x) $ Component.archived c
+	"archived" ## maybeSplice (\x -> ifSplice $ "/" == T.take 1 x) $ Component.archived c
 	"href" ## maybeSplice textSplice $ Component.archived c
 	"tag" ## listSplice "name" $ Component.tags c
 
@@ -126,7 +126,7 @@ imageSplices i = do
 	"width" ## numericSplice $ Image.width i
 	"height" ## numericSplice $ Image.height i
 	"featured" ## showSplice $ Image.featured i
-	"isDefault" ## ifSplice' $ Image.featured i
+	"isDefault" ## ifSplice $ Image.featured i
 
 checkedSplice :: Monad m => Bool -> AttrSplice m
 checkedSplice True = const $ return [("checked", "checked")]
