@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeSynonymInstances, FlexibleInstances, TypeOperators, OverloadedStrings, OverlappingInstances #-}
+{-# LANGUAGE TypeSynonymInstances, FlexibleInstances, TypeOperators, OverloadedStrings, OverlappingInstances, FlexibleContexts #-}
 
 module Util.Database
 	( str
@@ -12,8 +12,10 @@ module Util.Database
 import Control.Applicative
 --import Control.Exception as E
 --import Control.Monad.IO.Class (MonadIO)
-import Control.Monad.CatchIO
+import Control.Exception.Lifted (catch, throw)
 --import Control.Monad.Trans (liftIO)
+import Control.Monad.IO.Class (MonadIO)
+import Control.Monad.Trans.Control (MonadBaseControl)
 import Data.Maybe (fromMaybe)
 import Data.Monoid ((<>))
 import Data.Text (Text)
@@ -52,18 +54,18 @@ manyEithers [] = undefined
 manyEithers (x:[]) = x
 manyEithers (x:xs) = x >>= either (return . Left) (const (manyEithers xs))
 
-catchViolation' :: (MonadCatchIO m) => (SqlError -> ConstraintViolation -> m a) -> m a -> m a
+catchViolation' :: (MonadBaseControl IO m) => (SqlError -> ConstraintViolation -> m a) -> m a -> m a
 catchViolation' f m = catch m (\e -> maybe (throw e) (f e) $ constraintViolation e)
 {-
-eitherViolation :: (MonadCatchIO m, Functor m) => m a -> m (Either ConstraintViolation a)
+eitherViolation :: (MonadBaseControl m, Functor m) => m a -> m (Either ConstraintViolation a)
 eitherViolation x = catchViolation' (\_ -> return . Left) $ fmap Right x
 -}
-toEither :: (MonadCatchIO m, Functor m) => (ConstraintViolation -> a) -> m b -> m (Either a b)
+toEither :: (MonadBaseControl IO m, Functor m) => (ConstraintViolation -> a) -> m b -> m (Either a b)
 toEither violationLookup x = catchViolation' (\ _ -> return . Left . violationLookup) $ fmap Right x
 
 ---------------------------------------------------------------------- | Stuff that will stay in the application
 
-toEither' :: (MonadCatchIO m, Functor m) => m b -> m (Either Text b)
+toEither' :: (MonadBaseControl IO m, Functor m) => m b -> m (Either Text b)
 toEither' = toEither violationToError
 
 violationToError :: ConstraintViolation -> Text

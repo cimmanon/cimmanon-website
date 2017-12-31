@@ -1,13 +1,15 @@
-{-# LANGUAGE OverloadedStrings, ScopedTypeVariables #-}
+{-# LANGUAGE OverloadedStrings, ScopedTypeVariables, FlexibleContexts #-}
 
 module Util.Digestive where
 
 import Control.Arrow (second)
 import Control.Applicative
 import Control.Exception.Base (SomeException)
-import Control.Monad.CatchIO (MonadCatchIO, try, throw)
-import Control.Monad.Trans
+import Control.Exception.Lifted (try, throw)
+import Control.Monad.IO.Class (MonadIO)
+import Control.Monad.Trans.Control (MonadBaseControl)
 import Data.List ((\\))
+import Data.Map.Syntax ((##))
 import Data.Maybe (isJust, isNothing, mapMaybe, fromJust)
 import Data.Monoid (Monoid, (<>))
 import qualified Data.Text as T
@@ -114,7 +116,7 @@ extractRenames = map (second fromJust) . filter isEdit
                                                                       | Error Handling
 }----------------------------------------------------------------------------------------------------}
 
-catchEmptyChoice :: (MonadCatchIO m, Functor m) => m () -> m () -> m ()
+catchEmptyChoice :: (MonadBaseControl IO m, Functor m) => m () -> m () -> m ()
 catchEmptyChoice handler action = do
 	res' :: Either SomeException () <- try action
 	case res' of

@@ -16,12 +16,20 @@ If you actually want to try running it, you'll need GHC installed.  You'll also 
 * [digestive-functors](https://github.com/cimmanon/digestive-functors) (requires modifications from the `choice-default` and `clean-choice-values` branchs)
 * [digestive-functors-heist-extras](https://github.com/cimmanon/digestive-functors-heist-extras)
 
-I *think* this should install everything correctly:
+## Using `cabal new-build`
 
+```
+cabal new-configure cimmanon
+cabal new-build exe:cimmanon
+./dist-newstyle/build/PACKAGE-VERSION/build/cimmanon/cimmanon
+```
+
+## Using a sandbox
+
+Not sure if the sandbox instructions will still work, but I'm leaving them here just in case.
 
 ```
 cabal sandbox init
-cabal install snap
 cabal sandbox add-source path/to/postgresql-simple-tuple
 cabal sandbox add-source path/to/snap-handlers
 cabal sandbox add-source path/to/camellia-splices
@@ -30,6 +38,8 @@ cabal sandbox add-source path/to/digestive-functors/digestive-functors-heist
 cabal install
 cabal run
 ```
+
+## Database setup
 
 You'll also need a PostgreSQL database.  Credentials are in `snaplets/postgreql-simple/` (this file should auto generate when you run the application, I think).
 

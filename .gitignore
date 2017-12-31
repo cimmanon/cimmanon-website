@@ -7,3 +7,5 @@ snaplets/postgresql-simple/
 site_key\.txt
 \.ghci
 dumps/
+dist-newstyle/
+cabal\.project\.local

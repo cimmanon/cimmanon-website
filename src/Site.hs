@@ -13,6 +13,7 @@ import Control.Applicative
 import Control.Lens ((&), (.~))
 import Data.ByteString (ByteString)
 import qualified Data.ByteString.Char8 as B
+import Data.Map.Syntax ((##))
 import Data.Monoid
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
@@ -110,7 +111,7 @@ app = makeSnaplet "app" "A portfolio CMS for multi-talented professionals" Nothi
 	h <- nestSnaplet "" heist $ heistInit "templates"
 	-- ^ default Heist behavior (serves raw templates ahead of configured routes)
 	s <- nestSnaplet "sess" sess $
-		initCookieSessionManager "site_key.txt" "sess" (Just 3600)
+		initCookieSessionManager "site_key.txt" "sess" Nothing (Just 3600)
 	d <- nestSnaplet "db" db pgsInit
 
 	addTemplatesAt h "archives" "archives" -- for archiveServe

@@ -4,10 +4,10 @@ module Splices where
 
 ------------------------------------------------------------------------------
 
+import Data.Map.Syntax ((##))
 import qualified Data.Text as T
-import Heist (localHS, AttrSplice)
+import Heist (localHS, AttrSplice, Splices)
 import Heist.Interpreted
-import Heist.SpliceAPI
 --import qualified Text.XmlHtml as X
 
 --import Data.Functor
@@ -21,7 +21,6 @@ import qualified Model.Project as Project
 import qualified Model.Tag as Tag
 
 import Data.Time.Format
-import System.Locale
 import Data.Time.Calendar
 import Data.Time.Clock
 
